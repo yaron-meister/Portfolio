@@ -1,0 +1,11 @@
+h1, h2
+{
+	text-decoration: overline underline;
+}
+
+p
+{
+	color: red;
+	font-size: 25px; 		<!-- px = pixels -->
+	font-family: Helvetica;
+}

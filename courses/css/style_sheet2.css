@@ -1,0 +1,27 @@
+h1, h2
+{
+	text-decoration: overline underline;
+}
+
+p.para1
+{
+	color: red;
+	font-size: 25px; 		<!-- px = pixels -->
+	font-family: Helvetica;
+}
+
+p.para2
+{
+	color: red;
+	font-size: 25px; 		<!-- px = pixels -->
+	font-family: Helvetica;
+	font-style: oblique;
+}
+
+p.para3
+{
+	color: red;
+	font-size: 25px; 		<!-- px = pixels -->
+	font-family: Helvetica;
+	font-style: italic;
+}

@@ -1,0 +1,57 @@
+body
+{
+	color: green;
+	font-family: verdana, arial, Geneva, Arial black;
+	font-weight: normal;
+	background-color: lime; 
+	background-color: rgb(240, 28, 235);
+	background-color: #ffcf79;
+	<!-- Three options for colors --> 
+}
+
+h1, h2
+{
+	text-decoration: underline;
+}
+
+p.para1
+{
+	color: blue;
+	font-size: 25px; 		<!-- px = pixels -->
+}
+
+p.para2
+{
+	color: red;
+	font-size: 25px; 		<!-- px = pixels -->
+}
+
+p.para3
+{
+	color: purple;
+	font-size: 15px; 		
+	line-height: 150%;
+	background-color: #e5e4d7;
+	padding: 20px; 
+	border-color: black;
+	border-width: 2px;
+	border-style: solid;
+	<!-- PADDING - The spaces between the text and the border -->
+	<!-- BORDER  - Defines the properties of the box border -->
+}
+
+p.para4
+{
+	color: black;
+	font-size: 15px; 		
+	line-height: 150%;
+	background-color: #e5e4d7;
+	padding: 20px; 
+	border-color: black;
+	border-width: 2px;
+	border-style: solid;
+	margin: 20px;
+	margin-top: 50px;
+	margin-left: 100px;
+	<!-- MARGIN	- The spaces between the border to the other elements -->
+}
