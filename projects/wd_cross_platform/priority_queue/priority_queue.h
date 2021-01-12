@@ -10,39 +10,7 @@
 
 #include "sortlist.h"
 
-//---------------------//
-//   CPrioritizedData
-//---------------------//
-template <typename Type>
-class CPrioritizedData
-{
-public:
-  typedef enum EPriority
-  {
-    TOP_PRIORITY,
-    HIGH_PRIORITY,
-    MEDIUM_PRIORITY,
-    LOW_PRIORITY,
-    LOWEST_PRIORITY
-  }EPriority;
 
-  //CTor
-  CPrioritizedData(Type data = 0, EPriority priority = LOWEST_PRIORITY);
-
-  //Operators
-  bool operator==(const CPrioritizedData& pd) const;
-  bool operator!=(const CPrioritizedData& pd) const;
-  bool operator>(const CPrioritizedData& pd) const;
-  bool operator<(const CPrioritizedData& pd) const;
-  bool operator<=(const CPrioritizedData& pd) const;
-  bool operator>=(const CPrioritizedData& pd) const;
-
-  inline Type getData();
-
-private:
-  Type m_data;
-  EPriority m_priority;
-};
 
 //---------------------//
 //     CPriorityQ
@@ -54,17 +22,17 @@ public:
   /* Inserts the element to the queue according to its priority */
   /* is_before determines the sorting criteria */
   /* Complexity: O(n) */
-  void enqueue(CPrioritizedData<Type> data);
+  void enqueue(Type data);
 
   /* Removes the top priority element */
   /* returns NULL if queue is empty */
   /* Complexity: O(1) */
-  CPrioritizedData<Type> dequeue();
+  Type dequeue();
 
   /* Shows the top priority data */
   /* returns NULL if queue is empty */
   /* Complexity: O(1) */
-  const CPrioritizedData<Type> peek();
+  const Type peek();
 
   /* Returns true if queue is empty */
   /* returns false if queue is not empty */
@@ -79,14 +47,14 @@ public:
   /* Complexity: O(n) */
   void clear();
 
-  /* Remove the similar element (if found) */
+  /* Remove the similar element (if found by operator==) */
   /* and returns its data */
   /* if not found, returns NULL */
   /* Complexity: O(n) */
-  CPrioritizedData<Type> erase(CPrioritizedData<Type> data);
+  Type erase(Type data);
 
 private:
-  CSortList<CPrioritizedData<Type>> m_list;
+  CSortList<Type> m_list;
 };
 
 /////////////////////////////////////////////////////////////////////////////
@@ -94,72 +62,16 @@ private:
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 template<typename Type>
-CPrioritizedData<Type>::CPrioritizedData(Type data, EPriority priority) : 
-  m_data(data)
-, m_priority(priority)
-{}
-                                                                        
-/////////////////////////////////////////////////////////////////////////////
-template<typename Type>
-bool CPrioritizedData<Type>::operator==(const CPrioritizedData& pd) const
-{
-  return (m_data == pd.m_data);
-}
-
-/////////////////////////////////////////////////////////////////////////////
-template<typename Type>
-bool CPrioritizedData<Type>::operator!=(const CPrioritizedData& pd) const
-{
-  return (m_data != pd.m_data);
-}
-
-/////////////////////////////////////////////////////////////////////////////
-template<typename Type>
-bool CPrioritizedData<Type>::operator>(const CPrioritizedData& pd) const
-{
-  return (m_priority > pd.m_priority);
-}
-
-/////////////////////////////////////////////////////////////////////////////
-template<typename Type>
-bool CPrioritizedData<Type>::operator<(const CPrioritizedData& pd) const
-{
-  return (m_priority < pd.m_priority);
-}
-
-/////////////////////////////////////////////////////////////////////////////
-template<typename Type>
-bool CPrioritizedData<Type>::operator<=(const CPrioritizedData& pd) const
-{
-  return (m_data <= pd.m_data);
-}
-
-/////////////////////////////////////////////////////////////////////////////
-template<typename Type>
-bool CPrioritizedData<Type>::operator>=(const CPrioritizedData& pd) const
-{
-  return (m_data >= pd.m_data);
-}
-
-/////////////////////////////////////////////////////////////////////////////
-template<typename Type>
-inline Type CPrioritizedData<Type>::getData()
-{
-  return (m_data);
-}
-
-/////////////////////////////////////////////////////////////////////////////
-template<typename Type>
-void CPriorityQ<Type>::enqueue(CPrioritizedData<Type> data)
+void CPriorityQ<Type>::enqueue(Type data)
 {
   m_list.insert(data);
 }
 
 /////////////////////////////////////////////////////////////////////////////
 template<typename Type>
-CPrioritizedData<Type> CPriorityQ<Type>::dequeue()
+Type CPriorityQ<Type>::dequeue()
 {
-  CPrioritizedData<Type> popped(NULL);
+  Type popped(NULL);
 
   if (!isEmpty())
   {
@@ -171,9 +83,9 @@ CPrioritizedData<Type> CPriorityQ<Type>::dequeue()
 
 /////////////////////////////////////////////////////////////////////////////
 template<typename Type>
-const CPrioritizedData<Type> CPriorityQ<Type>::peek() 
+const Type CPriorityQ<Type>::peek() 
 {
-  CPrioritizedData<Type> retVal(NULL);
+  Type retVal(NULL);
 
   if (!isEmpty())
   {
@@ -209,11 +121,11 @@ void CPriorityQ<Type>::clear()
 
 //////////////////////////////////////////////////////////////////////////////
 template<typename Type>
-CPrioritizedData<Type> CPriorityQ<Type>::erase(CPrioritizedData<Type> data)
+Type CPriorityQ<Type>::erase(Type data)
 {
-  CPrioritizedData<Type> erased(NULL);
-  typename CSortList<CPrioritizedData<Type>>::Iter iter(m_list.find(m_list.begin(), m_list.end(), data));
-  typename CSortList<CPrioritizedData<Type>>::Iter end(m_list.end());
+  Type erased(NULL);
+  typename CSortList<Type>::Iter iter(m_list.find(m_list.begin(), m_list.end(), data));
+  typename CSortList<Type>::Iter end(m_list.end());
 
   if (iter != end)
   {

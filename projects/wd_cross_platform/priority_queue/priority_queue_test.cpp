@@ -25,6 +25,39 @@ public:
   void eraseTest();
 };
 
+//---------------------//
+//   CPrioritizedData
+//---------------------//
+class CPrioritizedData
+{
+public:
+  typedef enum EPriority
+  {
+    TOP_PRIORITY,
+    HIGH_PRIORITY,
+    MEDIUM_PRIORITY,
+    LOW_PRIORITY,
+    LOWEST_PRIORITY
+  }EPriority;
+
+  //CTor
+  CPrioritizedData(int data = 0, EPriority priority = LOWEST_PRIORITY);
+
+  //Operators
+  bool operator==(const CPrioritizedData& pd) const;
+  bool operator!=(const CPrioritizedData& pd) const;
+  bool operator>(const CPrioritizedData& pd) const;
+  bool operator<(const CPrioritizedData& pd) const;
+  bool operator<=(const CPrioritizedData& pd) const;
+  bool operator>=(const CPrioritizedData& pd) const;
+
+  inline int getData();
+
+private:
+  int m_data;
+  EPriority m_priority;
+};
+
 /*******************************************************************************
                                 Main Function
 *******************************************************************************/
@@ -46,22 +79,22 @@ int main(void)
 /******************************************************************************/
 void PriorityQTest::enqueueTest()
 {
-  CPriorityQ<int> pq;
-  CPrioritizedData<int> peek;
+  CPriorityQ<CPrioritizedData> pq;
+  CPrioritizedData peek;
 
   printf("\n******************* Enqueue - TEST **************************\n");
 
-  CPrioritizedData<int> data1(500, CPrioritizedData<int>::HIGH_PRIORITY);
+  CPrioritizedData data1(500, CPrioritizedData::HIGH_PRIORITY);
   pq.enqueue(data1);
   peek = pq.peek();
   equalityTest<int>(peek.getData(), 500);
   
-  CPrioritizedData<int> data2(300, CPrioritizedData<int>::LOWEST_PRIORITY);
+  CPrioritizedData data2(300, CPrioritizedData::LOWEST_PRIORITY);
   pq.enqueue(data2);
   peek = pq.peek();
   equalityTest<int>(peek.getData(), 500);
 
-  CPrioritizedData<int> data3(800, CPrioritizedData<int>::TOP_PRIORITY);
+  CPrioritizedData data3(800, CPrioritizedData::TOP_PRIORITY);
   pq.enqueue(data3);
   peek = pq.peek();
   equalityTest<int>(peek.getData(), 800);
@@ -70,15 +103,15 @@ void PriorityQTest::enqueueTest()
 /******************************************************************************/
 void PriorityQTest::dequeueTest()
 {
-  CPriorityQ<int> pq;
-  CPrioritizedData<int> peek;
-  CPrioritizedData<int> dequeued(0);
+  CPriorityQ<CPrioritizedData> pq;
+  CPrioritizedData peek;
+  CPrioritizedData dequeued(0);
 
   printf("\n******************* Dequeue - TEST **************************\n");
 
-  CPrioritizedData<int> data1(500, CPrioritizedData<int>::HIGH_PRIORITY);
-  CPrioritizedData<int> data2(300, CPrioritizedData<int>::LOWEST_PRIORITY);
-  CPrioritizedData<int> data3(800, CPrioritizedData<int>::TOP_PRIORITY);
+  CPrioritizedData data1(500, CPrioritizedData::HIGH_PRIORITY);
+  CPrioritizedData data2(300, CPrioritizedData::LOWEST_PRIORITY);
+  CPrioritizedData data3(800, CPrioritizedData::TOP_PRIORITY);
 
   pq.enqueue(data1);
   pq.enqueue(data2);
@@ -100,14 +133,14 @@ void PriorityQTest::dequeueTest()
 /******************************************************************************/
 void PriorityQTest::peekTest(void)
 {
-  CPriorityQ<int> pq;
-  CPrioritizedData<int> peek;
+  CPriorityQ<CPrioritizedData> pq;
+  CPrioritizedData peek;
 
   printf("\n******************* Peek - TEST *****************************\n");
 
-  CPrioritizedData<int> data1(500, CPrioritizedData<int>::HIGH_PRIORITY);
-  CPrioritizedData<int> data2(300, CPrioritizedData<int>::LOWEST_PRIORITY);
-  CPrioritizedData<int> data3(800, CPrioritizedData<int>::TOP_PRIORITY);
+  CPrioritizedData data1(500, CPrioritizedData::HIGH_PRIORITY);
+  CPrioritizedData data2(300, CPrioritizedData::LOWEST_PRIORITY);
+  CPrioritizedData data3(800, CPrioritizedData::TOP_PRIORITY);
 
   pq.enqueue(data1);
   pq.enqueue(data2);
@@ -132,13 +165,13 @@ void PriorityQTest::peekTest(void)
 /******************************************************************************/
 void PriorityQTest::isEmptyTest(void)
 {
-  CPriorityQ<int> pq;
+  CPriorityQ<CPrioritizedData> pq;
   
   printf("\n******************* IsEmpty - TEST **************************\n");
 
   equalityTest<bool>(pq.isEmpty(), true);
 
-  CPrioritizedData<int> data1(500, CPrioritizedData<int>::HIGH_PRIORITY);
+  CPrioritizedData data1(500, CPrioritizedData::HIGH_PRIORITY);
   pq.enqueue(data1);
   equalityTest<bool>(pq.isEmpty(), false);
 
@@ -149,14 +182,14 @@ void PriorityQTest::isEmptyTest(void)
 /******************************************************************************/
 void PriorityQTest::sizeTest(void)
 {
-  CPriorityQ<int> pq;
+  CPriorityQ<CPrioritizedData> pq;
 
   printf("\n******************* Size - TEST *****************************\n");
 
   equalityTest<size_t>(pq.size(), 0);
 
-  CPrioritizedData<int> data1(500, CPrioritizedData<int>::HIGH_PRIORITY);
-  CPrioritizedData<int> data2(300, CPrioritizedData<int>::LOWEST_PRIORITY);
+  CPrioritizedData data1(500, CPrioritizedData::HIGH_PRIORITY);
+  CPrioritizedData data2(300, CPrioritizedData::LOWEST_PRIORITY);
 
   pq.enqueue(data1);
   equalityTest<size_t>(pq.size(), 1);
@@ -168,13 +201,13 @@ void PriorityQTest::sizeTest(void)
 /******************************************************************************/
 void PriorityQTest::clearTest(void)
 {
-  CPriorityQ<int> pq;
+  CPriorityQ<CPrioritizedData> pq;
 
   printf("\n******************* Clear - TEST ****************************\n");
 
-  CPrioritizedData<int> data1(500, CPrioritizedData<int>::HIGH_PRIORITY);
-  CPrioritizedData<int> data2(300, CPrioritizedData<int>::LOWEST_PRIORITY);
-  CPrioritizedData<int> data3(800, CPrioritizedData<int>::TOP_PRIORITY);
+  CPrioritizedData data1(500, CPrioritizedData::HIGH_PRIORITY);
+  CPrioritizedData data2(300, CPrioritizedData::LOWEST_PRIORITY);
+  CPrioritizedData data3(800, CPrioritizedData::TOP_PRIORITY);
 
   pq.enqueue(data1);
   pq.enqueue(data2);
@@ -188,17 +221,17 @@ void PriorityQTest::clearTest(void)
 /******************************************************************************/
 void PriorityQTest::eraseTest(void)
 {
-  CPriorityQ<int> pq;
-  CPrioritizedData<int> peek;
-  CPrioritizedData<int> retData;
+  CPriorityQ<CPrioritizedData> pq;
+  CPrioritizedData peek;
+  CPrioritizedData retData;
   
   
   
   printf("\n******************* Erase - TEST ****************************\n");
 
-  CPrioritizedData<int> data1(500, CPrioritizedData<int>::HIGH_PRIORITY);
-  CPrioritizedData<int> data2(300, CPrioritizedData<int>::LOWEST_PRIORITY);
-  CPrioritizedData<int> data3(800, CPrioritizedData<int>::TOP_PRIORITY);
+  CPrioritizedData data1(500, CPrioritizedData::HIGH_PRIORITY);
+  CPrioritizedData data2(300, CPrioritizedData::LOWEST_PRIORITY);
+  CPrioritizedData data3(800, CPrioritizedData::TOP_PRIORITY);
 
   pq.enqueue(data1);
   pq.enqueue(data2);
@@ -224,5 +257,55 @@ void PriorityQTest::eraseTest(void)
   equalityTest<int>(peek.getData(), 300);
   equalityTest<int>(retData.getData(), 800);
 }
+
+/******************************************************************************/
+CPrioritizedData::CPrioritizedData(int data, EPriority priority) : 
+  m_data(data)
+, m_priority(priority)
+{}
+                                                                        
+/******************************************************************************/
+bool CPrioritizedData::operator==(const CPrioritizedData& pd) const
+{
+  return (m_data == pd.m_data);
+}
+
+/******************************************************************************/
+bool CPrioritizedData::operator!=(const CPrioritizedData& pd) const
+{
+  return (m_data != pd.m_data);
+}
+
+/******************************************************************************/
+bool CPrioritizedData::operator>(const CPrioritizedData& pd) const
+{
+  return (m_priority > pd.m_priority);
+}
+
+/******************************************************************************/
+bool CPrioritizedData::operator<(const CPrioritizedData& pd) const
+{
+  return (m_priority < pd.m_priority);
+}
+
+/******************************************************************************/
+bool CPrioritizedData::operator<=(const CPrioritizedData& pd) const
+{
+  return (m_data <= pd.m_data);
+}
+
+/******************************************************************************/
+bool CPrioritizedData::operator>=(const CPrioritizedData& pd) const
+{
+  return (m_data >= pd.m_data);
+}
+
+/******************************************************************************/
+inline int CPrioritizedData::getData()
+{
+  return (m_data);
+}
+
+
 
 
