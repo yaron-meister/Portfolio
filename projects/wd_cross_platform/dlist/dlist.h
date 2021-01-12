@@ -22,8 +22,6 @@ using namespace std;
 template <typename Type>
 class CDlist
 {
-  using IsMatchFunc = std::function<bool(const Type, const Type, const ParamsBase*)>;
-
 private:
   class CNode
   {
@@ -42,6 +40,7 @@ private:
 
 public:
   typedef class CNode* Iter;
+  using IsMatchFunc = std::function<bool(const Type, const Type, const ParamsBase*)>;
 
   enum EStatus
   {

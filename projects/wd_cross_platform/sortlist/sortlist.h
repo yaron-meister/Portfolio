@@ -8,8 +8,10 @@
 #ifndef __SORLTIST_H__
 #define __SORLTIST_H__
 
+#include <cstddef>  
+#include <functional>
+
 #include "dlist.h"
-#include <cstddef>     
 
 
 /*
@@ -26,6 +28,11 @@ class CSortList
 {
 public:
   typedef typename CDlist<Type>::Iter Iter;
+  typedef typename CDlist<Type>::IsMatchFunc IsMatchFunc;
+  using IsBeforeFunc = std::function<bool(const Type, const Type, const ParamsBase*)>;
+
+  // CTor
+  CSortList(IsBeforeFunc isBeforeFunc, ParamsBase* pParams);
 
   /*
    * Count list elements
@@ -132,7 +139,7 @@ public:
    * to the first element that matched
    * Complexity: O(n)
    */
-  Iter find(Iter from, Iter to, Type data);
+  Iter find(Iter from, Iter to, Type data, IsMatchFunc isMatchFunc, ParamsBase* pParams);
 
   /*
    * Move all the elements of <source> to <dest> keeping the sorted order
@@ -145,11 +152,18 @@ public:
 
 private:
   CDlist<Type>  m_dlist;
+  IsBeforeFunc  m_isBeforeFunc;
+  ParamsBase*   m_pParams;
 };
 
 /////////////////////////////////////////////////////////////////////////////
 //                        Functions's implementations
 /////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+template<typename Type>
+CSortList<Type>::CSortList(IsBeforeFunc isBeforeFunc, ParamsBase* pParams) : m_isBeforeFunc(isBeforeFunc), m_pParams(pParams)
+{}
+
 /////////////////////////////////////////////////////////////////////////////
 template<typename Type>
 size_t CSortList<Type>::size()
@@ -213,7 +227,7 @@ typename CSortList<Type>::Iter CSortList<Type>::insert(Type data)
   CSortList<Type>::Iter iter(m_dlist.begin());
   CSortList<Type>::Iter end(m_dlist.end());
 
-  while (iter != end && data > m_dlist.getData(iter))
+  while (iter != end && !m_isBeforeFunc(data, m_dlist.getData(iter), m_pParams))
   {
     iter = m_dlist.next(iter);
   }
@@ -245,9 +259,9 @@ Type CSortList<Type>::popBack()
 /////////////////////////////////////////////////////////////////////////////
 template<typename Type>
 typename CSortList<Type>::Iter CSortList<Type>::find
-(CSortList::Iter from, CSortList::Iter to, Type data)
+(CSortList::Iter from, CSortList::Iter to, Type data, CSortList::IsMatchFunc isMatchFunc, ParamsBase* pParams)
 {
-  return (m_dlist.find(from, to, data));
+  return (m_dlist.find(from, to, data, isMatchFunc, pParams));
 }
 
 /////////////////////////////////////////////////////////////////////////////

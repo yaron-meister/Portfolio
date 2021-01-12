@@ -142,12 +142,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\dlist\dlist.cpp" />
     <ClCompile Include="..\services\tests.cpp" />
     <ClCompile Include="sortlist_test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\dlist\dlist.h" />
+    <ClInclude Include="..\services\params.h" />
     <ClInclude Include="sortlist.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

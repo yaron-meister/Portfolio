@@ -59,7 +59,7 @@ int main()
 /******************************************************************************/
 void SortListTest::sizeTest()
 {
-  CSortList<int> sortList;
+  CSortList<int> sortList([](const int lhs, const int rhs, const ParamsBase* params) {return (lhs < rhs); }, nullptr);
 
   printf("\n******************* Size - TEST *****************************\n");
 
@@ -77,7 +77,7 @@ void SortListTest::sizeTest()
 /******************************************************************************/
 void SortListTest::isEmptyTest()
 {
-  CSortList<int> sortList;
+  CSortList<int> sortList([](const int lhs, const int rhs, const ParamsBase* params) {return (lhs < rhs); }, nullptr);
 
   printf("\n******************* IsEmpty - TEST **************************\n");
 
@@ -95,7 +95,7 @@ void SortListTest::isEmptyTest()
 /******************************************************************************/
 void SortListTest::endTest()
 {
-  CSortList<int> sortList;
+  CSortList<int> sortList([](const int lhs, const int rhs, const ParamsBase* params) {return (lhs < rhs); }, nullptr);
 
   printf("\n******************* End - TEST ******************************\n");
 
@@ -109,7 +109,7 @@ void SortListTest::endTest()
 /******************************************************************************/
 void SortListTest::beginTest()
 {
-  CSortList<int> sortList;
+  CSortList<int> sortList([](const int lhs, const int rhs, const ParamsBase* params) {return (lhs < rhs); }, nullptr);
 
   printf("\n******************* Begin - TEST ****************************\n");
 
@@ -126,7 +126,7 @@ void SortListTest::beginTest()
 /******************************************************************************/
 void SortListTest::nextTest()
 {
-  CSortList<int> sortList;
+  CSortList<int> sortList([](const int lhs, const int rhs, const ParamsBase* params) {return (lhs < rhs); }, nullptr);
 
   printf("\n******************* Next - TEST *****************************\n");
 
@@ -141,7 +141,7 @@ void SortListTest::nextTest()
 /******************************************************************************/
 void SortListTest::prevTest()
 {
-  CSortList<int> sortList;
+  CSortList<int> sortList([](const int lhs, const int rhs, const ParamsBase* params) {return (lhs < rhs); }, nullptr);
 
   printf("\n******************* Prev - TEST *****************************\n");
 
@@ -156,7 +156,7 @@ void SortListTest::prevTest()
 /******************************************************************************/
 void SortListTest::isBadIterTest()
 {
-  CSortList<int> sortList;
+  CSortList<int> sortList([](const int lhs, const int rhs, const ParamsBase* params) {return (lhs < rhs); }, nullptr);
   CSortList<int>::Iter iter(nullptr);
 
   printf("\n******************* IsBadIter - TEST ************************\n");
@@ -174,7 +174,7 @@ void SortListTest::isBadIterTest()
 /******************************************************************************/
 void SortListTest::getDataTest()
 {
-  CSortList<int> sortList;
+  CSortList<int> sortList([](const int lhs, const int rhs, const ParamsBase* params) {return (lhs < rhs); }, nullptr);
   CSortList<int>::Iter iter(sortList.end());
 
   printf("\n******************* GetData - TEST **************************\n");
@@ -189,7 +189,7 @@ void SortListTest::getDataTest()
 /******************************************************************************/
 void SortListTest::insertTest()
 {
-  CSortList<int> sortList;
+  CSortList<int> sortList([](const int lhs, const int rhs, const ParamsBase* params) {return (lhs < rhs); }, nullptr);
   CSortList<int>::Iter iter(sortList.end());
 
   printf("\n******************* Insert - TEST ***************************\n");
@@ -214,7 +214,7 @@ void SortListTest::insertTest()
 /******************************************************************************/
 void SortListTest::eraseTest()
 {
-  CSortList<int> sortList;
+  CSortList<int> sortList([](const int lhs, const int rhs, const ParamsBase* params) {return (lhs < rhs); }, nullptr);
   CSortList<int>::Iter iter(sortList.end());
 
   printf("\n******************* Erase - TEST ****************************\n");
@@ -239,7 +239,7 @@ void SortListTest::eraseTest()
 /******************************************************************************/
 void SortListTest::popFrontTest()
 {
-  CSortList<int> sortList;
+  CSortList<int> sortList([](const int lhs, const int rhs, const ParamsBase* params) {return (lhs < rhs); }, nullptr);
   CSortList<int>::Iter iter(sortList.end());
   
   printf("\n******************* PopFront - TEST *************************\n");
@@ -265,7 +265,7 @@ void SortListTest::popFrontTest()
 /******************************************************************************/
 void SortListTest::popBackTest()
 {
-  CSortList<int> sortList;
+  CSortList<int> sortList([](const int lhs, const int rhs, const ParamsBase* params) {return (lhs < rhs); }, nullptr);
   CSortList<int>::Iter iter(sortList.end());
 
   printf("\n******************* PopBack - TEST **************************\n");
@@ -291,7 +291,7 @@ void SortListTest::popBackTest()
 /******************************************************************************/
 void SortListTest::findTest()
 {
-  CSortList<int> sortList;
+  CSortList<int> sortList([](const int lhs, const int rhs, const ParamsBase* params) {return (lhs < rhs); }, nullptr);
   CSortList<int>::Iter from(nullptr);
   CSortList<int>::Iter to(nullptr);
 
@@ -306,16 +306,17 @@ void SortListTest::findTest()
 
   printf("\n******************* Find - TEST *****************************\n");
 
-  equalityTest<CSortList<int>::Iter>(sortList.find(from, to, c), sortList.next(sortList.begin()));
+  equalityTest<CSortList<int>::Iter>(sortList.find(from, to, c, [](const int lhs, const int rhs, const ParamsBase* params) {return (lhs == rhs); }, nullptr), sortList.next(sortList.begin()));
 
-  equalityTest<CSortList<int>::Iter>(sortList.find(from, to, d), to);
+  equalityTest<CSortList<int>::Iter>(sortList.find(from, to, d, [](const int lhs, const int rhs, const ParamsBase* params) {return (lhs == rhs); }, nullptr),
+    to);
 }
 
 /******************************************************************************/
 void SortListTest::mergeTest()
 {
-  CSortList<int> destSortList;
-  CSortList<int> srcSortList;
+  CSortList<int> destSortList([](const int lhs, const int rhs, const ParamsBase* params) {return (lhs < rhs); }, nullptr);
+  CSortList<int> srcSortList([](const int lhs, const int rhs, const ParamsBase* params) {return (lhs < rhs); }, nullptr);
   CSortList<int>::Iter iter(nullptr);
 
   printf("\n******************* Merge - TEST ****************************\n");
