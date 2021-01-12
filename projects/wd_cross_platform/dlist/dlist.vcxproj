@@ -147,10 +147,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\services\tests.cpp" />
-    <ClCompile Include="dlist.cpp" />
     <ClCompile Include="dlist_test.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\services\params.h" />
     <ClInclude Include="..\services\tests.h" />
     <ClInclude Include="..\utils.h" />
     <ClInclude Include="dlist.h" />

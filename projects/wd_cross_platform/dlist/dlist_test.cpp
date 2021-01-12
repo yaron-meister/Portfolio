@@ -420,6 +420,9 @@ void DlistTest::findTest()
   from = dlist.begin();
   to = dlist.end();
 
-  equalityTest<CDlist<int>::Iter>(dlist.find(from, to, c), dlist.next(dlist.begin()));
-  equalityTest<CDlist<int>::Iter>(dlist.find(from, to, d), to);
+  equalityTest<CDlist<int>::Iter>(dlist.find(from, to, c, [](const int lhs, const int rhs, const ParamsBase* params) {return (lhs == rhs); }, nullptr), 
+    dlist.next(dlist.begin()));
+  equalityTest<CDlist<int>::Iter>(dlist.find(from, to, d, [](const int lhs, const int rhs, const ParamsBase* params) {return (lhs == rhs); }, nullptr),
+    to);
 }
+

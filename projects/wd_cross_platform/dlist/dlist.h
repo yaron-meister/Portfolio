@@ -8,17 +8,22 @@
 #ifndef __DLIST_H__
 #define __DLIST_H__
 
-#include "utils.h"
 
 #include <new>
 #include <iostream>
-#include <cstddef>      
+#include <cstddef>
+#include <functional>
+
+#include "utils.h"
+#include "params.h"
 
 using namespace std;
 
 template <typename Type>
 class CDlist
 {
+  using IsMatchFunc = std::function<bool(const Type, const Type, const ParamsBase*)>;
+
 private:
   class CNode
   {
@@ -145,7 +150,7 @@ public:
   //                Returns 'to' if havn't found ('to' isn't included)
   //                T must be comparable
   /////////////////////////////////////////////////////////////////////////////
-  Iter find(Iter from, Iter to, const Type data);
+  Iter find(Iter from, Iter to, const Type data, IsMatchFunc isMatchFunc, ParamsBase* params);
 
   /////////////////////////////////////////////////////////////////////////////
   // Description: Elements between begin (including) to end (excluding) are 
@@ -383,13 +388,13 @@ Type CDlist<Type>::popBack()
 
 /////////////////////////////////////////////////////////////////////////////
 template<typename Type>
-typename CDlist<Type>::Iter CDlist<Type>::find(Iter from, Iter to, const Type data)
+typename CDlist<Type>::Iter CDlist<Type>::find(Iter from, Iter to, const Type data, IsMatchFunc isMatchFunc, ParamsBase* params)
 {
   Iter iter(from);
 
   if (!isBadIter(iter))
   {
-    while (iter != to && data != getData(iter))
+    while (iter != to && !isMatchFunc(data, getData(iter), params))
     {
       iter = next(iter);
     }
