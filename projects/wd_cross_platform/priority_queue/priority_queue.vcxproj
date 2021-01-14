@@ -147,6 +147,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\dlist\dlist.h" />
+    <ClInclude Include="..\services\params.h" />
     <ClInclude Include="..\services\tests.h" />
     <ClInclude Include="..\sortlist\sortlist.h" />
     <ClInclude Include="..\utils.h" />

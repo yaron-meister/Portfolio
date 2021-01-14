@@ -19,6 +19,12 @@ template<typename Type>
 class CPriorityQ
 {
 public:
+  typedef typename CSortList<Type>::IsMatchFunc IsMatchFunc;
+  typedef typename CSortList<Type>::IsBeforeFunc IsBeforeFunc;
+
+  // CTor
+  CPriorityQ(IsBeforeFunc isBeforeFunc, ParamsBase* pParams);
+
   /* Inserts the element to the queue according to its priority */
   /* is_before determines the sorting criteria */
   /* Complexity: O(n) */
@@ -51,7 +57,7 @@ public:
   /* and returns its data */
   /* if not found, returns NULL */
   /* Complexity: O(n) */
-  Type erase(Type data);
+  Type erase(Type data, IsMatchFunc isMatchFunc, ParamsBase* pParams);
 
 private:
   CSortList<Type> m_list;
@@ -60,6 +66,11 @@ private:
 /////////////////////////////////////////////////////////////////////////////
 //                        Functions's implementations
 /////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+template<typename Type>
+CPriorityQ<Type>::CPriorityQ(IsBeforeFunc isBeforeFunc, ParamsBase* pParams) : m_list(isBeforeFunc, pParams)
+{}
+
 /////////////////////////////////////////////////////////////////////////////
 template<typename Type>
 void CPriorityQ<Type>::enqueue(Type data)
@@ -121,10 +132,10 @@ void CPriorityQ<Type>::clear()
 
 //////////////////////////////////////////////////////////////////////////////
 template<typename Type>
-Type CPriorityQ<Type>::erase(Type data)
+Type CPriorityQ<Type>::erase(Type data, IsMatchFunc isMatchFunc, ParamsBase* pParams)
 {
   Type erased(NULL);
-  typename CSortList<Type>::Iter iter(m_list.find(m_list.begin(), m_list.end(), data));
+  typename CSortList<Type>::Iter iter(m_list.find(m_list.begin(), m_list.end(), data, isMatchFunc, pParams));
   typename CSortList<Type>::Iter end(m_list.end());
 
   if (iter != end)

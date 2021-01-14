@@ -79,7 +79,7 @@ int main(void)
 /******************************************************************************/
 void PriorityQTest::enqueueTest()
 {
-  CPriorityQ<CPrioritizedData> pq;
+  CPriorityQ<CPrioritizedData> pq([](const CPrioritizedData lhs, const CPrioritizedData rhs, const ParamsBase* params) {return (lhs < rhs); }, nullptr);
   CPrioritizedData peek;
 
   printf("\n******************* Enqueue - TEST **************************\n");
@@ -103,7 +103,7 @@ void PriorityQTest::enqueueTest()
 /******************************************************************************/
 void PriorityQTest::dequeueTest()
 {
-  CPriorityQ<CPrioritizedData> pq;
+  CPriorityQ<CPrioritizedData> pq([](const CPrioritizedData lhs, const CPrioritizedData rhs, const ParamsBase* params) {return (lhs < rhs); }, nullptr);
   CPrioritizedData peek;
   CPrioritizedData dequeued(0);
 
@@ -133,7 +133,7 @@ void PriorityQTest::dequeueTest()
 /******************************************************************************/
 void PriorityQTest::peekTest(void)
 {
-  CPriorityQ<CPrioritizedData> pq;
+  CPriorityQ<CPrioritizedData> pq([](const CPrioritizedData lhs, const CPrioritizedData rhs, const ParamsBase* params) {return (lhs < rhs); }, nullptr);
   CPrioritizedData peek;
 
   printf("\n******************* Peek - TEST *****************************\n");
@@ -165,7 +165,7 @@ void PriorityQTest::peekTest(void)
 /******************************************************************************/
 void PriorityQTest::isEmptyTest(void)
 {
-  CPriorityQ<CPrioritizedData> pq;
+  CPriorityQ<CPrioritizedData> pq([](const CPrioritizedData lhs, const CPrioritizedData rhs, const ParamsBase* params) {return (lhs < rhs); }, nullptr);
   
   printf("\n******************* IsEmpty - TEST **************************\n");
 
@@ -182,7 +182,7 @@ void PriorityQTest::isEmptyTest(void)
 /******************************************************************************/
 void PriorityQTest::sizeTest(void)
 {
-  CPriorityQ<CPrioritizedData> pq;
+  CPriorityQ<CPrioritizedData> pq([](const CPrioritizedData lhs, const CPrioritizedData rhs, const ParamsBase* params) {return (lhs < rhs); }, nullptr);
 
   printf("\n******************* Size - TEST *****************************\n");
 
@@ -201,7 +201,7 @@ void PriorityQTest::sizeTest(void)
 /******************************************************************************/
 void PriorityQTest::clearTest(void)
 {
-  CPriorityQ<CPrioritizedData> pq;
+  CPriorityQ<CPrioritizedData> pq([](const CPrioritizedData lhs, const CPrioritizedData rhs, const ParamsBase* params) {return (lhs < rhs); }, nullptr);
 
   printf("\n******************* Clear - TEST ****************************\n");
 
@@ -221,7 +221,7 @@ void PriorityQTest::clearTest(void)
 /******************************************************************************/
 void PriorityQTest::eraseTest(void)
 {
-  CPriorityQ<CPrioritizedData> pq;
+  CPriorityQ<CPrioritizedData> pq([](const CPrioritizedData lhs, const CPrioritizedData rhs, const ParamsBase* params) {return (lhs < rhs); }, nullptr);
   CPrioritizedData peek;
   CPrioritizedData retData;
   
@@ -239,19 +239,19 @@ void PriorityQTest::eraseTest(void)
   
   int erased1(400);
   peek = pq.peek();
-  pq.erase(erased1);
+  pq.erase(erased1, [](const CPrioritizedData lhs, const CPrioritizedData rhs, const ParamsBase* params) {return (lhs == rhs); }, nullptr);
   equalityTest<int>(peek.getData(), 800);
   equalityTest<size_t>(pq.size(), 3);
 
   int erased2(500);
-  pq.erase(erased2);
+  pq.erase(erased2, [](const CPrioritizedData lhs, const CPrioritizedData rhs, const ParamsBase* params) {return (lhs == rhs); }, nullptr);
   peek = pq.peek();
 
   equalityTest<int>(peek.getData(), 800);
   equalityTest<size_t>(pq.size(), 2);
 
   int erased3(800);
-  retData = pq.erase(erased3);
+  retData = pq.erase(erased3, [](const CPrioritizedData lhs, const CPrioritizedData rhs, const ParamsBase* params) {return (lhs == rhs); }, nullptr);
   peek = pq.peek();
 
   equalityTest<int>(peek.getData(), 300);
