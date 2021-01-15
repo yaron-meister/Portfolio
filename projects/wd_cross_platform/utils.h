@@ -56,7 +56,14 @@
 #define CYAN_COLOUR    "\033[1;36m"
 #define RESET_COLOUR   "\033[0m"
 
+/* Units Conversion */
+#define SEC_TO_MS 1000
 
+enum EStatus
+{
+	SUCCESS,
+	FAILURE
+};
 
 #endif     /* __UTILS_H__ */
 

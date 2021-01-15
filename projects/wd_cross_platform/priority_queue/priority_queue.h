@@ -28,7 +28,7 @@ public:
   /* Inserts the element to the queue according to its priority */
   /* is_before determines the sorting criteria */
   /* Complexity: O(n) */
-  void enqueue(Type data);
+  EStatus enqueue(Type data);
 
   /* Removes the top priority element */
   /* returns NULL if queue is empty */
@@ -73,9 +73,9 @@ CPriorityQ<Type>::CPriorityQ(IsBeforeFunc isBeforeFunc, ParamsBase* pParams) : m
 
 /////////////////////////////////////////////////////////////////////////////
 template<typename Type>
-void CPriorityQ<Type>::enqueue(Type data)
+EStatus CPriorityQ<Type>::enqueue(Type data)
 {
-  m_list.insert(data);
+  return (NULL == m_list.insert(data) ? FAILURE : SUCCESS);
 }
 
 /////////////////////////////////////////////////////////////////////////////
