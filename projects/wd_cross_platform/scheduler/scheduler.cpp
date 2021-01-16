@@ -212,7 +212,12 @@ CScheduler::ERunStatus CScheduler::run()
   while (!isEmpty() && (false == m_shouldStop))
   {
     pTask = m_pTaskQueue->dequeue();
+
+#ifdef _WIN32
     Sleep(static_cast<DWORD>(pTask->getScheduledTime() - time(NULL)) * SEC_TO_MS);
+#else
+    sleep(TaskGetScheduledTime(task) - time(NULL));
+#endif
 
     switch (pTask->run())
     {
