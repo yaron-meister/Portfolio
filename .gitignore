@@ -11,4 +11,5 @@ projects/wd_cross_platform/sortlist/Debug/*
 projects/wd_cross_platform/priority_queue/Debug/*
 projects/wd_cross_platform/uid/Debug/*
 projects/wd_cross_platform/scheduler/Debug/*
+projects/snake_game/Debug/*
 *.vs*
