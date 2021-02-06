@@ -1,7 +1,7 @@
 /*****************************************************************************
  * File name:   snake.h
  * Developer:   Yaron Meister
- * Date:        2020-01-29
+ * Date:        2021-01-29
  * Description: Header file for the class 'CSnake'
  *****************************************************************************/
 
@@ -16,10 +16,10 @@
 class CSnake
 {
 public:
-	enum ECrashStatus
+	enum ECrushStatus
 	{
-		NO_CRASH,
-		CRASH
+		NO_CRUSH,
+		CRUSH
 	};
 
 	struct SHead
@@ -39,9 +39,11 @@ public:
 				char bodySymbol = '=');
 
 	void grow();
-	ECrashStatus move(CDirection reqDirection);
+	ECrushStatus move(CDirection reqDirection);
 	SHead& getHead() const;
 	std::list<CPos>& getBody() const;
+	char getHeadSymbol() const;
+	char getBodySymbol() const;
 
 private:
 	CPos addLink(CPos where, CDirection direction, bool isBody = true);

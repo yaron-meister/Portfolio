@@ -1,13 +1,14 @@
 /*****************************************************************************
 * File name:   board.cpp
 * Developer:   Yaron
-* Date:        2020-01-29 11:04:53
+* Date:        2021-01-29 11:04:53
 * Description: Source file for class 'CBoard'
 *****************************************************************************/
 
 #include <iostream>
 
 #include "board.h"
+#include "singleton.hpp"
 
 // Namespaces
 using namespace std;
@@ -16,40 +17,140 @@ using namespace std;
 //                        Functions's implementations
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
-CBoard::CBoard()
+CBoard::CBoard() : m_snakePrevLastLink(0, 0), m_logger(Singleton<Logger>::GetInstance())
 {
 	for (unsigned row(0); row < NUM_OF_ROWS; ++row)
 	{
 		for (unsigned column(0); column < NUM_OF_COLUMNS; ++column)
 		{
-			m_board[row][column].setPosition((row, column));
-			m_board[row][column].setContent(CCell::NONE);
+			m_cells[row][column].setPosition((column, row));
+			m_cells[row][column].setContent(CCell::NONE);
 		}
 	}
 }
 
 /////////////////////////////////////////////////////////////////////////////
-void CBoard::update(const CSnake& snake)
+CSnake::ECrushStatus CBoard::update(const CSnake& snake)
 {
+	const CSnake::SHead& snakeHead(snake.getHead());
+	bool isWallCrush(false);
+	CSnake::ECrushStatus crashStatus(CSnake::NO_CRUSH);
+
 	for (std::list<CPos>::iterator it = snake.getBody().begin();
 		it != snake.getBody().end();
 		++it)
 	{
-		int xPos = it->getX();
-		int yPos = it->getY();
+		isWallCrush |= (FAILURE == updateCell(CPos(it->getX(), it->getY()), CCell::SNAKE_LINK));
+	}
 
-		if (xPos < NUM_OF_ROWS && yPos < NUM_OF_COLUMNS)
+	isWallCrush |= (FAILURE == updateCell(snakeHead.position, CCell::SNAKE_HEAD));
+
+	CPos snakeLastLink(snake.getBody().back());
+	if (m_snakePrevLastLink != snakeLastLink)
+	{
+		isWallCrush |= (FAILURE == updateCell(m_snakePrevLastLink, CCell::NONE));
+		m_snakePrevLastLink = snakeLastLink;
+	}
+
+	if (isWallCrush)
+	{
+		crashStatus = CSnake::CRUSH;
+	}
+
+	return (crashStatus);
+}
+
+/////////////////////////////////////////////////////////////////////////////
+void CBoard::generateFood()
+{
+	bool foodGenerated(false);
+	unsigned int newX;
+	unsigned int newY;
+
+	while (!foodGenerated)
+	{
+		newX = static_cast<unsigned int>(rand() % NUM_OF_COLUMNS);
+		newY = static_cast<unsigned int>(rand() % NUM_OF_ROWS);
+
+		if (CCell::NONE == m_cells[newY][newX].getContent())
 		{
-			if (CCell::NONE == m_board[xPos][yPos].getContent())
-			{
-				m_board[xPos][yPos].setContent(CCell::SNAKE_LINK);
-			}
+			m_cells[newY][newX].setContent(CCell::FOOD);
+			foodGenerated = true;
 		}
-		else
+	}
+}
+
+/////////////////////////////////////////////////////////////////////////////
+bool CBoard::isFood(CPos position) const
+{
+	bool isFood(false);
+
+	if (isPositionValid(position))
+	{
+		if (CCell::FOOD == m_cells[position.getY()][position.getX()].getContent())
 		{
-			cerr << "CBoard: Position (" << xPos << "," << yPos << ") is not exist" << endl;
+			isFood = true;
 		}
 	}
 
+	return (isFood);
+}
 
+/////////////////////////////////////////////////////////////////////////////
+CCell CBoard::getCell(CPos position) const
+{
+	CCell cell(CPos(-1, -1), CCell::INVALID);
+
+	if (isPositionValid(position))
+	{
+		cell = m_cells[position.getY()][position.getX()];
+	}
+
+	return (cell);
+}
+
+/////////////////////////////////////////////////////////////////////////////
+size_t CBoard::getNumOfRows() const
+{
+	return (ARRAY_SIZE(m_cells));
+}
+
+/////////////////////////////////////////////////////////////////////////////
+size_t CBoard::getNumOfColumns() const
+{
+	return (ARRAY_SIZE(m_cells[0]));
+}
+
+/////////////////////////////////////////////////////////////////////////////
+EStatus CBoard::updateCell(CPos updatedPosition, CCell::EContent updatedContent)
+{
+	EStatus status(SUCCESS);
+	int xPos(updatedPosition.getX());
+	int yPos(updatedPosition.getY());
+
+	if (isPositionValid(updatedPosition))
+	{
+		CCell::EContent cellContent(m_cells[yPos][xPos].getContent());
+
+		if (CCell::INVALID != cellContent)
+		{
+			m_cells[yPos][xPos].setContent(updatedContent);
+		}
+	}
+	else
+	{
+		cerr << "CBoard: Position (" << xPos << "," << yPos << ") is a wall" << endl;
+		status = FAILURE;
+	}
+
+	return (status);
+}
+
+/////////////////////////////////////////////////////////////////////////////
+bool CBoard::isPositionValid(CPos position) const
+{
+	return (position.getX() >= 0 &&
+		position.getX() < NUM_OF_COLUMNS &&
+		position.getY() >= 0 &&
+		position.getY() < NUM_OF_ROWS);
 }

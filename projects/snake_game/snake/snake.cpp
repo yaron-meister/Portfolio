@@ -1,7 +1,7 @@
 /*****************************************************************************
  * File name:   sanke.cpp
  * Developer:   Yaron Meister
- * Date:        2020-01-29
+ * Date:        2021-01-29
  * Description: Source file for class CSnake
  *****************************************************************************/
 
@@ -21,7 +21,7 @@ using namespace std;
 //                        Functions's implementations
 /////////////////////////////////////////////////////////////////////////////
 CSnake::CSnake(CPos startPos, CDirection startDir,	char headSymbol, char bodySymbol) :
-	m_head(startDir, startPos), m_headSymbol(headSymbol), m_bodySymbol(bodySymbol)
+	m_head(startDir, startPos), m_headSymbol(headSymbol), m_bodySymbol(bodySymbol), m_grow(false)
 {
 	addLink(m_head.position, startDir);
 }
@@ -33,9 +33,9 @@ void CSnake::grow()
 }
 
 /////////////////////////////////////////////////////////////////////////////
-CSnake::ECrashStatus CSnake::move(CDirection reqDirection)
+CSnake::ECrushStatus CSnake::move(CDirection reqDirection)
 {
-	ECrashStatus crashStatus(NO_CRASH);
+	ECrushStatus crashStatus(NO_CRUSH);
 
 	if (!m_body.empty())
 	{
@@ -59,19 +59,19 @@ CSnake::ECrashStatus CSnake::move(CDirection reqDirection)
 		}
 
 		for (std::list<CPos>::iterator it = m_body.begin(); 
-					it != m_body.end() && CRASH != crashStatus;
+					it != m_body.end() && CRUSH != crashStatus;
 					++it)
 		{
 			if (it->operator==(m_head.position))
 			{
-				crashStatus = CRASH;
+				crashStatus = CRUSH;
 			}
 		}
 	}
 	else
 	{
 		cerr << "Body is empty of links" << endl;
-		crashStatus = CRASH;
+		crashStatus = CRUSH;
 	}
 
 	return (crashStatus);
@@ -87,6 +87,18 @@ CSnake::SHead& CSnake::getHead() const
 std::list<CPos>& CSnake::getBody() const
 {
 	return (const_cast<std::list<CPos>&>(m_body));
+}
+
+/////////////////////////////////////////////////////////////////////////////
+char CSnake::getHeadSymbol() const
+{
+	return (m_headSymbol);
+}
+
+/////////////////////////////////////////////////////////////////////////////
+char CSnake::getBodySymbol() const
+{
+	return (m_bodySymbol);
 }
 
 /////////////////////////////////////////////////////////////////////////////

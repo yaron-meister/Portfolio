@@ -1,7 +1,7 @@
 /*****************************************************************************
  * File name:   snake_run.cpp
  * Developer:   Yaron Meister
- * Date:        2020-01-23 
+ * Date:        2021-01-23 
  * Description: Source file for running the 'main' of the game SNAKE
  *****************************************************************************/
 
@@ -32,10 +32,14 @@ int main(void)
 
   if (nullptr != gameModule && nullptr != displayModule)
   {
-    /*while (CGame::GAME_PLAY == gameModule->update())
+    displayModule->welcomeGame();
+    gameModule->start();
+
+    if (CGame::GAME_PLAY == gameModule->update())
     {
-      displayModule->updateScreen(gameModule->getUpdatedBoard());
-    }*/
+      displayModule->updateScreen(gameModule->getUpdatedBoard(), gameModule->getUpdatedSnake());
+      displayModule->displayScreen();
+    }
   }
   else
   {

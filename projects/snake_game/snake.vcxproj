@@ -86,9 +86,9 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>board;cell;display;game;services;snake;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;board;cell;display;game;services;snake;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -141,10 +141,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="board\board.cpp" />
-    <ClCompile Include="cell\cell.cpp" />
     <ClCompile Include="display\display.cpp" />
     <ClCompile Include="game\game.cpp" />
     <ClCompile Include="services\direction.cpp" />
+    <ClCompile Include="services\logger.cpp" />
     <ClCompile Include="services\position.cpp" />
     <ClCompile Include="snake\snake.cpp" />
     <ClCompile Include="snake_run.cpp" />
@@ -155,7 +155,9 @@
     <ClInclude Include="display\display.h" />
     <ClInclude Include="game\game.h" />
     <ClInclude Include="services\direction.h" />
+    <ClInclude Include="services\logger.h" />
     <ClInclude Include="services\position.hpp" />
+    <ClInclude Include="services\singleton.hpp" />
     <ClInclude Include="snake\snake.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

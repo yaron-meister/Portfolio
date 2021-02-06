@@ -1,13 +1,18 @@
 /*****************************************************************************
  * File name:   game.h
  * Developer:   Yaron Meister
- * Date:        2020-01-29
+ * Date:        2021-01-29
  * Description: Header file for the Game
  *****************************************************************************/
+
 #ifndef __GAME_H__
 #define __GAME_H__
 
+#include <mutex>
+#include <thread>
+
 #include "board.h"
+#include "snake.h"
 
 class CGame
 {
@@ -18,11 +23,36 @@ public:
 		GAME_PLAY
 	};
 
+	enum EKeyBoardInput
+	{
+		KB_NONE,
+		KB_UP,
+		KB_DOWN,
+		KB_RIGHT,
+		KB_LEFT,
+		KB_QUIT
+	};
+
+	// CTor
+	CGame();
+
+	// DTor
+	~CGame();
+
+	void start();
 	EGameState update();
 	const CBoard& getUpdatedBoard();
+	const CSnake& getUpdatedSnake();
 
 private:
+	void getInput();
 
+	CSnake m_snake;
+	CBoard m_board;
+	EKeyBoardInput m_keyBoardInput;
+	
+	std::thread m_thread;
+	std::mutex m_mutex;
 };
 
 

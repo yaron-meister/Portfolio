@@ -1,7 +1,7 @@
 /*****************************************************************************
  * File name:   cell.h
  * Developer:   Yaron Meister
- * Date:        2020-01-29
+ * Date:        2021-01-29
  * Description: Header file for the class 'CCell'
  *****************************************************************************/
 
@@ -18,7 +18,8 @@ public:
 		NONE,
 		SNAKE_HEAD,
 		SNAKE_LINK,
-		FOOD
+		FOOD,
+		INVALID
 	};
 
 	// CTor
