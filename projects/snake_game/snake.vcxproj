@@ -146,6 +146,7 @@
     <ClCompile Include="services\direction.cpp" />
     <ClCompile Include="services\logger.cpp" />
     <ClCompile Include="services\position.cpp" />
+    <ClCompile Include="services\timeout.cpp" />
     <ClCompile Include="snake\snake.cpp" />
     <ClCompile Include="snake_run.cpp" />
   </ItemGroup>
@@ -158,6 +159,7 @@
     <ClInclude Include="services\logger.h" />
     <ClInclude Include="services\position.hpp" />
     <ClInclude Include="services\singleton.hpp" />
+    <ClInclude Include="services\timeout.h" />
     <ClInclude Include="snake\snake.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
