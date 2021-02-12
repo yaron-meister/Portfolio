@@ -13,6 +13,7 @@
 
 #include "board.h"
 #include "snake.h"
+#include "timeout.h"
 
 class CGame
 {
@@ -50,6 +51,7 @@ private:
 	CSnake m_snake;
 	CBoard m_board;
 	EKeyBoardInput m_keyBoardInput;
+	CTimeout m_freqTimer;
 	
 	std::thread m_thread;
 	std::mutex m_mutex;

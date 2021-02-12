@@ -17,7 +17,7 @@ using namespace std;
 //                        Functions's implementations
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
-CBoard::CBoard() : m_snakePrevLastLink(0, 0), m_logger(Singleton<Logger>::GetInstance())
+CBoard::CBoard() : m_snakePrevLastLink(0, 0), m_isFoodEaten(false), m_logger(Singleton<Logger>::GetInstance())
 {
 	for (unsigned row(0); row < NUM_OF_ROWS; ++row)
 	{
@@ -76,24 +76,15 @@ void CBoard::generateFood()
 		{
 			m_cells[newY][newX].setContent(CCell::FOOD);
 			foodGenerated = true;
+			m_isFoodEaten = false;
 		}
 	}
 }
 
 /////////////////////////////////////////////////////////////////////////////
-bool CBoard::isFood(CPos position) const
+bool CBoard::isFoodEaten() const
 {
-	bool isFood(false);
-
-	if (isPositionValid(position))
-	{
-		if (CCell::FOOD == m_cells[position.getY()][position.getX()].getContent())
-		{
-			isFood = true;
-		}
-	}
-
-	return (isFood);
+	return (m_isFoodEaten);
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -134,6 +125,11 @@ EStatus CBoard::updateCell(CPos updatedPosition, CCell::EContent updatedContent)
 
 		if (CCell::INVALID != cellContent)
 		{
+			if (CCell::FOOD == cellContent && CCell::SNAKE_HEAD == updatedContent)
+			{
+				m_isFoodEaten = true;
+			}
+
 			m_cells[yPos][xPos].setContent(updatedContent);
 		}
 	}

@@ -47,7 +47,8 @@ CSnake::ECrushStatus CSnake::move(CDirection reqDirection)
 		}
 
 		m_body.push_front(m_head.position);
-		m_head.position = addLink(m_head.position, m_head.direction.getOppositeDirection(), false);
+		m_head.direction = direction;
+		m_head.position = addLink(m_head.position, direction.getOppositeDirection(), false);
 
 		if (m_grow)
 		{

@@ -9,6 +9,7 @@
 
 #include "game.h"
 #include "display.h"
+#include "timeout.h"
 #include "utils.h"
 
 /* Namespaces */
@@ -26,6 +27,7 @@ using namespace std;
 int main(void)
 {
   int retVal(SUCCESS);
+  CTimeout displayFreqTimer;
 
   CGame* gameModule = new (nothrow) CGame();
   CDisplay* displayModule = new (nothrow) CDisplay();
@@ -35,10 +37,15 @@ int main(void)
     displayModule->welcomeGame();
     gameModule->start();
 
-    if (CGame::GAME_PLAY == gameModule->update())
+    while (CGame::GAME_PLAY == gameModule->update())
     {
-      displayModule->updateScreen(gameModule->getUpdatedBoard(), gameModule->getUpdatedSnake());
-      displayModule->displayScreen();
+      if (displayFreqTimer.hasExpired())
+      {
+        displayModule->updateScreen(gameModule->getUpdatedBoard(), gameModule->getUpdatedSnake());
+        displayModule->displayScreen();
+
+        displayFreqTimer.startNow(CTimeout::DurationInMilli(200));
+      }
     }
   }
   else

@@ -13,6 +13,8 @@
 class CTimeout
 {
 public:
+  typedef std::chrono::duration < double, std::milli> DurationInMilli;
+
   // CTor
   CTimeout();
 
@@ -21,7 +23,7 @@ public:
 	
 private:
   std::chrono::time_point<std::chrono::high_resolution_clock> m_startTime;
-  std::chrono::duration<double, std::milli> m_durationInMilli;
+  DurationInMilli m_durationInMilli;
 };
 
 

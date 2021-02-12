@@ -26,7 +26,7 @@ void CTimeout::startNow(std::chrono::duration<double, std::milli> durationInMill
 bool CTimeout::hasExpired()
 {
 	auto currentTime(std::chrono::high_resolution_clock::now());
-	std::chrono::duration<double, std::milli> currentDurationInMilli(currentTime - m_startTime);
+	DurationInMilli currentDurationInMilli(currentTime - m_startTime);
 
 	return (currentDurationInMilli > m_durationInMilli);
 }

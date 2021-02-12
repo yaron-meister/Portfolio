@@ -13,5 +13,6 @@ projects/wd_cross_platform/uid/Debug/*
 projects/wd_cross_platform/scheduler/Debug/*
 projects/wd_cross_platform/wd_routine/Debug/*
 projects/snake_game/Debug/*
+projects/snake_game/x64/Debug/*
 projects/snake_game_old
 *.vs*

@@ -24,7 +24,7 @@ public:
 
 	CSnake::ECrushStatus update(const CSnake& snake);
 	void generateFood();
-	bool isFood(CPos position) const;
+	bool isFoodEaten() const;
 	CCell getCell(CPos position) const;
 	size_t getNumOfColumns() const;
 	size_t getNumOfRows() const;
@@ -35,6 +35,7 @@ private:
 
 	CCell m_cells[NUM_OF_ROWS][NUM_OF_COLUMNS];
 	CPos m_snakePrevLastLink;
+	bool m_isFoodEaten;
 	Logger* m_logger;
 };
 
