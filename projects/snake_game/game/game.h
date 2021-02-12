@@ -14,6 +14,7 @@
 #include "board.h"
 #include "snake.h"
 #include "timeout.h"
+#include "logger.h"
 
 class CGame
 {
@@ -52,6 +53,8 @@ private:
 	CBoard m_board;
 	EKeyBoardInput m_keyBoardInput;
 	CTimeout m_freqTimer;
+
+	Logger* m_logger;
 	
 	std::thread m_thread;
 	std::mutex m_mutex;

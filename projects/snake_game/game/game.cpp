@@ -29,8 +29,10 @@ static const CTimeout::DurationInMilli FREQ_50HZ(CTimeout::DurationInMilli(90));
 //                        Functions's implementations
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
-CGame::CGame() : m_keyBoardInput(KB_NONE)
-{}
+CGame::CGame() : m_keyBoardInput(KB_NONE), m_logger(Singleton<Logger>::GetInstance())
+{
+  m_logger->write("CGame: Game was initiated");
+}
 
 /////////////////////////////////////////////////////////////////////////////
 CGame::~CGame()
@@ -80,6 +82,8 @@ CGame::EGameState CGame::update()
     {
       gameState = GAME_STOP;
 
+      m_logger->write("CGame: Game ends");
+
       cout << "***** SNAKE CRUSH!!! *****" << endl;
       cout << "*****   GAME OVER    *****" << endl;
     }
@@ -87,9 +91,12 @@ CGame::EGameState CGame::update()
     {
       m_snake.grow();
       m_board.generateFood();
+
+      m_logger->write("CGame: Food has been eaten");
     }
 
     m_freqTimer.startNow(CTimeout::DurationInMilli(200));
+    m_logger->write("CGame: Game was updated");
   }
 
   return (gameState);
@@ -114,21 +121,25 @@ void CGame::getInput()
   {
     switch (_getch())
     {
+    case KEY_LEFT:
     case 'A':
     case 'a':
       m_keyBoardInput = KB_LEFT;
       break;
 
+    case KEY_RIGHT:
     case 'D':
     case 'd':
       m_keyBoardInput = KB_RIGHT;
       break;
 
+    case KEY_UP:
     case 'W':
     case 'w':
       m_keyBoardInput = KB_UP;
       break;
 
+    case KEY_DOWN:
     case 'S':
     case 's':
       m_keyBoardInput = KB_DOWN;
@@ -143,6 +154,8 @@ void CGame::getInput()
       m_keyBoardInput = KB_NONE;
       break;
     }
+
+    m_logger->write("CGame: Got input");
   }
 }
 

@@ -12,6 +12,7 @@
 
 #include "direction.h"
 #include "position.hpp"
+#include "logger.h"
 
 class CSnake
 {
@@ -53,6 +54,8 @@ private:
 	char m_headSymbol;
 	char m_bodySymbol;
 	bool m_grow;
+
+	Logger* m_logger;
 };
 
 

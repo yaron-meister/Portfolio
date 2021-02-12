@@ -22,8 +22,11 @@ using namespace std;
 /////////////////////////////////////////////////////////////////////////////
 CSnake::CSnake(CPos startPos, CDirection startDir,	char headSymbol, char bodySymbol) :
 	m_head(startDir, startPos), m_headSymbol(headSymbol), m_bodySymbol(bodySymbol), m_grow(false)
+	, m_logger(Singleton<Logger>::GetInstance())
 {
 	addLink(m_head.position, startDir);
+
+	m_logger->write("CSnake: Snake was initiated");
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -53,6 +56,8 @@ CSnake::ECrushStatus CSnake::move(CDirection reqDirection)
 		if (m_grow)
 		{
 			m_grow = false;
+
+			m_logger->write("CSnake: Snake grew");
 		}
 		else
 		{
@@ -74,6 +79,8 @@ CSnake::ECrushStatus CSnake::move(CDirection reqDirection)
 		cerr << "Body is empty of links" << endl;
 		crashStatus = CRUSH;
 	}
+
+	m_logger->write("CSnake: Snake moved");
 
 	return (crashStatus);
 }

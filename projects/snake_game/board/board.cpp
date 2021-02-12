@@ -27,6 +27,8 @@ CBoard::CBoard() : m_snakePrevLastLink(0, 0), m_isFoodEaten(false), m_logger(Sin
 			m_cells[row][column].setContent(CCell::NONE);
 		}
 	}
+
+	m_logger->write("CBoard: Board was initiated");
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -55,6 +57,8 @@ CSnake::ECrushStatus CBoard::update(const CSnake& snake)
 	if (isWallCrush)
 	{
 		crashStatus = CSnake::CRUSH;
+
+		m_logger->write("CBoard: Wall crush");
 	}
 
 	return (crashStatus);
@@ -77,6 +81,8 @@ void CBoard::generateFood()
 			m_cells[newY][newX].setContent(CCell::FOOD);
 			foodGenerated = true;
 			m_isFoodEaten = false;
+
+			m_logger->write("CBoard: Food was generated");
 		}
 	}
 }
@@ -137,6 +143,7 @@ EStatus CBoard::updateCell(CPos updatedPosition, CCell::EContent updatedContent)
 	{
 		cerr << "CBoard: Position (" << xPos << "," << yPos << ") is a wall" << endl;
 		status = FAILURE;
+		m_logger->write("CBoard: Crush in a wall");
 	}
 
 	return (status);
