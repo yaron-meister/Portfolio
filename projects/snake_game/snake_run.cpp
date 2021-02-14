@@ -54,5 +54,10 @@ int main(void)
     retVal = FAILURE;
   }
 
+  delete(gameModule);
+  gameModule = nullptr;
+  delete(displayModule);
+  displayModule = nullptr;
+
   return (retVal);
 }
