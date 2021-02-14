@@ -143,6 +143,7 @@
     <ClCompile Include="board\board.cpp" />
     <ClCompile Include="display\display.cpp" />
     <ClCompile Include="game\game.cpp" />
+    <ClCompile Include="services\color.cpp" />
     <ClCompile Include="services\direction.cpp" />
     <ClCompile Include="services\logger.cpp" />
     <ClCompile Include="services\position.cpp" />
@@ -155,6 +156,7 @@
     <ClInclude Include="cell\cell.hpp" />
     <ClInclude Include="display\display.h" />
     <ClInclude Include="game\game.h" />
+    <ClInclude Include="services\color.h" />
     <ClInclude Include="services\direction.h" />
     <ClInclude Include="services\logger.h" />
     <ClInclude Include="services\position.hpp" />
