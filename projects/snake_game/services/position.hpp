@@ -22,6 +22,13 @@ public:
 	inline void setX(int x);
 	inline void setY(int y);
 
+	const CPos operator+(const CPos& rhs);
+	const CPos operator-(const CPos& rhs);
+	CPos& operator+=(const CPos& point);
+	CPos& operator-=(const CPos& point);
+	CPos& operator*=(int multiplier);
+	CPos& operator/=(int multiplier);
+
 private:
 	int m_x;
 	int m_y;
@@ -53,6 +60,8 @@ inline void CPos::setY(int y)
 {
 	m_y = y;
 }
+
+/////////////////////////////////////////////////////////////////////////////
 
 
 #endif // __POSITION_H__

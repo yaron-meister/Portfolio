@@ -5,13 +5,17 @@
  * Description: Source file for class 'CPos'
  *****************************************************************************/
 
+#include <iostream>
+#include <stdexcept>
+
 #include "position.hpp"
 
- // Namespaces
+// Namespaces
+using namespace std;
 
- // Macros
+// Macros
 
- // Global variables
+// Global variables
 
  /////////////////////////////////////////////////////////////////////////////
  //                        Functions's implementations
@@ -29,4 +33,67 @@ bool CPos::operator==(const CPos& other)
 bool CPos::operator!=(const CPos& other)
 {
 	return (!operator==(other));
+}
+
+/////////////////////////////////////////////////////////////////////////////
+const CPos CPos::operator+(const CPos& rhs)
+{
+  CPos sum(m_x, m_y); // Initialize 'sum' as 'this'
+
+  sum += rhs;
+
+  return (sum);
+}
+
+/////////////////////////////////////////////////////////////////////////////
+const CPos CPos::operator-(const CPos& rhs)
+{
+  CPos diff(m_x, m_y); // Initialize 'diff' as 'this'
+
+  diff -= rhs;
+
+  return (diff);
+}
+
+/////////////////////////////////////////////////////////////////////////////
+CPos& CPos::operator+=(const CPos& pos)
+{
+  m_x += pos.getX();
+  m_y += pos.getY();
+
+  return (*this);
+}
+
+/////////////////////////////////////////////////////////////////////////////
+CPos& CPos::operator-=(const CPos& pos)
+{
+  m_x -= pos.getX();
+  m_y -= pos.getY();
+
+  return (*this);
+}
+
+/////////////////////////////////////////////////////////////////////////////
+CPos& CPos::operator*=(int multiplier)
+{
+  m_x *= multiplier;
+  m_y *= multiplier;
+
+  return (*this);
+}
+
+/////////////////////////////////////////////////////////////////////////////
+CPos& CPos::operator/=(int multiplier)
+{
+  try 
+  {
+    m_x /= multiplier;
+    m_y /= multiplier;
+  }
+  catch (runtime_error& e) 
+  {
+    cout << "Division by ZERO" << endl << e.what();
+  }
+
+  return (*this);
 }
