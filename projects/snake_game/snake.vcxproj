@@ -155,6 +155,7 @@
     <ClCompile Include="services\graphical.cpp" />
     <ClCompile Include="services\logger.cpp" />
     <ClCompile Include="services\position.cpp" />
+    <ClCompile Include="services\shapes.cpp" />
     <ClCompile Include="services\timeout.cpp" />
     <ClCompile Include="snake\snake.cpp" />
     <ClCompile Include="snake_run.cpp" />
@@ -169,6 +170,7 @@
     <ClInclude Include="services\graphical.h" />
     <ClInclude Include="services\logger.h" />
     <ClInclude Include="services\position.hpp" />
+    <ClInclude Include="services\shapes.h" />
     <ClInclude Include="services\singleton.hpp" />
     <ClInclude Include="services\timeout.h" />
     <ClInclude Include="snake\snake.h" />
