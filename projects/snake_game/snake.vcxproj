@@ -72,12 +72,16 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\vclib\SDL2-2.0.14\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\vclib\SDL2-2.0.14\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\vclib\SDL2-2.0.14\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\vclib\SDL2-2.0.14\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -93,6 +97,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -115,12 +120,14 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>.;board;cell;display;game;services;snake;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -145,6 +152,7 @@
     <ClCompile Include="game\game.cpp" />
     <ClCompile Include="services\color.cpp" />
     <ClCompile Include="services\direction.cpp" />
+    <ClCompile Include="services\graphical.cpp" />
     <ClCompile Include="services\logger.cpp" />
     <ClCompile Include="services\position.cpp" />
     <ClCompile Include="services\timeout.cpp" />
@@ -158,6 +166,7 @@
     <ClInclude Include="game\game.h" />
     <ClInclude Include="services\color.h" />
     <ClInclude Include="services\direction.h" />
+    <ClInclude Include="services\graphical.h" />
     <ClInclude Include="services\logger.h" />
     <ClInclude Include="services\position.hpp" />
     <ClInclude Include="services\singleton.hpp" />
