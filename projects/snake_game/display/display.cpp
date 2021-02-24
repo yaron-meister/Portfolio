@@ -19,52 +19,20 @@ static const unsigned short SCREEN_ROW_NUM(100);
 static const unsigned int ONE_SECOND(1000);
 
 // Global variables
+bool CDisplay::m_stopGraphicalApp(false);
+mutex CDisplay::m_mutex;
+CCircle CDisplay::m_food(CColor(90, 0, 0), CPos(0, 0), 3);
+CPos CDisplay::m_foodPos(0, 0);
+CSquare CDisplay::m_snakeHead(CColor(0, 90, 0), CPos(0,0), 5);
+CPos CDisplay::m_snakeHeadPos(0, 0);
+CSnake CDisplay::m_snake;
+
+// Forward declarations
+void callback(CComposite* supergroup);
 
 /////////////////////////////////////////////////////////////////////////////
 //                        Functions's implementations
 /////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////
-CDisplay::CDisplay()
-{
-  unsigned row(0);
-  unsigned column(0);
-
-  for (; row < 2; ++row)
-  {
-    for (column = 0; column < (NUM_OF_COLUMNS - 1); ++column)
-    {
-      m_dispMatrix[row][column] = '#';
-    }
-
-    m_dispMatrix[row][column] = '\n';
-  }
-
-  for (; row < (NUM_OF_ROWS - 2); ++row)
-  {
-    m_dispMatrix[row][0] = '#';
-    m_dispMatrix[row][1] = '#';
-
-    for (column = 2; column < (NUM_OF_COLUMNS - 3); ++column)
-    {
-      m_dispMatrix[row][column] = ' ';
-    }
-
-    m_dispMatrix[row][NUM_OF_COLUMNS - 3] = '#';
-    m_dispMatrix[row][NUM_OF_COLUMNS - 2] = '#';
-    m_dispMatrix[row][NUM_OF_COLUMNS - 1] = '\n';
-  }
-
-  for (; row < NUM_OF_ROWS; ++row)
-  {
-    for (column = 0; column < (NUM_OF_COLUMNS - 1); ++column)
-    {
-      m_dispMatrix[row][column] = '#';
-    }
-
-    m_dispMatrix[row][column] = '\n';
-  }
-}
-
 /////////////////////////////////////////////////////////////////////////////
 void CDisplay::welcomeGame()
 {
@@ -179,56 +147,10 @@ void CDisplay::welcomeGame()
 /////////////////////////////////////////////////////////////////////////////
 void CDisplay::updateScreen(const CBoard& updatedBoard, const CSnake& updatedSnake)
 {
-  size_t boardRowsNum(updatedBoard.getNumOfRows());
-  size_t boardColumnsNum(updatedBoard.getNumOfColumns());
-  char snakeHeadSymbol(updatedSnake.getHeadSymbol());
-  char snakeBodySymbol(updatedSnake.getBodySymbol());
-  char symbol;
-  size_t rowsOffset((NUM_OF_ROWS - boardRowsNum) / 2);
-  size_t columnsOffset((NUM_OF_COLUMNS - boardColumnsNum) / 2);
-
-  if (boardRowsNum <= NUM_OF_ROWS && boardColumnsNum <= NUM_OF_COLUMNS)
-  {
-    for (unsigned row(0); row < boardRowsNum; ++row)
-    {
-      for (unsigned column(0); column < boardColumnsNum; ++column)
-      {
-        CCell currentCell(updatedBoard.getCell(CPos(column, row)));
-
-        switch (currentCell.getContent())
-        {
-        case CCell::NONE:
-          symbol = ' ';
-          break;
-        case CCell::SNAKE_HEAD:
-          symbol = snakeHeadSymbol;
-          break;
-        case CCell::SNAKE_LINK:
-          symbol = snakeBodySymbol;
-          break;
-        case CCell::FOOD:
-          symbol = '*';
-          break;
-        default:
-          break;
-        }
-
-        m_dispMatrix[row + rowsOffset][column + columnsOffset] = symbol;
-      }
-    }
-  }
-}
-
-/////////////////////////////////////////////////////////////////////////////
-void CDisplay::displayScreen()
-{
-  for (unsigned row(0); row < NUM_OF_ROWS; ++row)
-  {
-    for (unsigned column(0); column < NUM_OF_COLUMNS; ++column)
-    {
-      cout << m_dispMatrix[row][column];
-    }
-  }
+  m_mutex.lock();
+  m_foodPos = updatedBoard.getFoodPos();
+  m_snake = updatedSnake;
+  m_mutex.unlock();
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -238,5 +160,54 @@ void CDisplay::clearScreen()
 }
 
 /////////////////////////////////////////////////////////////////////////////
+void CDisplay::updateGraphicalApp()
+{
+  CColor frameColor(0, 90, 0);
+  CPos frameCenterPoint(400, 300);
 
+  CRectangle frame1(frameColor, frameCenterPoint, 410, 610, false);
+  CRectangle frame2(frameColor, frameCenterPoint, 412, 612, false);
+  CRectangle frame3(frameColor, frameCenterPoint, 414, 614, false);
+  CRectangle frame4(frameColor, frameCenterPoint, 416, 616, false);
+  CRectangle frame5(frameColor, frameCenterPoint, 418, 618, false);
+
+  CGroup group;
+  CGraphicalApp app;
+
+  group.addMember(&frame1);
+  group.addMember(&frame2);
+  group.addMember(&frame3);
+  group.addMember(&frame4);
+  group.addMember(&frame5);
+
+  group.addMember(&m_food);
+  group.addMember(&m_snakeHead);
+
+  app.endlessLoop(&group, CDisplay::isRunGraphicalApp);
+}
+
+/////////////////////////////////////////////////////////////////////////////
+void callback(CComposite* supergroup)
+{
+  
+}
+
+/////////////////////////////////////////////////////////////////////////////
+void CDisplay::stopGraphicalApp()
+{
+  m_stopGraphicalApp = true;
+}
+
+/////////////////////////////////////////////////////////////////////////////
+bool CDisplay::isRunGraphicalApp(CComposite* composite)
+{
+  static_cast<void>(composite);
+
+  m_mutex.lock();
+  m_food.setCenter(CPos(400 - 305 + (m_foodPos.getX() * 5), 300 - 205 + (m_foodPos.getY() * 5)));
+  m_snakeHead.setCenter(CPos(95 + (m_snake.getHead().position.getX() * 5), 95 + (m_snake.getHead().position.getY() * 5)));
+  m_mutex.unlock();
+
+  return (!m_stopGraphicalApp);
+}
 

@@ -16,8 +16,10 @@
 class CBoard
 {
 public:
-	static const unsigned int NUM_OF_ROWS = 20;
-	static const unsigned int NUM_OF_COLUMNS = 100;
+	//static const unsigned int NUM_OF_ROWS = 20;
+	//static const unsigned int NUM_OF_COLUMNS = 100;
+	static const unsigned int NUM_OF_ROWS = 80;
+	static const unsigned int NUM_OF_COLUMNS = 120;
 
 	// CTor
 	CBoard();
@@ -25,6 +27,7 @@ public:
 	CSnake::ECrushStatus update(const CSnake& snake);
 	void generateFood();
 	bool isFoodEaten() const;
+	CPos getFoodPos() const;
 	CCell getCell(CPos position) const;
 	size_t getNumOfColumns() const;
 	size_t getNumOfRows() const;
@@ -36,6 +39,7 @@ private:
 	CCell m_cells[NUM_OF_ROWS][NUM_OF_COLUMNS];
 	CPos m_snakePrevLastLink;
 	bool m_isFoodEaten;
+	CPos m_foodPos;
 	Logger* m_logger;
 };
 

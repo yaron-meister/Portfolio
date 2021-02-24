@@ -81,7 +81,8 @@ void CBoard::generateFood()
 			m_cells[newY][newX].setContent(CCell::FOOD);
 			foodGenerated = true;
 			m_isFoodEaten = false;
-
+			m_foodPos.setX(newX);
+			m_foodPos.setY(newY);
 			m_logger->write("CBoard: Food was generated");
 		}
 	}
@@ -91,6 +92,12 @@ void CBoard::generateFood()
 bool CBoard::isFoodEaten() const
 {
 	return (m_isFoodEaten);
+}
+
+/////////////////////////////////////////////////////////////////////////////
+CPos CBoard::getFoodPos() const
+{
+	return (m_foodPos);
 }
 
 /////////////////////////////////////////////////////////////////////////////

@@ -9,23 +9,36 @@
 
 #include "board.h"
 #include "snake.h"
+#include "graphical.h"
+#include "shapes.h"
 
 class CDisplay
 {
 public:
-  static const unsigned short NUM_OF_ROWS = 24;
-  static const unsigned short NUM_OF_COLUMNS = 105;
-
-  // CTor
-  CDisplay();
+  /*static const unsigned short NUM_OF_ROWS = 84;
+  static const unsigned short NUM_OF_COLUMNS = 125;*/
+   static const unsigned short NUM_OF_ROWS = 84;
+   static const unsigned short NUM_OF_COLUMNS = 125;
 
 	void welcomeGame();
 	void updateScreen(const CBoard& updatedBoard, const CSnake& updatedSnake);
-  void displayScreen();
 	void clearScreen();
 
+  void updateGraphicalApp();
+  void stopGraphicalApp();
+  static bool isRunGraphicalApp(CComposite*);
+
 private:
-  char m_dispMatrix[NUM_OF_ROWS][NUM_OF_COLUMNS];
+  static bool m_stopGraphicalApp;
+  static std::mutex m_mutex;
+  static CCircle m_food;
+  static CPos m_foodPos;
+  static CSquare m_snakeHead;
+  static CPos m_snakeHeadPos;
+
+  static CSnake m_snake;
+
+
 };
 
 

@@ -16,10 +16,12 @@
 using namespace std;
 
 /* Forward Declarations    */
-
+int runSnake();
+void threadFunc();
 
 /*  Global/Static variables  */
-
+CGame* gameModule(nullptr);
+CDisplay* displayModule(nullptr);
 
 /*******************************************************************************
                                 Main Function
@@ -29,11 +31,13 @@ int main(void)
   int retVal(SUCCESS);
   CTimeout displayFreqTimer;
 
-  CGame* gameModule = new (nothrow) CGame();
-  CDisplay* displayModule = new (nothrow) CDisplay();
+  gameModule = new (nothrow) CGame();
+  displayModule = new (nothrow) CDisplay();
 
   if (nullptr != gameModule && nullptr != displayModule)
   {
+    thread displayThread(threadFunc);
+
     displayModule->welcomeGame();
     gameModule->start();
 
@@ -42,11 +46,12 @@ int main(void)
       if (displayFreqTimer.hasExpired())
       {
         displayModule->updateScreen(gameModule->getUpdatedBoard(), gameModule->getUpdatedSnake());
-        displayModule->displayScreen();
 
         displayFreqTimer.startNow(CTimeout::DurationInMilli(200));
       }
     }
+
+    displayModule->stopGraphicalApp();
   }
   else
   {
@@ -61,3 +66,18 @@ int main(void)
 
   return (retVal);
 }
+
+/******************************************************************************/
+void threadFunc()
+{
+  if (nullptr != displayModule)
+  {
+    displayModule->updateGraphicalApp();
+  }
+  else
+  {
+    cerr << "Thread func Failed - Module = NULL" << endl;
+  }
+}
+
+/******************************************************************************/
