@@ -10,9 +10,13 @@
 
 #include <SDL.h>        
 #include <cstdlib>
+#include <functional>
 
 #include "position.hpp"
 #include "color.h"
+
+
+#undef main
 
 // Forward declarations
 class CComposite;
@@ -27,8 +31,8 @@ public:
   void commit();
   void clear(const CColor&);
 
-  void drawLine(const CPos& start, const CPos& end, const CColor& color);
-  void fillRectangle(const CPos& topleft, std::size_t w, std::size_t h, const CColor& color);
+  void drawLine(const CPos& start, const CPos& end, const CColor& color); 
+  void drawRectangle(const CPos& topleft, std::size_t w, std::size_t h, const CColor& color, bool isFull = true);
   void fillCircle(const CPos& center, std::size_t radius, const CColor& color);
 
 private:
@@ -52,15 +56,16 @@ private:
 class CGraphicalApp
 {
 public:
+  using CallbackFunc = std::function<bool(CComposite*)>;
+
   /* Default background: black */
   CGraphicalApp(const CColor& background = CColor(0, 0, 0));
 
   /* Before each drawing iteration calls callback(supergroup) */
-  void endlessLoop(CComposite* supergroup,
-    void (*callback)(CComposite*) = callbackDoNothing);
+  void endlessLoop(CComposite* supergroup, CallbackFunc callbackFunc = callbackDoNothing);
 
   /* Default callback for EndlessLoop: does nothing */
-  static void callbackDoNothing(CComposite*);
+  static bool callbackDoNothing(CComposite*);
 private:
   /* no copying */
   CGraphicalApp(const CGraphicalApp&);
@@ -87,7 +92,7 @@ public:
   virtual void move(const CPos&) = 0;
   virtual void setColor(const CColor&) = 0;
   virtual void draw(CRenderer& renderer) = 0;
-  virtual void scale(double) = 0;
+  virtual void scale(int) = 0;
 };
 
 #endif // __GRAPHICAL_H__

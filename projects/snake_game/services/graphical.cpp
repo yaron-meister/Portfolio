@@ -143,8 +143,7 @@ void CRenderer::drawLine(const CPos& start, const CPos& end, const CColor& color
 }
 
 /////////////////////////////////////////////////////////////////////////////
-void CRenderer::fillRectangle(const CPos& topleft, std::size_t w, std::size_t h,
-  const CColor& color)
+void CRenderer::drawRectangle(const CPos& topleft, std::size_t w, std::size_t h, const CColor& color, bool isFull)
 {
   SDL_Rect rect;
 
@@ -160,7 +159,14 @@ void CRenderer::fillRectangle(const CPos& topleft, std::size_t w, std::size_t h,
   rect.h = static_cast<int>(h) +
     static_cast<int>(topleft.getY() - static_cast<long int>(rect.y));
 
-  SDL_RenderFillRect(m_renderer, &rect);
+  if (isFull)
+  {
+    SDL_RenderFillRect(m_renderer, &rect);
+  }
+  else
+  {
+    SDL_RenderDrawRect(m_renderer, &rect);
+  }
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -208,8 +214,7 @@ CGraphicalApp::CGraphicalApp(const CColor& background)
 {}
 
 /////////////////////////////////////////////////////////////////////////////
-void CGraphicalApp::endlessLoop(CComposite* supergroup,
-  void (*callback)(CComposite*))
+void CGraphicalApp::endlessLoop(CComposite* supergroup, CallbackFunc callbackFunc)
 {
   bool should_run = true;
 
@@ -224,7 +229,7 @@ void CGraphicalApp::endlessLoop(CComposite* supergroup,
 
     m_renderer.clear(m_background);
 
-    callback(supergroup);
+    should_run = callbackFunc(supergroup);
 
     supergroup->draw(m_renderer);
 
@@ -235,9 +240,11 @@ void CGraphicalApp::endlessLoop(CComposite* supergroup,
 }
 
 /////////////////////////////////////////////////////////////////////////////
-void CGraphicalApp::callbackDoNothing(CComposite* composite)
+bool CGraphicalApp::callbackDoNothing(CComposite* composite)
 {
   static_cast<void>(composite);
+
+  return (false);
 }
 
 /////////////////////////////////////////////////////////////////////////////

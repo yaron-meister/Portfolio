@@ -9,6 +9,7 @@
 
 
 // Namespaces
+using namespace std;
 
 // Macros
 
@@ -29,10 +30,10 @@ const CPos CGroup::getCenter() const
   // Group's center point is calculated as the average point of
   //                       all of the shapes's center points in the group
   // AVG = sum(center points) / num_of_members
-  std::size_t size = m_members.size();
+  size_t size = m_members.size();
   CPos center;
 
-  for (std::size_t i = 0; i < size; ++i)
+  for (size_t i = 0; i < size; ++i)
   {
     center += m_members[i]->getCenter();
   }
@@ -43,9 +44,9 @@ const CPos CGroup::getCenter() const
 /////////////////////////////////////////////////////////////////////////////
 void CGroup::move(const CPos& new_point)
 {
-  std::size_t size = m_members.size();
+  size_t size = m_members.size();
 
-  for (std::size_t i = 0; i < size; ++i)
+  for (size_t i = 0; i < size; ++i)
   {
     m_members[i]->move(new_point);
   }
@@ -54,9 +55,9 @@ void CGroup::move(const CPos& new_point)
 /////////////////////////////////////////////////////////////////////////////
 void CGroup::setColor(const CColor& new_color)
 {
-  std::size_t size = m_members.size();
+  size_t size = m_members.size();
 
-  for (std::size_t i = 0; i < size; ++i)
+  for (size_t i = 0; i < size; ++i)
   {
     m_members[i]->setColor(new_color);
   }
@@ -65,20 +66,20 @@ void CGroup::setColor(const CColor& new_color)
 /////////////////////////////////////////////////////////////////////////////
 void CGroup::draw(CRenderer& renderer)
 {
-  std::size_t size = m_members.size();
+  size_t size = m_members.size();
 
-  for (std::size_t i = 0; i < size; ++i)
+  for (size_t i = 0; i < size; ++i)
   {
     m_members[i]->draw(renderer);
   }
 }
 
 /////////////////////////////////////////////////////////////////////////////
-void CGroup::scale(double multiplier)
+void CGroup::scale(int multiplier)
 {
-  std::size_t size = m_members.size();
+  size_t size = m_members.size();
 
-  for (std::size_t i = 0; i < size; ++i)
+  for (size_t i = 0; i < size; ++i)
   {
     m_members[i]->scale(multiplier);
   }
@@ -104,6 +105,12 @@ const CPos CShape::getCenter() const
 }
 
 /////////////////////////////////////////////////////////////////////////////
+void CShape::setCenter(CPos newCenter)
+{
+  m_center = newCenter;
+}
+
+/////////////////////////////////////////////////////////////////////////////
 void CShape::move(const CPos& relative_point)
 {
   m_center += relative_point;
@@ -124,8 +131,7 @@ const CColor& CShape::getColor() const
 
 // CLine::Implementation 
 /////////////////////////////////////////////////////////////////////////////
-CLine::CLine(const CColor& color,
-  const CPos& first_point, const CPos& second_point) :
+CLine::CLine(const CColor& color, const CPos& first_point, const CPos& second_point) :
   CShape(color, getLineCenter(first_point, second_point)),
   m_firstPoint(first_point), m_secondPoint(second_point)
 {
@@ -189,30 +195,30 @@ const CPos CLine::getLineCenter(const CPos& first_point, const CPos& second_poin
 // CRectangle::Implementation 
 /////////////////////////////////////////////////////////////////////////////
 CRectangle::CRectangle(const CColor& color, const CPos& center,
-  const std::size_t height, const std::size_t width) :
-  CShape(color, center), m_width(width), m_height(height)
+  const size_t height, const size_t width, bool isFull) :
+  CShape(color, center), m_width(width), m_height(height), m_isFull(isFull)
 {}
 
 /////////////////////////////////////////////////////////////////////////////
-const std::size_t CRectangle::getWidth() const
+const size_t CRectangle::getWidth() const
 {
   return (m_width);
 }
 
 /////////////////////////////////////////////////////////////////////////////
-const std::size_t CRectangle::getHeight() const
+const size_t CRectangle::getHeight() const
 {
   return (m_height);
 }
 
 /////////////////////////////////////////////////////////////////////////////
-void CRectangle::setWidth(const std::size_t new_width)
+void CRectangle::setWidth(const size_t new_width)
 {
   m_width = new_width;
 }
 
 /////////////////////////////////////////////////////////////////////////////
-void CRectangle::setHeight(const std::size_t new_height)
+void CRectangle::setHeight(const size_t new_height)
 {
   m_height = new_height;
 }
@@ -225,7 +231,7 @@ void CRectangle::draw(CRenderer& renderer)
   CPos top_left(static_cast<int>(getCenter().getX() - (m_width / 2)), 
     static_cast<int>(getCenter().getY() - (m_height / 2)));
 
-  renderer.fillRectangle(top_left, m_width, m_height, getColor());
+  renderer.drawRectangle(top_left, m_width, m_height, getColor(), m_isFull);
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -238,18 +244,18 @@ void CRectangle::scale(int multiplier)
 // CSquare::Implementation
 // SQUARE can't be an inheritant of a RECTANGLE 
 /////////////////////////////////////////////////////////////////////////////
-CSquare::CSquare(const CColor& color, const CPos& center, const std::size_t side) :
+CSquare::CSquare(const CColor& color, const CPos& center, const size_t side) :
   CShape(color, center), m_side(side)
 {}
 
 /////////////////////////////////////////////////////////////////////////////
-const std::size_t CSquare::getSide() const
+const size_t CSquare::getSide() const
 {
   return (m_side);
 }
 
 /////////////////////////////////////////////////////////////////////////////
-void CSquare::setSide(const std::size_t new_side)
+void CSquare::setSide(const size_t new_side)
 {
   m_side = new_side;
 }
@@ -262,7 +268,7 @@ void CSquare::draw(CRenderer& renderer)
   CPos top_left(static_cast<int>(getCenter().getX() - (m_side / 2)),
     static_cast<int>(getCenter().getY() - (m_side / 2)));
 
-  renderer.fillRectangle(top_left, m_side, m_side, getColor());
+  renderer.drawRectangle(top_left, m_side, m_side, getColor());
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -273,18 +279,18 @@ void CSquare::scale(int multiplier)
 
 // CCircle::Implementation
 /////////////////////////////////////////////////////////////////////////////
-CCircle::CCircle(const CColor& color, const CPos& center, const std::size_t radius) :
+CCircle::CCircle(const CColor& color, const CPos& center, const size_t radius) :
   CShape(color, center), m_radius(radius)
 {}
 
 /////////////////////////////////////////////////////////////////////////////
-const std::size_t CCircle::getRadius() const
+const size_t CCircle::getRadius() const
 {
   return (m_radius);
 }
 
 /////////////////////////////////////////////////////////////////////////////
-void CCircle::setRadius(const std::size_t newRadius)
+void CCircle::setRadius(const size_t newRadius)
 {
   m_radius = newRadius;
 }

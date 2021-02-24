@@ -23,7 +23,7 @@ public:
   void move(const CPos&);                                                    
   void setColor(const CColor&);                                                
   void draw(CRenderer& renderer);                                              
-  void scale(double);                                                         
+  void scale(int);                                                         
 
   void addMember(CComposite* shape); 
 
@@ -42,13 +42,14 @@ public:
   /* CPos's default: CPos(0,0) */
   CShape(const CColor& color, const CPos& center);                             
 
-  const CPos getCenter() const;                                              
+  const CPos getCenter() const;
+  void setCenter(CPos newCenter);
   void move(const CPos&);                                                    
   void setColor(const CColor&);                                                
   const CColor& getColor() const;                                              
 
   virtual void draw(CRenderer& renderer) = 0;                                  
-  virtual void scale(double) = 0;      
+  virtual void scale(int) = 0;      
 
 private:
   CColor m_color;
@@ -79,7 +80,7 @@ private:
 class CRectangle : public CShape
 {
 public:
-  CRectangle(const CColor& color, const CPos& center, const std::size_t height, const std::size_t width);               
+  CRectangle(const CColor& color, const CPos& center, const std::size_t height, const std::size_t width, bool isFull);
 
   const std::size_t getWidth() const;
   const std::size_t getHeight() const;
@@ -91,6 +92,8 @@ public:
 private:
   std::size_t m_width;
   std::size_t m_height;
+
+  bool m_isFull;
 };
 
 /* ===================================================================== */
