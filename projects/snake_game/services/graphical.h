@@ -25,6 +25,9 @@ class CSuperGroup;
 class CRenderer
 {
 public:
+  static const int SCREEN_WIDTH = 800;
+  static const int SCREEN_HEIGHT = 600;
+
   static CRenderer& GetInstance();
   ~CRenderer();
 
@@ -36,8 +39,6 @@ public:
   void fillCircle(const CPos& center, std::size_t radius, const CColor& color);
 
 private:
-  static const int SCREEN_WIDTH = 800;
-  static const int SCREEN_HEIGHT = 600;
   static const char* windowTitle;
 
   SDL_Window* m_window;

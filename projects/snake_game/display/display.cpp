@@ -26,13 +26,23 @@ CPos CDisplay::m_foodPos(0, 0);
 CSquare CDisplay::m_snakeHead(CColor(0, 90, 0), CPos(0,0), 5);
 CPos CDisplay::m_snakeHeadPos(0, 0);
 CSnake CDisplay::m_snake;
+CDisplay::SFrame CDisplay::m_frame;
 
 // Forward declarations
-void callback(CComposite* supergroup);
 
 /////////////////////////////////////////////////////////////////////////////
 //                        Functions's implementations
 /////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+CDisplay::CDisplay()
+{
+  m_frame.center = CPos((CRenderer::SCREEN_WIDTH / 2), (CRenderer::SCREEN_HEIGHT / 2));
+  m_frame.width = (CBoard::NUM_OF_COLUMNS + 2) * POS_TO_PIXEL; // The 2 because the contour is one line offset outside
+  m_frame.height = (CBoard::NUM_OF_ROWS + 2) * POS_TO_PIXEL; // The 2 because the contour is one line offset outside
+  m_frame.start = 
+    CPos(m_frame.center.getX() - (m_frame.width / 2), m_frame.center.getY() - (m_frame.height / 2));
+}
+
 /////////////////////////////////////////////////////////////////////////////
 void CDisplay::welcomeGame()
 {
@@ -142,6 +152,66 @@ void CDisplay::welcomeGame()
   printf("**                                                                                                   **\n");
   printf("*******************************************************************************************************\n");
   printf("*******************************************************************************************************\n");
+
+  Sleep(ONE_SECOND);
+  clearScreen();
+
+  printf("*******************************************************************************************************\n");
+  printf("*******************************************************************************************************\n");
+  printf("**                                                                                                   **\n");
+  printf("**                                                                                                   **\n");
+  printf("**                                                                                                   **\n");
+  printf("**                ||||||       ||                    ||||            ||          ||                  **\n");
+  printf("**                ||    |||    ||                   ||  ||            ||        ||                   **\n");
+  printf("**                ||      ||   ||                  ||    ||            ||      ||                    **\n");
+  printf("**                ||      ||   ||                 ||      ||            ||    ||                     **\n");
+  printf("**                ||      ||   ||                ||        ||            ||  ||                      **\n");
+  printf("**                ||    |||    ||               ||          ||            ||||                       **\n");
+  printf("**                ||||||       ||              ||||||||||||||||            ||                        **\n");
+  printf("**                ||           ||             ||              ||           ||                        **\n");
+  printf("**                ||           ||            ||                ||          ||                        **\n");
+  printf("**                ||           ||           ||                  ||         ||                        **\n");
+  printf("**                ||           ||||||||||  ||                    ||        ||                        **\n");
+  printf("**                                                                                                   **\n");
+  printf("**                                                                                                   **\n");
+  printf("**                                                                                                   **\n");
+  printf("**                                                                                                   **\n");
+  printf("**                                                                                                   **\n");
+  printf("**                                                                                                   **\n");
+  printf("*******************************************************************************************************\n");
+  printf("*******************************************************************************************************\n");
+}
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+void CDisplay::gameOver()
+{
+  clearScreen();
+
+  printf("*******************************************************************************************************\n");
+  printf("*******************************************************************************************************\n");
+  printf("**                                                                                                   **\n");
+  printf("**                     ||||           |||       ||            ||  |||||||||                          **\n");
+  printf("**                   ||    ||        || ||      ||||        ||||  ||                                 **\n");
+  printf("**                  ||      ||      ||   ||     || ||      || ||  ||                                 **\n");
+  printf("**                 ||              ||     ||    ||  ||    ||  ||  |||||||                            **\n");
+  printf("**                 ||   |||||     |||||||||||   ||   ||  ||   ||  ||                                 **\n");
+  printf("**                  ||     ||    ||         ||  ||    ||||    ||  ||                                 **\n");
+  printf("**                    |||||     ||           || ||     ||     ||  |||||||||                          **\n");
+  printf("**                                                                                                   **\n");
+  printf("**                                                                                                   **\n");
+  printf("**                       ||||       ||           ||   |||||||||   ||||||                             **\n");
+  printf("**                     ||    ||      ||         ||    ||          ||   ||                            **\n");
+  printf("**                    ||      ||      ||       ||     ||          ||    ||                           **\n");
+  printf("**                  ||          ||     ||     ||      |||||||     ||   ||                            **\n");
+  printf("**                    ||      ||         ||  ||       ||          |||||                              **\n");
+  printf("**                     ||    ||           ||||        ||          ||   ||                            **\n");
+  printf("**                       ||||              ||         |||||||||   ||    ||                           **\n");
+  printf("**                                                                                                   **\n");
+  printf("**                                                                                                   **\n");
+  printf("*******************************************************************************************************\n");
+  printf("*******************************************************************************************************\n");
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -163,37 +233,34 @@ void CDisplay::clearScreen()
 void CDisplay::updateGraphicalApp()
 {
   CColor frameColor(0, 90, 0);
-  CPos frameCenterPoint(400, 300);
+  CPos frameCenterPoint((CRenderer::SCREEN_WIDTH / 2), (CRenderer::SCREEN_HEIGHT / 2));
 
-  CRectangle frame1(frameColor, frameCenterPoint, 410, 610, false);
-  CRectangle frame2(frameColor, frameCenterPoint, 412, 612, false);
-  CRectangle frame3(frameColor, frameCenterPoint, 414, 614, false);
-  CRectangle frame4(frameColor, frameCenterPoint, 416, 616, false);
-  CRectangle frame5(frameColor, frameCenterPoint, 418, 618, false);
+  CRectangle frame1(frameColor, frameCenterPoint, m_frame.height, m_frame.width, false);
+  CRectangle frame2(frameColor, frameCenterPoint, m_frame.height + 2, m_frame.width + 2, false);
+  CRectangle frame3(frameColor, frameCenterPoint, m_frame.height + 4, m_frame.width + 4, false);
+  CRectangle frame4(frameColor, frameCenterPoint, m_frame.height + 6, m_frame.width + 6, false);
+  CRectangle frame5(frameColor, frameCenterPoint, m_frame.height + 8, m_frame.width + 8, false);
 
-  CGroup group;
-  CGraphicalApp app;
+  CGroup frameGroup;
+  frameGroup.addMember(&frame1);
+  frameGroup.addMember(&frame2);
+  frameGroup.addMember(&frame3);
+  frameGroup.addMember(&frame4);
+  frameGroup.addMember(&frame5);
 
-  group.addMember(&frame1);
-  group.addMember(&frame2);
-  group.addMember(&frame3);
-  group.addMember(&frame4);
-  group.addMember(&frame5);
-
-  group.addMember(&m_food);
-  group.addMember(&m_snakeHead);
-
-  CSuperGroup superGroup;
-
-  superGroup.addGroup(&group);
-
-  app.endlessLoop(&superGroup, CDisplay::isRunGraphicalApp);
-}
-
-/////////////////////////////////////////////////////////////////////////////
-void callback(CComposite* supergroup)
-{
+  CGroup foodGroup;
+  foodGroup.addMember(&m_food);
   
+  CGroup snakeHeadGroup;
+  snakeHeadGroup.addMember(&m_snakeHead);
+  
+  CSuperGroup superGroup;
+  superGroup.addGroup(&frameGroup);
+  superGroup.addGroup(&foodGroup);
+  superGroup.addGroup(&snakeHeadGroup);
+
+  CGraphicalApp app;
+  app.endlessLoop(&superGroup, CDisplay::isRunGraphicalApp);
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -207,9 +274,15 @@ bool CDisplay::isRunGraphicalApp(CSuperGroup* composite)
 {
   static_cast<void>(composite);
 
+  CPos foodUpdatedCenter = 
+    CPos(m_frame.start.getX() + (m_foodPos.getX() * POS_TO_PIXEL), m_frame.start.getY() + (m_foodPos.getY() * POS_TO_PIXEL));
+  CPos snakeHeadUpdatedCenter =
+    CPos(m_frame.start.getX() + (m_snake.getHead().position.getX() * POS_TO_PIXEL), 
+      m_frame.start.getY() + (m_snake.getHead().position.getY() * POS_TO_PIXEL));
+
   m_mutex.lock();
-  m_food.setCenter(CPos(400 - 305 + (m_foodPos.getX() * 5), 300 - 205 + (m_foodPos.getY() * 5)));
-  m_snakeHead.setCenter(CPos(95 + (m_snake.getHead().position.getX() * 5), 95 + (m_snake.getHead().position.getY() * 5)));
+  m_food.setCenter(foodUpdatedCenter);
+  m_snakeHead.setCenter(snakeHeadUpdatedCenter);
   m_mutex.unlock();
 
   return (!m_stopGraphicalApp);

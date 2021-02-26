@@ -52,6 +52,7 @@ int main(void)
     }
 
     displayModule->stopGraphicalApp();
+    displayModule->gameOver();
   }
   else
   {
