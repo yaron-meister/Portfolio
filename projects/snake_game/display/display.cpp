@@ -183,7 +183,11 @@ void CDisplay::updateGraphicalApp()
   group.addMember(&m_food);
   group.addMember(&m_snakeHead);
 
-  app.endlessLoop(&group, CDisplay::isRunGraphicalApp);
+  CSuperGroup superGroup;
+
+  superGroup.addGroup(&group);
+
+  app.endlessLoop(&superGroup, CDisplay::isRunGraphicalApp);
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -199,7 +203,7 @@ void CDisplay::stopGraphicalApp()
 }
 
 /////////////////////////////////////////////////////////////////////////////
-bool CDisplay::isRunGraphicalApp(CComposite* composite)
+bool CDisplay::isRunGraphicalApp(CSuperGroup* composite)
 {
   static_cast<void>(composite);
 

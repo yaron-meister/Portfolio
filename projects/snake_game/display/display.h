@@ -26,7 +26,7 @@ public:
 
   void updateGraphicalApp();
   void stopGraphicalApp();
-  static bool isRunGraphicalApp(CComposite*);
+  static bool isRunGraphicalApp(CSuperGroup*);
 
 private:
   static bool m_stopGraphicalApp;

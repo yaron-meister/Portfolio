@@ -22,7 +22,7 @@ public:
   const CPos getCenter() const;                                                  
   void move(const CPos&);                                                    
   void setColor(const CColor&);                                                
-  void draw(CRenderer& renderer);                                              
+  void draw(CRenderer& renderer) const;                                              
   void scale(int);                                                         
 
   void addMember(CComposite* shape); 
@@ -33,6 +33,17 @@ private:
   CGroup& operator=(const CGroup&);
 
   std::vector<CComposite*> m_members;
+};
+
+/* ===================================================================== */
+class CSuperGroup
+{
+public:
+  void addGroup(const CGroup* group);
+  void draw(CRenderer& renderer);
+
+private:
+  std::vector<const CGroup*> m_groups;
 };
 
 /* ===================================================================== */
@@ -48,7 +59,7 @@ public:
   void setColor(const CColor&);                                                
   const CColor& getColor() const;                                              
 
-  virtual void draw(CRenderer& renderer) = 0;                                  
+  virtual void draw(CRenderer& renderer) const = 0;                                  
   virtual void scale(int) = 0;      
 
 private:
@@ -66,7 +77,7 @@ public:
   const CPos getSecondPoint() const;
   void setFirstPoint(const CPos&);
   void setSecondPoint(const CPos&);
-  void draw(CRenderer& renderer);                                              
+  void draw(CRenderer& renderer) const;
   void scale(int multiplier);                                                                       
 
 private:
@@ -86,7 +97,7 @@ public:
   const std::size_t getHeight() const;
   void setWidth(const std::size_t);
   void setHeight(const std::size_t);
-  void draw(CRenderer& renderer); 
+  void draw(CRenderer& renderer) const; 
   void scale(int multiplier);
 
 private:
@@ -104,7 +115,7 @@ public:
 
   const std::size_t getSide() const;
   void setSide(const std::size_t);
-  void draw(CRenderer& renderer);                                              
+  void draw(CRenderer& renderer) const;
   void scale(int multiplier);                                                                                                                                 
 private:
   std::size_t m_side;
@@ -118,7 +129,7 @@ public:
 
   const std::size_t getRadius() const;
   void setRadius(const std::size_t);
-  void draw(CRenderer& renderer);                                                                                                                                  
+  void draw(CRenderer& renderer) const;                                                                                                                                  
   void scale(int multiplier);                                                                                                                                            
 private:
   std::size_t m_radius;

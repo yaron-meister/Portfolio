@@ -10,6 +10,7 @@
 #include <cmath>        /* std::sin(), std::cos(), std::acos()              */
 
 #include "graphical.h"
+#include "shapes.h"
 
 
 // Namespaces
@@ -214,7 +215,7 @@ CGraphicalApp::CGraphicalApp(const CColor& background)
 {}
 
 /////////////////////////////////////////////////////////////////////////////
-void CGraphicalApp::endlessLoop(CComposite* supergroup, CallbackFunc callbackFunc)
+void CGraphicalApp::endlessLoop(CSuperGroup* supergroup, CallbackFunc callbackFunc)
 {
   bool should_run = true;
 
@@ -240,7 +241,7 @@ void CGraphicalApp::endlessLoop(CComposite* supergroup, CallbackFunc callbackFun
 }
 
 /////////////////////////////////////////////////////////////////////////////
-bool CGraphicalApp::callbackDoNothing(CComposite* composite)
+bool CGraphicalApp::callbackDoNothing(CSuperGroup* composite)
 {
   static_cast<void>(composite);
 

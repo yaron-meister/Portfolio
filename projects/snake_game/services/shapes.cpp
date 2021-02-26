@@ -64,7 +64,7 @@ void CGroup::setColor(const CColor& new_color)
 }
 
 /////////////////////////////////////////////////////////////////////////////
-void CGroup::draw(CRenderer& renderer)
+void CGroup::draw(CRenderer& renderer) const
 {
   size_t size = m_members.size();
 
@@ -89,6 +89,22 @@ void CGroup::scale(int multiplier)
 void CGroup::addMember(CComposite* shape)
 {
   m_members.push_back(shape);
+}
+
+// CSuperGroup::Implementation 
+/////////////////////////////////////////////////////////////////////////////
+void CSuperGroup::addGroup(const CGroup* group)
+{
+  m_groups.push_back(group);
+}
+
+/////////////////////////////////////////////////////////////////////////////
+void CSuperGroup::draw(CRenderer& renderer)
+{
+  for (vector<const CGroup*>::iterator it = m_groups.begin(); it != m_groups.end(); ++it)
+  {
+    (*it)->draw(renderer);
+  }
 }
 
 
@@ -172,11 +188,11 @@ void CLine::scale(int multiplier)
 }
 
 /////////////////////////////////////////////////////////////////////////////
-void CLine::draw(CRenderer& renderer)
+void CLine::draw(CRenderer& renderer) const
 {
   // Drawing according to absolute coordinates
-  CPos first_point = m_firstPoint + getCenter();
-  CPos second_point = m_secondPoint + getCenter();
+  CPos first_point = const_cast<CPos&>(m_firstPoint) + getCenter();
+  CPos second_point = const_cast<CPos&>(m_secondPoint) + getCenter();
 
   renderer.drawLine(first_point, second_point, getColor());
 }
@@ -224,7 +240,7 @@ void CRectangle::setHeight(const size_t new_height)
 }
 
 /////////////////////////////////////////////////////////////////////////////
-void CRectangle::draw(CRenderer& renderer)
+void CRectangle::draw(CRenderer& renderer) const
 {
   // Top-Left point of a rectangle is a half size from the center point
   //                                                   for each coordinate
@@ -261,7 +277,7 @@ void CSquare::setSide(const size_t new_side)
 }
 
 /////////////////////////////////////////////////////////////////////////////
-void CSquare::draw(CRenderer& renderer)
+void CSquare::draw(CRenderer& renderer) const
 {
   // Top-Left point of a square is a half size from the center point
   //
@@ -296,7 +312,7 @@ void CCircle::setRadius(const size_t newRadius)
 }
 
 /////////////////////////////////////////////////////////////////////////////
-void CCircle::draw(CRenderer& renderer)
+void CCircle::draw(CRenderer& renderer) const
 {
   renderer.fillCircle(getCenter(), m_radius, getColor());
 }

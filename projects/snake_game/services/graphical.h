@@ -19,7 +19,7 @@
 #undef main
 
 // Forward declarations
-class CComposite;
+class CSuperGroup;
 
 /* ===================================================================== */
 class CRenderer
@@ -56,16 +56,16 @@ private:
 class CGraphicalApp
 {
 public:
-  using CallbackFunc = std::function<bool(CComposite*)>;
+  using CallbackFunc = std::function<bool(CSuperGroup*)>;
 
   /* Default background: black */
   CGraphicalApp(const CColor& background = CColor(0, 0, 0));
 
   /* Before each drawing iteration calls callback(supergroup) */
-  void endlessLoop(CComposite* supergroup, CallbackFunc callbackFunc = callbackDoNothing);
+  void endlessLoop(CSuperGroup* supergroup, CallbackFunc callbackFunc = callbackDoNothing);
 
   /* Default callback for EndlessLoop: does nothing */
-  static bool callbackDoNothing(CComposite*);
+  static bool callbackDoNothing(CSuperGroup*);
 private:
   /* no copying */
   CGraphicalApp(const CGraphicalApp&);
@@ -91,7 +91,7 @@ public:
    * its current position */
   virtual void move(const CPos&) = 0;
   virtual void setColor(const CColor&) = 0;
-  virtual void draw(CRenderer& renderer) = 0;
+  virtual void draw(CRenderer& renderer) const = 0;
   virtual void scale(int) = 0;
 };
 
