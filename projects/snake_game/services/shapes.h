@@ -26,6 +26,7 @@ public:
   void scale(int);                                                         
 
   void addMember(CComposite* shape); 
+  size_t getMembersNum() const;
 
 private:
   /* No need to implement. These are here to forbide usage */

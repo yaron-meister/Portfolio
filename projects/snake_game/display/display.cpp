@@ -27,6 +27,7 @@ CSquare CDisplay::m_snakeHead(CColor(0, 90, 0), CPos(0,0), 5);
 CPos CDisplay::m_snakeHeadPos(0, 0);
 CSnake CDisplay::m_snake;
 CDisplay::SFrame CDisplay::m_frame;
+size_t CDisplay::m_prevSnakeBodySize(0);
 
 // Forward declarations
 
@@ -258,6 +259,7 @@ void CDisplay::updateGraphicalApp()
   superGroup.addGroup(&frameGroup);
   superGroup.addGroup(&foodGroup);
   superGroup.addGroup(&snakeHeadGroup);
+  superGroup.addGroup(&m_snakeBodyGroup);
 
   CGraphicalApp app;
   app.endlessLoop(&superGroup, CDisplay::isRunGraphicalApp);
@@ -272,18 +274,22 @@ void CDisplay::stopGraphicalApp()
 /////////////////////////////////////////////////////////////////////////////
 bool CDisplay::isRunGraphicalApp(CSuperGroup* composite)
 {
+  CPos foodUpdatedCenter;
+  CPos snakeHeadUpdatedCenter;
+
   static_cast<void>(composite);
 
-  CPos foodUpdatedCenter = 
+  m_mutex.lock();
+  foodUpdatedCenter = 
     CPos(m_frame.start.getX() + (m_foodPos.getX() * POS_TO_PIXEL), m_frame.start.getY() + (m_foodPos.getY() * POS_TO_PIXEL));
-  CPos snakeHeadUpdatedCenter =
+  snakeHeadUpdatedCenter =
     CPos(m_frame.start.getX() + (m_snake.getHead().position.getX() * POS_TO_PIXEL), 
       m_frame.start.getY() + (m_snake.getHead().position.getY() * POS_TO_PIXEL));
 
-  m_mutex.lock();
+  m_mutex.unlock();
+
   m_food.setCenter(foodUpdatedCenter);
   m_snakeHead.setCenter(snakeHeadUpdatedCenter);
-  m_mutex.unlock();
 
   return (!m_stopGraphicalApp);
 }

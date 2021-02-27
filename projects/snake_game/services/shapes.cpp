@@ -91,11 +91,20 @@ void CGroup::addMember(CComposite* shape)
   m_members.push_back(shape);
 }
 
+/////////////////////////////////////////////////////////////////////////////
+size_t CGroup::getMembersNum() const
+{
+  return (m_members.size());
+}
+
 // CSuperGroup::Implementation 
 /////////////////////////////////////////////////////////////////////////////
 void CSuperGroup::addGroup(const CGroup* group)
 {
-  m_groups.push_back(group);
+  if (nullptr != group)
+  {
+    m_groups.push_back(group);
+  }
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -106,7 +115,6 @@ void CSuperGroup::draw(CRenderer& renderer)
     (*it)->draw(renderer);
   }
 }
-
 
 // CShape::Implementation 
 /////////////////////////////////////////////////////////////////////////////

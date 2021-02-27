@@ -49,7 +49,8 @@ private:
   static CPos m_foodPos;
   static CSquare m_snakeHead;
   static CPos m_snakeHeadPos;
-  
+  static CGroup m_snakeBodyGroup;
+  static size_t m_prevSnakeBodySize;
   static SFrame m_frame;
 
   static CSnake m_snake;
