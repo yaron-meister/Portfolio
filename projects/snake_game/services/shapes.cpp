@@ -92,6 +92,15 @@ void CGroup::addMember(CComposite* shape)
 }
 
 /////////////////////////////////////////////////////////////////////////////
+void CGroup::removeOldestMember()
+{
+  deque<CComposite*>::iterator it = m_members.begin();
+  delete(*it);
+  *it = nullptr;
+  m_members.pop_front();
+}
+
+/////////////////////////////////////////////////////////////////////////////
 size_t CGroup::getMembersNum() const
 {
   return (m_members.size());

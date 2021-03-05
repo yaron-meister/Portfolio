@@ -9,6 +9,7 @@
 #define __SHAPES_H__
 
 #include <vector>
+#include <deque>
 
 #include "graphical.h"
 
@@ -25,7 +26,8 @@ public:
   void draw(CRenderer& renderer) const;                                              
   void scale(int);                                                         
 
-  void addMember(CComposite* shape); 
+  void addMember(CComposite* shape);
+  void removeOldestMember();
   size_t getMembersNum() const;
 
 private:
@@ -33,7 +35,7 @@ private:
   CGroup(const CGroup&);
   CGroup& operator=(const CGroup&);
 
-  std::vector<CComposite*> m_members;
+  std::deque<CComposite*> m_members;
 };
 
 /* ===================================================================== */

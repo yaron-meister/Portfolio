@@ -25,8 +25,10 @@ CCircle CDisplay::m_food(CColor(90, 0, 0), CPos(0, 0), 3);
 CPos CDisplay::m_foodPos(0, 0);
 CSquare CDisplay::m_snakeHead(CColor(0, 90, 0), CPos(0,0), 5);
 CPos CDisplay::m_snakeHeadPos(0, 0);
+CPos CDisplay::m_prevSnakeHeadPos(0, 0);
 CSnake CDisplay::m_snake;
 CDisplay::SFrame CDisplay::m_frame;
+CGroup CDisplay::m_snakeBodyGroup;
 size_t CDisplay::m_prevSnakeBodySize(0);
 
 // Forward declarations
@@ -274,12 +276,16 @@ void CDisplay::stopGraphicalApp()
 /////////////////////////////////////////////////////////////////////////////
 bool CDisplay::isRunGraphicalApp(CSuperGroup* composite)
 {
-  CPos foodUpdatedCenter;
-  CPos snakeHeadUpdatedCenter;
-
   static_cast<void>(composite);
 
+  CPos foodUpdatedCenter;
+  CPos snakeHeadUpdatedCenter;
+  size_t snakeBodySize;
+  
+
   m_mutex.lock();
+
+  snakeBodySize = m_snake.getBody().size();
   foodUpdatedCenter = 
     CPos(m_frame.start.getX() + (m_foodPos.getX() * POS_TO_PIXEL), m_frame.start.getY() + (m_foodPos.getY() * POS_TO_PIXEL));
   snakeHeadUpdatedCenter =
@@ -287,6 +293,22 @@ bool CDisplay::isRunGraphicalApp(CSuperGroup* composite)
       m_frame.start.getY() + (m_snake.getHead().position.getY() * POS_TO_PIXEL));
 
   m_mutex.unlock();
+
+  if (snakeHeadUpdatedCenter != m_prevSnakeHeadPos)
+  {
+    CSquare* snakeNewBodyLink(new CSquare(m_snakeHead));
+
+    snakeNewBodyLink->setColor(CColor(0, 0, 90));
+
+    m_snakeBodyGroup.addMember(snakeNewBodyLink);
+    if (snakeBodySize <= m_prevSnakeBodySize)
+    {
+      m_snakeBodyGroup.removeOldestMember();
+    }
+
+    m_prevSnakeBodySize = snakeBodySize;
+    m_prevSnakeHeadPos = snakeHeadUpdatedCenter;
+  }
 
   m_food.setCenter(foodUpdatedCenter);
   m_snakeHead.setCenter(snakeHeadUpdatedCenter);
