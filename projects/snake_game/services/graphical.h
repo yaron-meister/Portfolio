@@ -25,8 +25,8 @@ class CSuperGroup;
 class CRenderer
 {
 public:
-  static const int SCREEN_WIDTH = 800;
-  static const int SCREEN_HEIGHT = 600;
+  static const int SCREEN_WIDTH = 1200;
+  static const int SCREEN_HEIGHT = 800;
 
   static CRenderer& GetInstance();
   ~CRenderer();

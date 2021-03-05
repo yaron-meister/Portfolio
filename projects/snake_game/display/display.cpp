@@ -21,9 +21,9 @@ static const unsigned int ONE_SECOND(1000);
 // Global variables
 bool CDisplay::m_stopGraphicalApp(false);
 mutex CDisplay::m_mutex;
-CCircle CDisplay::m_food(CColor(90, 0, 0), CPos(0, 0), 3);
+CCircle CDisplay::m_food(CColor(90, 0, 0), CPos(0, 0), 4);
 CPos CDisplay::m_foodPos(0, 0);
-CSquare CDisplay::m_snakeHead(CColor(0, 90, 0), CPos(0,0), 5);
+CSquare CDisplay::m_snakeHead(CColor(0, 90, 0), CPos(0,0), 7);
 CPos CDisplay::m_snakeHeadPos(0, 0);
 CPos CDisplay::m_prevSnakeHeadPos(0, 0);
 CSnake CDisplay::m_snake;
@@ -40,8 +40,8 @@ size_t CDisplay::m_prevSnakeBodySize(0);
 CDisplay::CDisplay()
 {
   m_frame.center = CPos((CRenderer::SCREEN_WIDTH / 2), (CRenderer::SCREEN_HEIGHT / 2));
-  m_frame.width = (CBoard::NUM_OF_COLUMNS + 2) * POS_TO_PIXEL; // The 2 because the contour is one line offset outside
-  m_frame.height = (CBoard::NUM_OF_ROWS + 2) * POS_TO_PIXEL; // The 2 because the contour is one line offset outside
+  m_frame.width = (CBoard::NUM_OF_COLUMNS + 1) * POS_TO_PIXEL; // The contour is one line offset outside
+  m_frame.height = (CBoard::NUM_OF_ROWS + 1) * POS_TO_PIXEL; // The contour is one line offset outside
   m_frame.start = 
     CPos(m_frame.center.getX() - (m_frame.width / 2), m_frame.center.getY() - (m_frame.height / 2));
 }
@@ -235,7 +235,7 @@ void CDisplay::clearScreen()
 /////////////////////////////////////////////////////////////////////////////
 void CDisplay::updateGraphicalApp()
 {
-  CColor frameColor(0, 90, 0);
+  CColor frameColor(90, 90, 90);
   CPos frameCenterPoint((CRenderer::SCREEN_WIDTH / 2), (CRenderer::SCREEN_HEIGHT / 2));
 
   CRectangle frame1(frameColor, frameCenterPoint, m_frame.height, m_frame.width, false);
@@ -282,15 +282,15 @@ bool CDisplay::isRunGraphicalApp(CSuperGroup* composite)
   CPos snakeHeadUpdatedCenter;
   size_t snakeBodySize;
   
-
   m_mutex.lock();
 
   snakeBodySize = m_snake.getBody().size();
+  // The start position of the board is the start of the frame + offset of one position
   foodUpdatedCenter = 
-    CPos(m_frame.start.getX() + (m_foodPos.getX() * POS_TO_PIXEL), m_frame.start.getY() + (m_foodPos.getY() * POS_TO_PIXEL));
+    CPos(m_frame.start.getX() + POS_TO_PIXEL + (m_foodPos.getX() * POS_TO_PIXEL), m_frame.start.getY() + POS_TO_PIXEL + (m_foodPos.getY() * POS_TO_PIXEL));
   snakeHeadUpdatedCenter =
-    CPos(m_frame.start.getX() + (m_snake.getHead().position.getX() * POS_TO_PIXEL), 
-      m_frame.start.getY() + (m_snake.getHead().position.getY() * POS_TO_PIXEL));
+    CPos(m_frame.start.getX() + POS_TO_PIXEL + (m_snake.getHead().position.getX() * POS_TO_PIXEL), 
+      m_frame.start.getY() + POS_TO_PIXEL + (m_snake.getHead().position.getY() * POS_TO_PIXEL));
 
   m_mutex.unlock();
 

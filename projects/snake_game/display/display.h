@@ -20,7 +20,7 @@ public:
   static const unsigned short NUM_OF_ROWS = 84;
   static const unsigned short NUM_OF_COLUMNS = 125;
 
-  static const unsigned short POS_TO_PIXEL = 5;
+  static const unsigned short POS_TO_PIXEL = 7;
 
   // CTor
   CDisplay();
