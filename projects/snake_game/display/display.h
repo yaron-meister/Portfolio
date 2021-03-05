@@ -15,8 +15,6 @@
 class CDisplay
 {
 public:
-  /*static const unsigned short NUM_OF_ROWS = 84;
-  static const unsigned short NUM_OF_COLUMNS = 125;*/
   static const unsigned short NUM_OF_ROWS = 84;
   static const unsigned short NUM_OF_COLUMNS = 125;
 
@@ -32,7 +30,7 @@ public:
 
   void updateGraphicalApp();
   void stopGraphicalApp();
-  static bool isRunGraphicalApp(CSuperGroup*);
+  static bool runGraphicalApp(CSuperGroup* superGroup);
 
 private:
   struct SFrame
@@ -45,16 +43,20 @@ private:
 
   static bool m_stopGraphicalApp;
   static std::mutex m_mutex;
-  static CCircle m_food;
-  static CPos m_foodPos;
-  static CSquare m_snakeHead;
-  static CPos m_snakeHeadPos;
-  static CPos m_prevSnakeHeadPos;
-  static CGroup m_snakeBodyGroup;
   static size_t m_prevSnakeBodySize;
+  static CSnake m_snake;
   static SFrame m_frame;
 
-  static CSnake m_snake;
+  // Shapes
+  static CCircle m_food;
+  static CSquare m_snakeHead;
+  static CGroup m_snakeBodyGroup;
+
+  // Shapes positions
+  static CPos m_snakeHeadPos;
+  static CPos m_foodPos;
+  static CPos m_prevSnakeHeadPos;
+  
 
 };
 

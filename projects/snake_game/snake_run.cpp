@@ -16,7 +16,6 @@
 using namespace std;
 
 /* Forward Declarations    */
-int runSnake();
 void threadFunc();
 
 /*  Global/Static variables  */
@@ -53,6 +52,7 @@ int main(void)
 
     displayModule->stopGraphicalApp();
     displayModule->gameOver();
+    displayThread.join();
   }
   else
   {

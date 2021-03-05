@@ -16,8 +16,6 @@
 class CBoard
 {
 public:
-	//static const unsigned int NUM_OF_ROWS = 20;
-	//static const unsigned int NUM_OF_COLUMNS = 100;
 	static const unsigned int NUM_OF_ROWS = 80;
 	static const unsigned int NUM_OF_COLUMNS = 120;
 

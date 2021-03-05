@@ -264,7 +264,7 @@ void CDisplay::updateGraphicalApp()
   superGroup.addGroup(&m_snakeBodyGroup);
 
   CGraphicalApp app;
-  app.endlessLoop(&superGroup, CDisplay::isRunGraphicalApp);
+  app.endlessLoop(&superGroup, CDisplay::runGraphicalApp);
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -274,7 +274,7 @@ void CDisplay::stopGraphicalApp()
 }
 
 /////////////////////////////////////////////////////////////////////////////
-bool CDisplay::isRunGraphicalApp(CSuperGroup* composite)
+bool CDisplay::runGraphicalApp(CSuperGroup* composite)
 {
   static_cast<void>(composite);
 
