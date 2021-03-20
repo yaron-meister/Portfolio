@@ -233,7 +233,7 @@ void CDisplay::clearScreen()
 }
 
 /////////////////////////////////////////////////////////////////////////////
-void CDisplay::updateGraphicalApp()
+void CDisplay::runGraphicalApp()
 {
   CColor frameColor(90, 90, 90);
   CPos frameCenterPoint((CRenderer::SCREEN_WIDTH / 2), (CRenderer::SCREEN_HEIGHT / 2));
@@ -264,7 +264,7 @@ void CDisplay::updateGraphicalApp()
   superGroup.addGroup(&m_snakeBodyGroup);
 
   CGraphicalApp app;
-  app.endlessLoop(&superGroup, CDisplay::runGraphicalApp);
+  app.endlessLoop(&superGroup, CDisplay::updateGraphicalApp);
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -274,7 +274,7 @@ void CDisplay::stopGraphicalApp()
 }
 
 /////////////////////////////////////////////////////////////////////////////
-bool CDisplay::runGraphicalApp(CSuperGroup* composite)
+bool CDisplay::updateGraphicalApp(CSuperGroup* composite)
 {
   static_cast<void>(composite);
 

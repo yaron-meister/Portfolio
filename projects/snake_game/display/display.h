@@ -28,9 +28,9 @@ public:
 	void updateScreen(const CBoard& updatedBoard, const CSnake& updatedSnake);
 	void clearScreen();
 
-  void updateGraphicalApp();
+  void runGraphicalApp();
   void stopGraphicalApp();
-  static bool runGraphicalApp(CSuperGroup* superGroup);
+  static bool updateGraphicalApp(CSuperGroup* superGroup);
 
 private:
   struct SFrame

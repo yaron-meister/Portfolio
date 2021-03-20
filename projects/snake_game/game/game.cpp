@@ -19,9 +19,6 @@ static const int KEY_DOWN(80);
 static const int KEY_LEFT(75);
 static const int KEY_RIGHT(77);
 
-static const CTimeout::DurationInMilli FREQ_20HZ(CTimeout::DurationInMilli(50));
-static const CTimeout::DurationInMilli FREQ_50HZ(CTimeout::DurationInMilli(90));
-
 // Global variables
 
 
@@ -95,7 +92,7 @@ CGame::EGameState CGame::update()
       m_logger->write("CGame: Food has been eaten");
     }
 
-    m_freqTimer.startNow(CTimeout::DurationInMilli(200));
+    m_freqTimer.startNow(CTimeout::DurationInMilli(100));
     m_logger->write("CGame: Game was updated");
   }
 

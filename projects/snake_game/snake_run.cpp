@@ -6,6 +6,7 @@
  *****************************************************************************/
 
 #include <iostream>
+#include <new>
 
 #include "game.h"
 #include "display.h"
@@ -16,64 +17,43 @@
 using namespace std;
 
 /* Forward Declarations    */
-void threadFunc();
+class CSnakeGame
+{
+public:
+  // CTor
+  CSnakeGame();
+
+  //DTor
+  ~CSnakeGame();
+
+  EStatus run();
+
+private:
+  void runGraphics();
+
+  CGame* m_gameModule;
+  CDisplay* m_displayModule;
+  thread m_thread;
+};
 
 /*  Global/Static variables  */
-CGame* gameModule(nullptr);
-CDisplay* displayModule(nullptr);
 
 /*******************************************************************************
                                 Main Function
 *******************************************************************************/
 int main(void)
 {
-  int retVal(SUCCESS);
-  CTimeout displayFreqTimer;
+  CSnakeGame snakeGame;
 
-  gameModule = new (nothrow) CGame();
-  displayModule = new (nothrow) CDisplay();
-
-  if (nullptr != gameModule && nullptr != displayModule)
-  {
-    thread displayThread(threadFunc);
-
-    displayModule->welcomeGame();
-    gameModule->start();
-
-    while (CGame::GAME_PLAY == gameModule->update())
-    {
-      if (displayFreqTimer.hasExpired())
-      {
-        displayModule->updateScreen(gameModule->getUpdatedBoard(), gameModule->getUpdatedSnake());
-
-        displayFreqTimer.startNow(CTimeout::DurationInMilli(200));
-      }
-    }
-
-    displayModule->stopGraphicalApp();
-    displayModule->gameOver();
-    displayThread.join();
-  }
-  else
-  {
-    cerr << "Initiation Failed - Module = NULL" << endl;
-    retVal = FAILURE;
-  }
-
-  delete(gameModule);
-  gameModule = nullptr;
-  delete(displayModule);
-  displayModule = nullptr;
-
-  return (retVal);
+  return (snakeGame.run());
 }
 
 /******************************************************************************/
-void threadFunc()
+void CSnakeGame::runGraphics()
 {
-  if (nullptr != displayModule)
+  if (nullptr != m_displayModule)
   {
-    displayModule->updateGraphicalApp();
+    m_displayModule->runGraphicalApp();
   }
   else
   {
@@ -82,3 +62,51 @@ void threadFunc()
 }
 
 /******************************************************************************/
+CSnakeGame::CSnakeGame() : m_gameModule(new (nothrow) CGame()), m_displayModule(new (nothrow) CDisplay())
+{}
+
+/******************************************************************************/
+CSnakeGame::~CSnakeGame()
+{
+  m_thread.join();
+
+  delete(m_gameModule);
+  m_gameModule = nullptr;
+  delete(m_displayModule);
+  m_displayModule = nullptr;
+}
+
+/******************************************************************************/
+EStatus CSnakeGame::run()
+{
+  EStatus retVal(SUCCESS);
+  CTimeout displayFreqTimer;
+
+  if (nullptr != m_gameModule && nullptr != m_displayModule)
+  {
+    m_thread = thread (&CSnakeGame::runGraphics, this);
+
+    m_displayModule->welcomeGame();
+    m_gameModule->start();
+
+    while (CGame::GAME_PLAY == m_gameModule->update())
+    {
+      if (displayFreqTimer.hasExpired())
+      {
+        m_displayModule->updateScreen(m_gameModule->getUpdatedBoard(), m_gameModule->getUpdatedSnake());
+
+        displayFreqTimer.startNow(CTimeout::DurationInMilli(100));
+      }
+    }
+
+    m_displayModule->stopGraphicalApp();
+    m_displayModule->gameOver();
+  }
+  else
+  {
+    cerr << "Initiation Failed - Module = NULL" << endl;
+    retVal = FAILURE;
+  }
+
+  return (retVal);
+}
