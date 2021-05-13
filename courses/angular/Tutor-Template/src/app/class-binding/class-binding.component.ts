@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-class-binding',
   template: `
   <h2>
-    Welcome to {{name}}
+    Welcome to {{cBName}}
   </h2>
   <h2 class="text-success"> SUCCESS </h2>
   <h2 [class]="successClass"> SUCCESS 2 </h2> <!class-binding>
@@ -26,7 +26,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ClassBindingComponent implements OnInit {
 
-  public name = "CLASS-BINDING";
+  public cBName = "CLASS-BINDING";
   public successClass = "text-success";
   public hasError = true;
   public isSpecial = true;

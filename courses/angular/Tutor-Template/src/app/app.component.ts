@@ -7,4 +7,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Tutor-Template';
+  public name = "Global Name";
+  public message = "";
 }
