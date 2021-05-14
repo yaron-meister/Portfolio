@@ -9,6 +9,7 @@ import { EventBindingComponent } from './event-binding/event-binding.component';
 import { TemplateRefVarsComponent } from './template-ref-vars/template-ref-vars.component';
 import { TwoWayBindingComponent } from './two-way-binding/two-way-binding.component';
 import { ComponentInteractionComponent } from './component-interaction/component-interaction.component';
+import { PipesComponent } from './pipes/pipes.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ComponentInteractionComponent } from './component-interaction/component
     EventBindingComponent,
     TemplateRefVarsComponent,
     TwoWayBindingComponent,
-    ComponentInteractionComponent
+    ComponentInteractionComponent,
+    PipesComponent
   ],
   imports: [
     BrowserModule,
