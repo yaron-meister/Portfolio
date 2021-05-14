@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-event-binding',
   template: `
   <h2>
+    <br>
     Welcome to {{eventBindingCompName}}
   </h2>
   <button (click)="onClick()">Greet</button> <!Button click example>

@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-style-binding',
   template: `
   <h2>
+    <br>
     Welcome to {{styleBindingCompName}}
   </h2>
   <h2 [style.color]="'orange'"> Style Binding </h2> <!Style-binding example>

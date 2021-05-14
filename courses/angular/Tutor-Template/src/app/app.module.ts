@@ -10,6 +10,9 @@ import { TemplateRefVarsComponent } from './template-ref-vars/template-ref-vars.
 import { TwoWayBindingComponent } from './two-way-binding/two-way-binding.component';
 import { ComponentInteractionComponent } from './component-interaction/component-interaction.component';
 import { PipesComponent } from './pipes/pipes.component';
+import { EmployeeService } from './employee.service';
+import { EmployeeListComponent } from './employee-list/employee-list.component';
+import { EmployeeDetailComponent } from './employee-detail/employee-detail.component';
 
 @NgModule({
   declarations: [
@@ -20,13 +23,15 @@ import { PipesComponent } from './pipes/pipes.component';
     TemplateRefVarsComponent,
     TwoWayBindingComponent,
     ComponentInteractionComponent,
-    PipesComponent
+    PipesComponent,
+    EmployeeListComponent,
+    EmployeeDetailComponent
   ],
   imports: [
     BrowserModule,
     FormsModule
   ],
-  providers: [],
+  providers: [EmployeeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

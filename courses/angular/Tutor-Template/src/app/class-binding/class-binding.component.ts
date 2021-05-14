@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-class-binding',
   template: `
   <h2>
+    <br>
     Welcome to {{cBName}}
   </h2>
   <h2 class="text-success"> SUCCESS </h2>

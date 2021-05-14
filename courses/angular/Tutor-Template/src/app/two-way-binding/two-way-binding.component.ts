@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-two-way-binding',
   template: `
   <h2>
+    <br>
     Welcome to {{twoWayBindingCompName}}
   </h2>
   <input [(ngModel)]="tWBName" type="text"> <!NG Model directive>

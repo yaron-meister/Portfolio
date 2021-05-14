@@ -4,6 +4,7 @@ import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
   selector: 'app-component-interaction',
   template: `
   <h2>
+    <br>
     Welcome to {{cIName}}
   </h2>
 

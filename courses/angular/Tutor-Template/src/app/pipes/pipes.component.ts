@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-pipes',
   template: `
   <h2>
+    <br>
     Welcome to {{pName}}
   </h2>
 

@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-template-ref-vars',
   template: `
   <h2>
+    <br>
     Welcome to {{templateRefVarsCompName}}
   </h2>
   <input #myInput type="text">
