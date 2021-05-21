@@ -8,6 +8,7 @@ import { HttpService } from '../http.service';
     <br>
     Welcome to {{hUName}}
   </h2>
+  <h3>{{errorMsg}}</h3>
   <ul *ngFor="let employee of employees">
     <li>{{employee.name}}</li>
   </ul>
@@ -18,12 +19,14 @@ export class HttpUsingComponent implements OnInit {
 
   public hUName = "HTTP-USING";
   public employees = [];
+  public errorMsg;
 
   constructor(private _httpService: HttpService) { }
 
   ngOnInit(): void {
     this._httpService.getEmployees()
-    .subscribe(data => this.employees = data); 
+    .subscribe(data => this.employees = data,
+               error => this.errorMsg = error); 
     // The left side of the '=>' is the argument of the function
     // The right side of the '=>' is the implementation of the function
   }
