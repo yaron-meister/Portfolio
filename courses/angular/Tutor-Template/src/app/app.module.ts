@@ -13,6 +13,9 @@ import { PipesComponent } from './pipes/pipes.component';
 import { EmployeeService } from './employee.service';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { EmployeeDetailComponent } from './employee-detail/employee-detail.component';
+import { HttpUsingComponent } from './http-using/http-using.component';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpService } from './http.service';
 
 @NgModule({
   declarations: [
@@ -25,13 +28,15 @@ import { EmployeeDetailComponent } from './employee-detail/employee-detail.compo
     ComponentInteractionComponent,
     PipesComponent,
     EmployeeListComponent,
-    EmployeeDetailComponent
+    EmployeeDetailComponent,
+    HttpUsingComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
-  providers: [EmployeeService],
+  providers: [EmployeeService, HttpService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
