@@ -7,6 +7,10 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
     <h3> Yoy selected department with id = {{departmentId}} </h3>
     <button (click)="goPrevious()"> Previous </button>
     <button (click)="goNext()"> Next </button>
+
+    <div>
+      <button (click)="gotoDepartments()">Back</button>
+    </div>
   `,
   styles: [
   ]
@@ -36,5 +40,10 @@ export class DepartmentDetailComponent implements OnInit {
   goNext(){
     let nextId = this.departmentId + 1;
     this.router.navigate(['/departments', nextId]);
+  }
+
+  gotoDepartments(){
+    let selectedId = this.departmentId ? this.departmentId : null;
+    this.router.navigate(['/departments', {id: selectedId, test: 'testValue'}]);
   }
 }

@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+
+.items li.selected {
+    background-color: #CFD8DC;
+    color: white;
+}
+
+/* Everywhere else */
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
