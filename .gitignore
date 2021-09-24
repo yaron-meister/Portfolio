@@ -16,3 +16,4 @@ projects/snake_game/Debug/*
 projects/snake_game/x64/Debug/*
 projects/snake_game_old
 *.vs*
+projects/buttons/Code/x64/*
