@@ -18,3 +18,6 @@ projects/snake_game_old
 *.vs*
 projects/buttons/Code/x64/*
 projects/press_button/Debug/*
+projects/breaking_news_app/BreakingNewsApp/bin/*
+projects/simple_calculator/obj/*
+projects/simple_calculator/bin/*

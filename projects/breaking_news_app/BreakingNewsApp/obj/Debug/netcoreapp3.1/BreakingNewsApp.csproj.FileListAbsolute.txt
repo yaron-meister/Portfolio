@@ -1,0 +1,36 @@
+D:\Portfolio\projects\breaking_news_app\BreakingNewsApp\bin\Debug\netcoreapp3.1\BreakingNewsApp.exe
+D:\Portfolio\projects\breaking_news_app\BreakingNewsApp\bin\Debug\netcoreapp3.1\BreakingNewsApp.deps.json
+D:\Portfolio\projects\breaking_news_app\BreakingNewsApp\bin\Debug\netcoreapp3.1\BreakingNewsApp.runtimeconfig.json
+D:\Portfolio\projects\breaking_news_app\BreakingNewsApp\bin\Debug\netcoreapp3.1\BreakingNewsApp.runtimeconfig.dev.json
+D:\Portfolio\projects\breaking_news_app\BreakingNewsApp\bin\Debug\netcoreapp3.1\BreakingNewsApp.dll
+D:\Portfolio\projects\breaking_news_app\BreakingNewsApp\bin\Debug\netcoreapp3.1\BreakingNewsApp.pdb
+D:\Portfolio\projects\breaking_news_app\BreakingNewsApp\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+D:\Portfolio\projects\breaking_news_app\BreakingNewsApp\obj\Debug\netcoreapp3.1\BreakingNewsApp.MainForm.resources
+D:\Portfolio\projects\breaking_news_app\BreakingNewsApp\obj\Debug\netcoreapp3.1\BreakingNewsApp.Properties.Resources.resources
+D:\Portfolio\projects\breaking_news_app\BreakingNewsApp\obj\Debug\netcoreapp3.1\BreakingNewsApp.csproj.GenerateResource.cache
+D:\Portfolio\projects\breaking_news_app\BreakingNewsApp\obj\Debug\netcoreapp3.1\BreakingNewsApp.GeneratedMSBuildEditorConfig.editorconfig
+D:\Portfolio\projects\breaking_news_app\BreakingNewsApp\obj\Debug\netcoreapp3.1\BreakingNewsApp.AssemblyInfoInputs.cache
+D:\Portfolio\projects\breaking_news_app\BreakingNewsApp\obj\Debug\netcoreapp3.1\BreakingNewsApp.AssemblyInfo.cs
+D:\Portfolio\projects\breaking_news_app\BreakingNewsApp\obj\Debug\netcoreapp3.1\BreakingNewsApp.csproj.CoreCompileInputs.cache
+D:\Portfolio\projects\breaking_news_app\BreakingNewsApp\obj\Debug\netcoreapp3.1\BreakingNewsApp.dll
+D:\Portfolio\projects\breaking_news_app\BreakingNewsApp\obj\Debug\netcoreapp3.1\BreakingNewsApp.pdb
+D:\Portfolio\projects\breaking_news_app\BreakingNewsApp\obj\Debug\netcoreapp3.1\BreakingNewsApp.genruntimeconfig.cache
+D:\Portfolio\projects\breaking_news_app - Copy\BreakingNewsApp\bin\Debug\netcoreapp3.1\BreakingNewsApp.exe
+D:\Portfolio\projects\breaking_news_app - Copy\BreakingNewsApp\bin\Debug\netcoreapp3.1\BreakingNewsApp.deps.json
+D:\Portfolio\projects\breaking_news_app - Copy\BreakingNewsApp\bin\Debug\netcoreapp3.1\BreakingNewsApp.runtimeconfig.json
+D:\Portfolio\projects\breaking_news_app - Copy\BreakingNewsApp\bin\Debug\netcoreapp3.1\BreakingNewsApp.runtimeconfig.dev.json
+D:\Portfolio\projects\breaking_news_app - Copy\BreakingNewsApp\bin\Debug\netcoreapp3.1\BreakingNewsApp.dll
+D:\Portfolio\projects\breaking_news_app - Copy\BreakingNewsApp\bin\Debug\netcoreapp3.1\BreakingNewsApp.pdb
+D:\Portfolio\projects\breaking_news_app - Copy\BreakingNewsApp\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+D:\Portfolio\projects\breaking_news_app - Copy\BreakingNewsApp\obj\Debug\netcoreapp3.1\BreakingNewsApp.csproj.AssemblyReference.cache
+D:\Portfolio\projects\breaking_news_app - Copy\BreakingNewsApp\obj\Debug\netcoreapp3.1\BreakingNewsApp.MainForm.resources
+D:\Portfolio\projects\breaking_news_app - Copy\BreakingNewsApp\obj\Debug\netcoreapp3.1\BreakingNewsApp.Properties.Resources.resources
+D:\Portfolio\projects\breaking_news_app - Copy\BreakingNewsApp\obj\Debug\netcoreapp3.1\BreakingNewsApp.csproj.GenerateResource.cache
+D:\Portfolio\projects\breaking_news_app - Copy\BreakingNewsApp\obj\Debug\netcoreapp3.1\BreakingNewsApp.GeneratedMSBuildEditorConfig.editorconfig
+D:\Portfolio\projects\breaking_news_app - Copy\BreakingNewsApp\obj\Debug\netcoreapp3.1\BreakingNewsApp.AssemblyInfoInputs.cache
+D:\Portfolio\projects\breaking_news_app - Copy\BreakingNewsApp\obj\Debug\netcoreapp3.1\BreakingNewsApp.AssemblyInfo.cs
+D:\Portfolio\projects\breaking_news_app - Copy\BreakingNewsApp\obj\Debug\netcoreapp3.1\BreakingNewsApp.csproj.CoreCompileInputs.cache
+D:\Portfolio\projects\breaking_news_app - Copy\BreakingNewsApp\obj\Debug\netcoreapp3.1\BreakingNewsApp.dll
+D:\Portfolio\projects\breaking_news_app - Copy\BreakingNewsApp\obj\Debug\netcoreapp3.1\BreakingNewsApp.pdb
+D:\Portfolio\projects\breaking_news_app - Copy\BreakingNewsApp\obj\Debug\netcoreapp3.1\BreakingNewsApp.genruntimeconfig.cache
+D:\Portfolio\projects\breaking_news_app\BreakingNewsApp\obj\Debug\netcoreapp3.1\BreakingNewsApp.csproj.AssemblyReference.cache
