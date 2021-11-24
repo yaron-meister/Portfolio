@@ -8,10 +8,10 @@
 #ifndef __GRAPHICAL_H__
 #define __GRAPHICAL_H__
 
-#include <SDL.h>        
 #include <cstdlib>
 #include <functional>
 
+#include "SDL.h"        
 #include "position.hpp"
 #include "color.h"
 
