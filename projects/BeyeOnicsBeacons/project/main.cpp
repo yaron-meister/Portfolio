@@ -1,5 +1,6 @@
 
 
+#include "beacon.h"
 #include "linker.hpp"
 #include <optional>
 #include <iostream>
@@ -53,6 +54,8 @@ void Run()
     cv::Mat canvas = cv::Mat::zeros(CANVAS_HEIGHT, CANVAS_WIDTH, CV_8UC3);
 
     std::optional<cv::Point2d> lastPoint{};
+    std::vector<Beacon*> beacons{};
+    std::vector<Beacon*>::iterator beaconsIterator{};
 
     while (true)
     {
@@ -60,8 +63,21 @@ void Run()
         canvas.setTo(0);
 
         // TODO: handle user input
-        if (lastUserInput.mouse_press_pos)
+        if (lastUserInput.mouse_press_pos) // TODO::YARON - Indent
         {
+            if (lastPoint)
+            {
+              try
+              {
+                Beacon* newBeacon = new Beacon(lastPoint, currentConnectivityRadius);
+                beacons.push_back(newBeacon);
+              }
+              catch (...)
+              {
+
+              }
+            }
+
             lastPoint = *lastUserInput.mouse_press_pos;
             lastUserInput.mouse_press_pos.reset();
         }
@@ -83,8 +99,28 @@ void Run()
         cv::putText(canvas, cv::format("current connectivity radius = %d", currentConnectivityRadius), cv::Point(20, 100), cv::FONT_HERSHEY_SIMPLEX, 1.3, GREEN, 2);
 
         // TODO draw shortest path
+        
+        // Draw all saved beacons
+        for (beaconsIterator = beacons.begin(); beaconsIterator != beacons.end(); ++beaconsIterator)
+        {
+          cv::ellipse(canvas,
+            cv::Point((*beaconsIterator)->getCenterPoint()->x, (*beaconsIterator)->getCenterPoint()->y),
+            cv::Size((int)5, (int)5), 0.0,
+            0, 360,
+            GREEN, -1
+          );
 
-        if (lastPoint)
+          cv::ellipse(canvas,
+            cv::Point((int)(*beaconsIterator)->getCenterPoint()->x, (int)(*beaconsIterator)->getCenterPoint()->y),
+            cv::Size((int)(*beaconsIterator)->getConnectivityRadius(),
+              (int)(*beaconsIterator)->getConnectivityRadius()),
+            0.0, 0, 360, BLUE, 3
+          );
+
+        }
+
+        // Draw last temporary beacon
+        if (lastPoint) // TODO::YARON - Multiplication
         {
             cv::ellipse(canvas,
                 cv::Point((int)lastPoint->x, (int)lastPoint->y),
@@ -124,6 +160,12 @@ void Run()
 
     }
 
+    // Free all Beacons
+    for (beaconsIterator = beacons.begin(); beaconsIterator != beacons.end(); ++beaconsIterator)
+    {
+      delete *beaconsIterator;
+      *beaconsIterator = nullptr;
+    }
 }
 
 
