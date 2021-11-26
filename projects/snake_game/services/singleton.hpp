@@ -22,7 +22,7 @@ public:
   Singleton& operator=(const Singleton&) = delete;
 
 private:
-  static std::atomic<T*> m_instance;
+  static T*         m_instance;
   static std::mutex m_mutex;
 
   class MemGuard
@@ -37,7 +37,7 @@ private:
 };
 
 template <typename T>
-std::atomic<T*> Singleton<T>::m_instance(nullptr);
+T* Singleton<T>::m_instance(nullptr);
 
 template <typename T>
 std::mutex Singleton<T>::m_mutex;
@@ -51,32 +51,15 @@ T* Singleton<T>::GetInstance()
   // Destruction guard
   static MemGuard guard;
 
-  // 'tmp' for keeping 'm_instance' valid
-  T* tmp = m_instance.load(std::memory_order_relaxed);
+  // Mutex lock
+  std::lock_guard<std::mutex> lock(m_mutex);
 
-  // Memory barrier
-  std::atomic_thread_fence(std::memory_order_acquire);
-
-  if (nullptr == tmp)
+  if (nullptr == m_instance)
   {
-    // Mutex lock
-    std::lock_guard<std::mutex> lock(m_mutex);
-
-    // 'tmp' for keeping 'm_instance' valid
-    tmp = m_instance.load(std::memory_order_relaxed);
-    if (nullptr == tmp)
-    {
-      tmp = new T;
-
-      // Memory barrier release
-      std::atomic_thread_fence(std::memory_order_release);
-
-      // Updating 'm_instance'
-      m_instance.store(tmp, std::memory_order_relaxed);
-    }
+    m_instance = new T;
   }
 
-  return (tmp);
+  return (m_instance);
 }
 
 

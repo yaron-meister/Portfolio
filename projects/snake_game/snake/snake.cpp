@@ -20,11 +20,11 @@ using namespace std;
 /////////////////////////////////////////////////////////////////////////////
 //                        Functions's implementations
 /////////////////////////////////////////////////////////////////////////////
-CSnake::CSnake(CPos startPos, CDirection startDir,	char headSymbol, char bodySymbol) :
-	m_head(startDir, startPos), m_headSymbol(headSymbol), m_bodySymbol(bodySymbol), m_grow(false)
+CSnake::CSnake() :
+	m_head(CDirection::RIGHT, (1, 1)), m_grow(false)
 	, m_logger(Singleton<Logger>::GetInstance())
 {
-	addLink(m_head.position, startDir);
+	addLink(m_head.position, m_head.direction);
 
 	m_logger->write("CSnake: Snake was initiated");
 }
@@ -95,18 +95,6 @@ CSnake::SHead& CSnake::getHead() const
 std::list<CPos>& CSnake::getBody() const
 {
 	return (const_cast<std::list<CPos>&>(m_body));
-}
-
-/////////////////////////////////////////////////////////////////////////////
-char CSnake::getHeadSymbol() const
-{
-	return (m_headSymbol);
-}
-
-/////////////////////////////////////////////////////////////////////////////
-char CSnake::getBodySymbol() const
-{
-	return (m_bodySymbol);
 }
 
 /////////////////////////////////////////////////////////////////////////////

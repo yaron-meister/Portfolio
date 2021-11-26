@@ -12,6 +12,7 @@
 #include <iostream>
 
 #include "singleton.hpp"      /* class handleton */
+#include "params.h"
 
 
 class Logger

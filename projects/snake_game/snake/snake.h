@@ -13,10 +13,25 @@
 #include "direction.h"
 #include "position.hpp"
 #include "logger.h"
+#include "singleton.hpp"
+#include "params.h"
+
+class SnakeParams : public ParamsBase
+{
+public:
+
+	// CTor
+	SnakeParams(CPos startPos = (1, 1), CDirection startDirection = CDirection::RIGHT) : m_startPos(startPos), m_startDirection(startDirection){}
+
+	CPos				m_startPos;
+	CDirection	m_startDirection;
+};
 
 class CSnake
 {
 public:
+	friend class Singleton<CSnake>;
+
 	enum ECrushStatus
 	{
 		NO_CRUSH,
@@ -26,33 +41,26 @@ public:
 	struct SHead
 	{
 		// CTor
-		SHead(CDirection startDirection = CDirection::RIGHT, CPos startPos = (1, 1)) :
+		SHead(CDirection startDirection, CPos startPos) :
 					direction(startDirection), position(startPos) {}
 
 		CDirection direction;
 		CPos position;
 	};
 
-	// CTor
-	CSnake(CPos startPos = (1,1), 
-				CDirection startDir = CDirection::RIGHT,
-				char headSymbol = '0', 
-				char bodySymbol = '=');
-
 	void grow();
 	ECrushStatus move(CDirection reqDirection);
 	SHead& getHead() const;
 	std::list<CPos>& getBody() const;
-	char getHeadSymbol() const;
-	char getBodySymbol() const;
 
 private:
+	// CTor
+	CSnake();
+
 	CPos addLink(CPos where, CDirection direction, bool isBody = true);
 
 	SHead m_head;
 	std::list<CPos> m_body;
-	char m_headSymbol;
-	char m_bodySymbol;
 	bool m_grow;
 
 	Logger* m_logger;

@@ -49,7 +49,7 @@ public:
 private:
 	void getInput();
 
-	CSnake m_snake;
+	CSnake* m_snake;
 	CBoard m_board;
 	EKeyBoardInput m_keyBoardInput;
 	CTimeout m_freqTimer;

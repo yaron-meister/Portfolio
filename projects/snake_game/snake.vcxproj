@@ -171,6 +171,7 @@
     <ClInclude Include="services\direction.h" />
     <ClInclude Include="services\graphical.h" />
     <ClInclude Include="services\logger.h" />
+    <ClInclude Include="services\params.h" />
     <ClInclude Include="services\position.hpp" />
     <ClInclude Include="services\shapes.h" />
     <ClInclude Include="services\singleton.hpp" />

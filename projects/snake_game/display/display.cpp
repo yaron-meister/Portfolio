@@ -26,7 +26,7 @@ CPos CDisplay::m_foodPos(0, 0);
 CSquare CDisplay::m_snakeHead(CColor(0, 90, 0), CPos(0,0), 7);
 CPos CDisplay::m_snakeHeadPos(0, 0);
 CPos CDisplay::m_prevSnakeHeadPos(0, 0);
-CSnake CDisplay::m_snake;
+CSnake* CDisplay::m_snake = Singleton<CSnake>::GetInstance();
 CDisplay::SFrame CDisplay::m_frame;
 CGroup CDisplay::m_snakeBodyGroup;
 size_t CDisplay::m_prevSnakeBodySize(0);
@@ -218,15 +218,6 @@ void CDisplay::gameOver()
 }
 
 /////////////////////////////////////////////////////////////////////////////
-void CDisplay::updateScreen(const CBoard& updatedBoard, const CSnake& updatedSnake)
-{
-  m_mutex.lock();
-  m_foodPos = updatedBoard.getFoodPos();
-  m_snake = updatedSnake;
-  m_mutex.unlock();
-}
-
-/////////////////////////////////////////////////////////////////////////////
 void CDisplay::clearScreen()
 {
 	cout << string(SCREEN_ROW_NUM, '\n');
@@ -284,13 +275,13 @@ bool CDisplay::updateGraphicalApp(CSuperGroup* composite)
   
   m_mutex.lock();
 
-  snakeBodySize = m_snake.getBody().size();
+  snakeBodySize = m_snake->getBody().size();
   // The start position of the board is the start of the frame + offset of one position
   foodUpdatedCenter = 
     CPos(m_frame.start.getX() + POS_TO_PIXEL + (m_foodPos.getX() * POS_TO_PIXEL), m_frame.start.getY() + POS_TO_PIXEL + (m_foodPos.getY() * POS_TO_PIXEL));
   snakeHeadUpdatedCenter =
-    CPos(m_frame.start.getX() + POS_TO_PIXEL + (m_snake.getHead().position.getX() * POS_TO_PIXEL), 
-      m_frame.start.getY() + POS_TO_PIXEL + (m_snake.getHead().position.getY() * POS_TO_PIXEL));
+    CPos(m_frame.start.getX() + POS_TO_PIXEL + (m_snake->getHead().position.getX() * POS_TO_PIXEL), 
+      m_frame.start.getY() + POS_TO_PIXEL + (m_snake->getHead().position.getY() * POS_TO_PIXEL));
 
   m_mutex.unlock();
 

@@ -26,7 +26,9 @@ static const int KEY_RIGHT(77);
 //                        Functions's implementations
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
-CGame::CGame() : m_keyBoardInput(KB_NONE), m_logger(Singleton<Logger>::GetInstance())
+CGame::CGame()  : m_snake(Singleton<CSnake>::GetInstance())
+                , m_keyBoardInput(KB_NONE)
+                , m_logger(Singleton<Logger>::GetInstance())
 {
   m_logger->write("CGame: Game was initiated");
 }
@@ -52,7 +54,7 @@ CGame::EGameState CGame::update()
 
   if (m_freqTimer.hasExpired())
   {
-    CDirection snakeDirectionReq(m_snake.getHead().direction);
+    CDirection snakeDirectionReq(m_snake->getHead().direction);
 
     switch (m_keyBoardInput)
     {

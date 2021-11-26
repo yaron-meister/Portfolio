@@ -44,7 +44,7 @@ private:
   static bool m_stopGraphicalApp;
   static std::mutex m_mutex;
   static size_t m_prevSnakeBodySize;
-  static CSnake m_snake;
+  static CSnake* m_snake;
   static SFrame m_frame;
 
   // Shapes
