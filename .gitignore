@@ -23,3 +23,6 @@ projects/breaking_news_app/BreakingNewsApp/obj/*
 projects/simple_calculator/obj/*
 projects/simple_calculator/bin/*
 projects/breaking_news_app/BreakingNewsApp/obj/*
+projects/BeyeOnicsBeacons/x64/*
+projects/BeyeOnicsBeacons/project/*
+projects/BeyeOnicsBeacons/opencv/*
