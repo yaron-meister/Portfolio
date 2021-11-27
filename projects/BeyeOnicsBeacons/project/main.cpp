@@ -89,27 +89,30 @@ void Run()
         // TODO draw shortest path
         
         // Draw all saved beacons
-        Beacon* currentBeacon(transmissionField.GetFirstBeacon());
-        while (nullptr != currentBeacon)
+        if (!transmissionField.IsEmpty())
         {
-          std::optional<cv::Point2d>  currentCenterPoint = currentBeacon->GetCenterPoint();
-          float                       currentConnectivityRadius = currentBeacon->GetConnectivityRadius();
+            Beacon* currentBeacon(transmissionField.GetFirstBeacon());
+            while (nullptr != currentBeacon)
+            {
+              std::optional<cv::Point2d>  currentCenterPoint = currentBeacon->GetCenterPoint();
+              float                       currentConnectivityRadius = currentBeacon->GetConnectivityRadius();
 
-          cv::ellipse(canvas,
-            cv::Point(currentCenterPoint->x, currentCenterPoint->y),
-            cv::Size((int)5, (int)5), 0.0,
-            0, 360,
-            GREEN, -1
-          );
+              cv::ellipse(canvas,
+                cv::Point(currentCenterPoint->x, currentCenterPoint->y),
+                cv::Size((int)5, (int)5), 0.0,
+                0, 360,
+                GREEN, -1
+              );
 
-          cv::ellipse(canvas,
-            cv::Point((int)currentCenterPoint->x, (int)currentCenterPoint->y),
-            cv::Size((int)currentConnectivityRadius, (int)currentConnectivityRadius),
-            0.0, 0, 360, BLUE, 3
-          );
+              cv::ellipse(canvas,
+                cv::Point((int)currentCenterPoint->x, (int)currentCenterPoint->y),
+                cv::Size((int)currentConnectivityRadius, (int)currentConnectivityRadius),
+                0.0, 0, 360, BLUE, 3
+              );
 
-          currentBeacon = transmissionField.GetNextBeacon(currentBeacon->GetID());
-        } 
+              currentBeacon = transmissionField.GetNextBeacon(currentBeacon->GetID());
+            } 
+        }
 
         // Draw last temporary beacon
         if (lastPoint) // TODO::YARON - Multiplication
@@ -137,6 +140,7 @@ void Run()
         {
             if (keyVal == 'c')
             {
+                transmissionField.Reset();
                 lastPoint.reset();
                 // TODO: clear canvas
             }

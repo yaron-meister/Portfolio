@@ -39,6 +39,21 @@ void TransmissionField::ProcessAndAddNewBeacon(std::optional<cv::Point2d> center
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+void TransmissionField::Reset()
+{
+    m_beaconsMap.clear();
+    m_last_beacon_id = 0;
+    m_smallest_path_length = Beacon::INVALID_DISTANCE;
+    m_path_ids.clear();
+}
+
+////////////////////////////////////////////////////////////////////////////////
+bool TransmissionField::IsEmpty()
+{
+  return (m_beaconsMap.empty());
+}
+
+////////////////////////////////////////////////////////////////////////////////
 void TransmissionField::UpdateTransmissionPath(Beacon* new_beacon)
 {
     if (nullptr != new_beacon)
