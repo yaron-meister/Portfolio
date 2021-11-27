@@ -117,7 +117,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)/opencv/include/;.\beacon</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)/opencv/include/;.\beacon;.\transmission_field</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -148,11 +148,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="beacon\beacon.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="transmission_field\transmissionField.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="beacon\beacon.h" />
     <ClInclude Include="linker.hpp" />
+    <ClInclude Include="transmission_field\transmissionField.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
