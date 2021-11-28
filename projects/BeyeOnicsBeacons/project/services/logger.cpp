@@ -29,7 +29,7 @@ Logger::~Logger()
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-void Logger::Write(const char* format, ...)
+void Logger::Write(const std::string& str)
 {
   try
   {
@@ -39,7 +39,7 @@ void Logger::Write(const char* format, ...)
     std::time_t end_time = std::chrono::system_clock::to_time_t(end);
 
     // Writing on file
-    m_file << std::ctime(&end_time) << ":  " << format << std::endl;
+    m_file << std::ctime(&end_time) << ":  " << str << std::endl;
   }
   catch (...)
   {

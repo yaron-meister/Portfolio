@@ -23,7 +23,7 @@ public:
   Logger(const Logger&) = delete;
   Logger& operator=(const Logger&) = delete;
 
-  void Write(const char* format, ...);
+  void Write(const std::string& str);
 
 private:
   // CTor

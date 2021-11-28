@@ -38,7 +38,7 @@ void TransmissionField::ProcessAndAddNewBeacon(optional<cv::Point2d> centerPoint
 		}
 		catch (...)
 		{
-			m_logger->Write("File: %s, Line: %d", __FILE__, __LINE__);
+			m_logger->Write("Error in TransmissionField::ProcessAndAddNewBeacon");
 		}
 	}
 }
@@ -103,7 +103,7 @@ void TransmissionField::UpdateConnections(shared_ptr<Beacon> existBeacon, shared
 	}
 	catch (...)
 	{
-		m_logger->Write("File: %s, Line: %d: 'existBeacon/newBeacon are not valid'", __FILE__, __LINE__);
+		m_logger->Write("Error in TransmissionField::UpdateConnections");
 	}
 }
 
@@ -203,7 +203,7 @@ TransmissionField::UpdateTransmissionPathRec(
 		}
 		catch (...)
 		{
-			m_logger->Write("File: %s, Line: %d", __FILE__, __LINE__);
+			m_logger->Write("Error in TransmissionField::UpdateTransmissionPathRec");
 		}
 	}
 
