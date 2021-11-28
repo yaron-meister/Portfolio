@@ -7,31 +7,20 @@
 
 #include "transmissionField.h"
 
+using namespace std;
 
 ////////////////////////////////////////////////////////////////////////////////
 //													Functions Implementations
 ////////////////////////////////////////////////////////////////////////////////
-TransmissionField::~TransmissionField()
-{
-    // Free all Beacons
-    for (std::map<unsigned int, Beacon*>::iterator it = m_beaconsMap.begin();
-      it != m_beaconsMap.end(); ++it)
-    {
-      delete it->second;
-      it->second = nullptr;
-    }
-}
-
-////////////////////////////////////////////////////////////////////////////////
-void TransmissionField::ProcessAndAddNewBeacon(std::optional<cv::Point2d> center_point, int connectivity_radius)
+void TransmissionField::ProcessAndAddNewBeacon(optional<cv::Point2d> center_point, int connectivity_radius)
 {
   if (center_point)
   {
     try
     {
-        Beacon* new_beacon = new Beacon(center_point, connectivity_radius, ++m_last_beacon_id);
+        shared_ptr<Beacon> new_beacon = shared_ptr<Beacon>(new Beacon(center_point, connectivity_radius, ++m_last_beacon_id));
       
-        for (std::map<unsigned int, Beacon*>::iterator it = m_beaconsMap.begin(); it != m_beaconsMap.end(); ++it)
+        for (map<unsigned int, shared_ptr<Beacon>>::iterator it = m_beaconsMap.begin(); it != m_beaconsMap.end(); ++it)
         {
           UpdateConnections(it->second, new_beacon);
         }
@@ -62,7 +51,7 @@ bool TransmissionField::IsEmpty()
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-void TransmissionField::UpdateTransmissionPath(Beacon* new_beacon)
+void TransmissionField::UpdateTransmissionPath(shared_ptr<Beacon> new_beacon)
 {
     if (!IsNewIDAddedByExistPath(new_beacon->GetID()))
     {
@@ -71,7 +60,7 @@ void TransmissionField::UpdateTransmissionPath(Beacon* new_beacon)
         m_path_ids.clear();
         m_smallest_path_length = 0;
 
-        std::vector<unsigned int> transmission_path_ids;
+        vector<unsigned int> transmission_path_ids;
         unsigned long path_included_beacons(FIRST_VALID_ID);
 
         UpdateTransmissionPathRec(FIRST_VALID_ID, INVALID_BEACON_ID, PATH_LENGTH, path_included_beacons, transmission_path_ids);
@@ -79,7 +68,7 @@ void TransmissionField::UpdateTransmissionPath(Beacon* new_beacon)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-void TransmissionField::UpdateConnections(Beacon* exist_beacon, Beacon* new_beacon)
+void TransmissionField::UpdateConnections(shared_ptr<Beacon> exist_beacon, shared_ptr < Beacon> new_beacon)
 {
   try
   {
@@ -127,7 +116,7 @@ TransmissionField::UpdateTransmissionPathRec(
   unsigned int prev_beacon_id,
   float path_length,
   unsigned long path_included_beacons,
-  std::vector<unsigned int> transmission_path_ids)
+  vector<unsigned int> transmission_path_ids)
 {
   if (current_beacon_id == m_last_beacon_id)
   {
@@ -142,9 +131,9 @@ TransmissionField::UpdateTransmissionPathRec(
 
       try
       {
-          Beacon* current_beacon = m_beaconsMap[current_beacon_id];
+          shared_ptr<Beacon> current_beacon = m_beaconsMap[current_beacon_id];
 
-          std::vector<unsigned int> current_beacon_connections = current_beacon->GetConnections();
+          vector<unsigned int> current_beacon_connections = current_beacon->GetConnections();
           EReachedLastBeacon reached_last_beacon(NOT_REACHED_LAST_BEACON);
 
           transmission_path_ids.push_back(current_beacon_id);
@@ -154,7 +143,7 @@ TransmissionField::UpdateTransmissionPathRec(
               path_length += Beacon::GetDistanceBetweenBeacons(*m_beaconsMap[prev_beacon_id], *current_beacon);
           }
 
-          for (std::vector<unsigned int>::iterator it = current_beacon_connections.begin(); it != current_beacon_connections.end(); ++it)
+          for (vector<unsigned int>::iterator it = current_beacon_connections.begin(); it != current_beacon_connections.end(); ++it)
           {
               reached_last_beacon = UpdateTransmissionPathRec(*it, current_beacon_id, path_length, path_included_beacons, transmission_path_ids);
 
@@ -183,9 +172,9 @@ TransmissionField::UpdateTransmissionPathRec(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-Beacon* TransmissionField::GetBeacon(unsigned int id)
+shared_ptr<Beacon> TransmissionField::GetBeacon(unsigned int id)
 {
-    Beacon* beacon(nullptr);
+    shared_ptr<Beacon> beacon(nullptr);
 
     if (id >= FIRST_VALID_ID && id <= m_last_beacon_id)
     {
@@ -196,25 +185,25 @@ Beacon* TransmissionField::GetBeacon(unsigned int id)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-Beacon* TransmissionField::GetFirstBeacon()
+shared_ptr<Beacon> TransmissionField::GetFirstBeacon()
 {
     return (GetBeacon(FIRST_VALID_ID));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-Beacon* TransmissionField::GetLastBeacon()
+shared_ptr<Beacon> TransmissionField::GetLastBeacon()
 {
     return (GetBeacon(m_last_beacon_id));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-Beacon* TransmissionField::GetNextBeacon(unsigned int id)
+shared_ptr<Beacon> TransmissionField::GetNextBeacon(unsigned int id)
 {
     return (GetBeacon(id + 1));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-Beacon* TransmissionField::GetPrevBeacon(unsigned int id)
+shared_ptr<Beacon> TransmissionField::GetPrevBeacon(unsigned int id)
 {
     return (GetBeacon(id - 1));
 }

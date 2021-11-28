@@ -33,9 +33,6 @@ public:
 	// CTor
 	TransmissionField() : m_last_beacon_id(INVALID_BEACON_ID), m_smallest_path_length(0){}
 
-	// DTor
-	~TransmissionField();
-
 	// Methods
 
 	void											ProcessAndAddNewBeacon(std::optional<cv::Point2d> center_point, int connectivity_radius);
@@ -45,17 +42,17 @@ public:
 	std::vector<unsigned int> GetTransmissionPath() const { return m_path_ids; }
 
 	// Beacons iterations
-	Beacon*	GetFirstBeacon();
-	Beacon*	GetLastBeacon();
-	Beacon*	GetNextBeacon(unsigned int id);
-	Beacon* GetPrevBeacon(unsigned int id);
-	Beacon*	GetBeacon(unsigned int id);
+	std::shared_ptr<Beacon>	GetFirstBeacon();
+	std::shared_ptr<Beacon>	GetLastBeacon();
+	std::shared_ptr<Beacon>	GetNextBeacon(unsigned int id);
+	std::shared_ptr<Beacon> GetPrevBeacon(unsigned int id);
+	std::shared_ptr<Beacon>	GetBeacon(unsigned int id);
 
 private:
 	// Methods
-	void UpdateTransmissionPath(Beacon* new_beacon);
+	void UpdateTransmissionPath(std::shared_ptr<Beacon> new_beacon);
 	bool IsNewIDAddedByExistPath(unsigned int new_id);
-	void UpdateConnections(Beacon* exist_beacon, Beacon* new_beacon);
+	void UpdateConnections(std::shared_ptr<Beacon> exist_beacon, std::shared_ptr<Beacon> new_beacon);
 
 	EReachedLastBeacon	UpdateTransmissionPathRec(
 		unsigned int current_beacon_id,
@@ -65,7 +62,7 @@ private:
 		std::vector<unsigned int> transmission_path_ids);
 
 	// Members
-	std::map<unsigned int, Beacon*>	m_beaconsMap;
+	std::map<unsigned int, std::shared_ptr<Beacon>>	m_beaconsMap;
 	unsigned int										m_last_beacon_id;
 	float														m_smallest_path_length;
 	std::vector<unsigned int>				m_path_ids;

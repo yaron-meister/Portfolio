@@ -92,7 +92,7 @@ void Run()
         // Draw all saved beacons
         if (!transmissionField.IsEmpty())
         {
-            Beacon* currentBeacon(transmissionField.GetFirstBeacon());
+            std::shared_ptr<Beacon> currentBeacon(transmissionField.GetFirstBeacon());
             while (nullptr != currentBeacon)
             {
               std::optional<cv::Point2d>  currentCenterPoint = currentBeacon->GetCenterPoint();
