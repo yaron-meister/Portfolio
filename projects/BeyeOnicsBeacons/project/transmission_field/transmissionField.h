@@ -7,7 +7,9 @@
 
 #pragma once
 
+
 #include "beacon.h"
+#include "logger.h"
 
 #include <map>
 
@@ -31,7 +33,7 @@ public:
 	};
 
 	// CTor
-	TransmissionField() : m_last_beacon_id(INVALID_BEACON_ID), m_smallest_path_length(0) {}
+	TransmissionField() : m_last_beacon_id(INVALID_BEACON_ID), m_smallest_path_length(0), m_logger(Singleton<Logger>::GetInstance()) {}
 
 	// Methods
 
@@ -63,9 +65,10 @@ private:
 
 	// Members
 	std::map<unsigned int, std::shared_ptr<Beacon>>	m_beaconsMap;
-	unsigned int										m_last_beacon_id;
-	float														m_smallest_path_length;
-	std::vector<unsigned int>				m_path_ids;
+	unsigned int							m_last_beacon_id;
+	float											m_smallest_path_length;
+	std::vector<unsigned int>	m_path_ids;
+	Logger*										m_logger;
 };
 
 

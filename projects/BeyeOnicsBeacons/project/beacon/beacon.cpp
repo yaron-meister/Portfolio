@@ -60,20 +60,12 @@ void Beacon::CheckAndUpdateConnection(Beacon& otherBeacon)
 float Beacon::GetDistanceBetweenBeacons(Beacon& oneBeacon, Beacon& otherBeacon)
 {
 	float distance(INVALID_DISTANCE);
+	float beaconsDeltaX(fabs(oneBeacon.m_center_point->x - otherBeacon.m_center_point->x));
+	float beaconsDeltaY(fabs(oneBeacon.m_center_point->y - otherBeacon.m_center_point->y));
 
-	try
-	{
-		float beaconsDeltaX(fabs(oneBeacon.m_center_point->x - otherBeacon.m_center_point->x));
-		float beaconsDeltaY(fabs(oneBeacon.m_center_point->y - otherBeacon.m_center_point->y));
-
-		// Distance = SQRT(x^2 + y^2)
-		distance = sqrt(powf(beaconsDeltaX, 2.0f) + powf(beaconsDeltaY, 2.0f));
-	}
-	catch (...)
-	{
-		// TODO::YARON - Logger
-	}
-
+	// Distance = SQRT(x^2 + y^2)
+	distance = sqrt(powf(beaconsDeltaX, 2.0f) + powf(beaconsDeltaY, 2.0f));
+	
 	return (distance);
 }
 

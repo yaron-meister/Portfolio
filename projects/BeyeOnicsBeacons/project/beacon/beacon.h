@@ -7,6 +7,9 @@
 
 #pragma once
 
+
+#include "logger.h"
+
 #include <optional>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/core.hpp>
@@ -45,4 +48,5 @@ private:
 	std::optional<cv::Point2d>  m_center_point;
 	float                       m_connectivity_radius;
 	std::vector<unsigned int>		m_connectedBeacons;
+	//Logger*							m_logger;
 };

@@ -38,7 +38,7 @@ void TransmissionField::ProcessAndAddNewBeacon(optional<cv::Point2d> centerPoint
 		}
 		catch (...)
 		{
-			// TODO::YARON - Logger
+			m_logger->Write("File: %s, Line: %d", __FILE__, __LINE__);
 		}
 	}
 }
@@ -103,7 +103,7 @@ void TransmissionField::UpdateConnections(shared_ptr<Beacon> existBeacon, shared
 	}
 	catch (...)
 	{
-		// TODO::YARON - Logger
+		m_logger->Write("File: %s, Line: %d: 'existBeacon/newBeacon are not valid'", __FILE__, __LINE__);
 	}
 }
 
@@ -203,7 +203,7 @@ TransmissionField::UpdateTransmissionPathRec(
 		}
 		catch (...)
 		{
-			// TODO::YARON - Logger
+			m_logger->Write("File: %s, Line: %d", __FILE__, __LINE__);
 		}
 	}
 

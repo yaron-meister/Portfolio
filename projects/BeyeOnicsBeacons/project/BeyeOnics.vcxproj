@@ -115,9 +115,9 @@
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)/opencv/include/;.\beacon;.\transmission_field</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)/opencv/include/;.\beacon;.\transmission_field;.\services</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -150,11 +150,14 @@
   <ItemGroup>
     <ClCompile Include="beacon\beacon.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="services\logger.cpp" />
     <ClCompile Include="transmission_field\transmissionField.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="beacon\beacon.h" />
     <ClInclude Include="linker.hpp" />
+    <ClInclude Include="services\logger.h" />
+    <ClInclude Include="services\singleton.hpp" />
     <ClInclude Include="transmission_field\transmissionField.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
