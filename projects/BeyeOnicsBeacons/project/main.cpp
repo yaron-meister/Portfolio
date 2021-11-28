@@ -55,6 +55,7 @@ void Run()
 
     std::optional<cv::Point2d> lastPoint{};
     TransmissionField transmissionField{};
+    bool showTransmissionPath(true);
 
     while (true)
     {
@@ -135,7 +136,7 @@ void Run()
 
         // Draw Transmission Path
         std::vector<unsigned int> transmissionPathIDs = transmissionField.GetTransmissionPath();
-        if (transmissionPathIDs.size() > 1)
+        if (transmissionPathIDs.size() > 1 && showTransmissionPath)
         {
             std::vector<unsigned int>::iterator firstBeaconID = transmissionPathIDs.begin();
             std::vector<unsigned int>::iterator secondBeaconID = std::next(firstBeaconID);
@@ -168,6 +169,7 @@ void Run()
             else if (keyVal == 't')
             {
                 // TODO: toggle show / hide connectivity radius
+              showTransmissionPath = !showTransmissionPath;
             }
             else if (keyVal == 27) // escape
             {
