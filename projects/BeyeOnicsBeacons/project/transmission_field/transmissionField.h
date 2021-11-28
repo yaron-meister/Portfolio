@@ -15,27 +15,27 @@
 class TransmissionField
 {
 public:
-	const unsigned int INVALID_BEACON_ID	= 0;
-	const unsigned int FIRST_VALID_ID			= 1;
+	const unsigned int INVALID_BEACON_ID = 0;
+	const unsigned int FIRST_VALID_ID = 1;
 
 	enum EReachedLastBeacon
 	{
-			NOT_REACHED_LAST_BEACON,
-			REACHED_LAST_BEACON
+		NOT_REACHED_LAST_BEACON,
+		REACHED_LAST_BEACON
 	};
 
 	enum EIncludedInPath
 	{
-			NOT_INCLUDED,
-			INCLUDED
+		NOT_INCLUDED,
+		INCLUDED
 	};
 
 	// CTor
-	TransmissionField() : m_last_beacon_id(INVALID_BEACON_ID), m_smallest_path_length(0){}
+	TransmissionField() : m_last_beacon_id(INVALID_BEACON_ID), m_smallest_path_length(0) {}
 
 	// Methods
 
-	void											ProcessAndAddNewBeacon(std::optional<cv::Point2d> center_point, int connectivity_radius);
+	void											ProcessAndAddNewBeacon(std::optional<cv::Point2d> centerPoint, int connectivityRadius);
 	void											Reset();
 	bool											IsEmpty();
 	unsigned int							GetLastBeaconId() const { return m_last_beacon_id; }
@@ -50,16 +50,16 @@ public:
 
 private:
 	// Methods
-	void UpdateTransmissionPath(std::shared_ptr<Beacon> new_beacon);
-	bool IsNewIDAddedByExistPath(unsigned int new_id);
-	void UpdateConnections(std::shared_ptr<Beacon> exist_beacon, std::shared_ptr<Beacon> new_beacon);
+	void UpdateTransmissionPath(std::shared_ptr<Beacon> newBeacon);
+	bool IsNewIDAddedByExistPath(unsigned int newID);
+	void UpdateConnections(std::shared_ptr<Beacon> existBeacon, std::shared_ptr<Beacon> newBeacon);
 
 	EReachedLastBeacon	UpdateTransmissionPathRec(
-		unsigned int current_beacon_id,
-		unsigned int prev_beacon_id,
-		float pathLength, 
-		unsigned long path_included_beacons, 
-		std::vector<unsigned int> transmission_path_ids);
+		unsigned int currentBeaconID,
+		unsigned int prevBeaconID,
+		float pathLength,
+		unsigned long pathIncludedBeacons,
+		std::vector<unsigned int> transmissionPathIDs);
 
 	// Members
 	std::map<unsigned int, std::shared_ptr<Beacon>>	m_beaconsMap;
@@ -67,3 +67,5 @@ private:
 	float														m_smallest_path_length;
 	std::vector<unsigned int>				m_path_ids;
 };
+
+

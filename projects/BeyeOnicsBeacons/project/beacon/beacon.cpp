@@ -14,46 +14,60 @@ const float Beacon::INVALID_DISTANCE(-1.0);
 ////////////////////////////////////////////////////////////////////////////////
 //													Functions Implementations
 ////////////////////////////////////////////////////////////////////////////////
-Beacon::Beacon(std::optional<cv::Point2d> center_point, float connectivity_radius, unsigned int id)	:
-	m_id(id),	
-	m_center_point(center_point),	
-	m_connectivity_radius(connectivity_radius)
-{
-		if (m_center_point->x < 0 || m_center_point->y < 0 || m_connectivity_radius < 0)
-		{
-				m_center_point->x = 0;
-				m_center_point->y = 0;
-
-				m_connectivity_radius = 0.0f;
-		}
-	}
 
 ////////////////////////////////////////////////////////////////////////////////
-void Beacon::CheckAndUpdateConnection(Beacon& other_beacon)
+//	Function name:	Beacon()	
+//	Description:		CTor
+//	Return value:		None
+////////////////////////////////////////////////////////////////////////////////
+Beacon::Beacon(std::optional<cv::Point2d> centerPoint, float connectivityRadius, unsigned int id) :
+	m_id(id),
+	m_center_point(centerPoint),
+	m_connectivity_radius(connectivityRadius)
 {
-		if (m_id != other_beacon.m_id)
-		{
-				// Is connectable if own Radius is greater than the Distance between the center points
-				if (m_connectivity_radius > GetDistanceBetweenBeacons(*this, other_beacon))
-				{
-					m_connectedBeacons.push_back(other_beacon.m_id);
-				}
-		}
+	if (m_center_point->x < 0 || m_center_point->y < 0 || m_connectivity_radius < 0)
+	{
+		m_center_point->x = 0;
+		m_center_point->y = 0;
+
+		m_connectivity_radius = 0.0f;
+	}
 }
 
-// TODO::YARON - Add descriptions for functions
 ////////////////////////////////////////////////////////////////////////////////
-float Beacon::GetDistanceBetweenBeacons(Beacon& one_beacon, Beacon& other_beacon)
+//	Function name:	CheckAndUpdateConnection	
+//	Description:		Check if "this" is connectable with "otherBeacon",
+//									If so, updates the m_connectedBeacons
+//	Return value:		None
+////////////////////////////////////////////////////////////////////////////////
+void Beacon::CheckAndUpdateConnection(Beacon& otherBeacon)
+{
+	if (m_id != otherBeacon.m_id)
+	{
+		// Is connectable if own Radius is greater than the Distance between the center points
+		if (m_connectivity_radius > GetDistanceBetweenBeacons(*this, otherBeacon))
+		{
+			m_connectedBeacons.push_back(otherBeacon.m_id);
+		}
+	}
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//	Function name:	GetDistanceBetweenBeacons	
+//	Description:		Calculates the distance between "oneBeacon" to "otherBeacon"
+//	Return value:		float - The distance
+////////////////////////////////////////////////////////////////////////////////
+float Beacon::GetDistanceBetweenBeacons(Beacon& oneBeacon, Beacon& otherBeacon)
 {
 	float distance(INVALID_DISTANCE);
 
 	try
 	{
-		float beacons_delta_x(fabs(one_beacon.m_center_point->x - other_beacon.m_center_point->x));
-		float beacons_delta_y(fabs(one_beacon.m_center_point->y - other_beacon.m_center_point->y));
+		float beaconsDeltaX(fabs(oneBeacon.m_center_point->x - otherBeacon.m_center_point->x));
+		float beaconsDeltaY(fabs(oneBeacon.m_center_point->y - otherBeacon.m_center_point->y));
 
 		// Distance = SQRT(x^2 + y^2)
-		distance = sqrt(powf(beacons_delta_x, 2.0f) + powf(beacons_delta_y, 2.0f));
+		distance = sqrt(powf(beaconsDeltaX, 2.0f) + powf(beaconsDeltaY, 2.0f));
 	}
 	catch (...)
 	{
@@ -64,9 +78,13 @@ float Beacon::GetDistanceBetweenBeacons(Beacon& one_beacon, Beacon& other_beacon
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-bool Beacon::IsConnectedToOtherBeacon(unsigned int other_beacon_id)
+//	Function name:	IsConnectedToOtherBeacon	
+//	Description:		Checks if "otherBeacon" is connected
+//	Return value:		True - connected, False - not
+////////////////////////////////////////////////////////////////////////////////
+bool Beacon::IsConnectedToOtherBeacon(unsigned int otherBeaconID)
 {
-	std::vector<unsigned int>::iterator it = std::find(m_connectedBeacons.begin(), m_connectedBeacons.end(), other_beacon_id);
+	std::vector<unsigned int>::iterator it = std::find(m_connectedBeacons.begin(), m_connectedBeacons.end(), otherBeaconID);
 
 	// "other_beacon_id" is found if "it" didn't reach to end()
 	return (it != m_connectedBeacons.end());
