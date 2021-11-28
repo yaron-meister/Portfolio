@@ -35,6 +35,7 @@ public:
 	void SetID(unsigned int new_id) { m_id = new_id; }
 
 	bool IsConnected() const { return !m_connectedBeacons.empty(); }
+	bool IsConnectedToOtherBeacon(unsigned int other_beacon_id);
 	void CheckAndUpdateConnection(Beacon& other_beacon);
 
 private:

@@ -29,7 +29,15 @@ void TransmissionField::ProcessAndAddNewBeacon(std::optional<cv::Point2d> center
   {
     try
     {
-      UpdateTransmissionPath(new Beacon(center_point, connectivity_radius, ++m_last_beacon_id));
+        Beacon* new_beacon = new Beacon(center_point, connectivity_radius, ++m_last_beacon_id);
+      
+        for (std::map<unsigned int, Beacon*>::iterator it = m_beaconsMap.begin(); it != m_beaconsMap.end(); ++it)
+        {
+          UpdateConnections(it->second, new_beacon);
+        }
+
+        m_beaconsMap[new_beacon->GetID()] = new_beacon;
+        UpdateTransmissionPath(new_beacon);
     }
     catch (...)
     {
@@ -56,28 +64,17 @@ bool TransmissionField::IsEmpty()
 ////////////////////////////////////////////////////////////////////////////////
 void TransmissionField::UpdateTransmissionPath(Beacon* new_beacon)
 {
-    if (nullptr != new_beacon)
+    if (!IsNewIDAddedByExistPath(new_beacon->GetID()))
     {
-        for (std::map<unsigned int, Beacon*>::iterator it = m_beaconsMap.begin(); it != m_beaconsMap.end(); ++it)
-        {
-          UpdateConnections(it->second, new_beacon);
-        }
-      
-        int new_id = new_beacon->GetID();
-        if (new_id >= 0)
-        {
-            const float PATH_LENGTH(0.0f);
+        const float PATH_LENGTH(0.0f);
 
-            m_beaconsMap[new_id] = new_beacon;
-            m_last_beacon_id = new_beacon->GetID();
-            m_path_ids.clear();
-            m_smallest_path_length = 0;
+        m_path_ids.clear();
+        m_smallest_path_length = 0;
 
-            std::vector<unsigned int> transmission_path_ids;
-            unsigned long path_included_beacons(FIRST_VALID_ID);
+        std::vector<unsigned int> transmission_path_ids;
+        unsigned long path_included_beacons(FIRST_VALID_ID);
 
-            UpdateTransmissionPathRec(FIRST_VALID_ID, INVALID_BEACON_ID, PATH_LENGTH, path_included_beacons, transmission_path_ids);
-        }
+        UpdateTransmissionPathRec(FIRST_VALID_ID, INVALID_BEACON_ID, PATH_LENGTH, path_included_beacons, transmission_path_ids);
     }
 }
 
@@ -93,6 +90,34 @@ void TransmissionField::UpdateConnections(Beacon* exist_beacon, Beacon* new_beac
   {
     // TODO::YARON - Logger
   }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+bool TransmissionField::IsNewIDAddedByExistPath(unsigned int new_id)
+{
+  bool addNewID(false);
+  size_t pathNumOfIDs = m_path_ids.size();
+
+  size_t idx(0);
+  for (; idx < pathNumOfIDs && !addNewID; ++idx)
+  {
+    if (m_path_ids[idx] >= FIRST_VALID_ID && m_path_ids[idx] < m_last_beacon_id)
+    {
+      addNewID = m_beaconsMap[m_path_ids[idx]]->IsConnectedToOtherBeacon(new_id);
+    }
+  }
+
+  if (addNewID)
+  {
+    for (; idx < pathNumOfIDs; ++idx)
+    {
+      m_path_ids.pop_back();
+    }
+
+    m_path_ids.push_back(new_id);
+  }
+
+  return (addNewID);
 }
 
 ////////////////////////////////////////////////////////////////////////////////

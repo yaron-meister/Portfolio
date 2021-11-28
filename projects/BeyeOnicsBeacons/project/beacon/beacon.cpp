@@ -62,3 +62,12 @@ float Beacon::GetDistanceBetweenBeacons(Beacon& one_beacon, Beacon& other_beacon
 
 	return (distance);
 }
+
+////////////////////////////////////////////////////////////////////////////////
+bool Beacon::IsConnectedToOtherBeacon(unsigned int other_beacon_id)
+{
+	std::vector<unsigned int>::iterator it = std::find(m_connectedBeacons.begin(), m_connectedBeacons.end(), other_beacon_id);
+
+	// "other_beacon_id" is found if "it" didn't reach to end()
+	return (it != m_connectedBeacons.end());
+}

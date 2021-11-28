@@ -54,6 +54,7 @@ public:
 private:
 	// Methods
 	void UpdateTransmissionPath(Beacon* new_beacon);
+	bool IsNewIDAddedByExistPath(unsigned int new_id);
 	void UpdateConnections(Beacon* exist_beacon, Beacon* new_beacon);
 
 	EReachedLastBeacon	UpdateTransmissionPathRec(
