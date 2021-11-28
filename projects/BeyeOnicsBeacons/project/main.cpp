@@ -65,8 +65,8 @@ void Run()
         // TODO: handle user input
         if (lastUserInput.mouse_press_pos) // TODO::YARON - Indent
         {
-            transmissionField.ProcessAndAddNewBeacon(lastPoint, currentConnectivityRadius);
             lastPoint = *lastUserInput.mouse_press_pos;
+            transmissionField.ProcessAndAddNewBeacon(lastPoint, currentConnectivityRadius);
             lastUserInput.mouse_press_pos.reset();
         }
         if (lastUserInput.mouse_wheel_delta)
@@ -132,6 +132,27 @@ void Run()
             );
          
         }
+
+        // Draw Transmission Path
+        std::vector<unsigned int> transmissionPathIDs = transmissionField.GetTransmissionPath();
+        if (transmissionPathIDs.size() > 1)
+        {
+            std::vector<unsigned int>::iterator firstBeaconID = transmissionPathIDs.begin();
+            std::vector<unsigned int>::iterator secondBeaconID = std::next(firstBeaconID);
+          
+            for (; secondBeaconID != transmissionPathIDs.end(); ++firstBeaconID, ++secondBeaconID)
+            {
+                std::optional<cv::Point2d> firstBeacon2DCenter(transmissionField.GetBeacon(*firstBeaconID)->GetCenterPoint());
+                std::optional<cv::Point2d> secondBeacon2DCenter(transmissionField.GetBeacon(*secondBeaconID)->GetCenterPoint());
+
+                cv::Point firstBeaconCenter(firstBeacon2DCenter->x, firstBeacon2DCenter->y);
+                cv::Point secondBeaconCenter(secondBeacon2DCenter->x, secondBeacon2DCenter->y);
+
+                cv::line(canvas, firstBeaconCenter, secondBeaconCenter, RED, 3);
+            }
+        }
+
+
 
         cv::imshow("canvas", canvas);
         auto keyVal = cv::waitKey(1);

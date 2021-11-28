@@ -70,6 +70,8 @@ void TransmissionField::UpdateTransmissionPath(Beacon* new_beacon)
 
             m_beaconsMap[new_id] = new_beacon;
             m_last_beacon_id = new_beacon->GetID();
+            m_path_ids.clear();
+            m_smallest_path_length = 0;
 
             std::vector<unsigned int> transmission_path_ids;
             unsigned long path_included_beacons(FIRST_VALID_ID);

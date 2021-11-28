@@ -38,11 +38,11 @@ public:
 
 	// Methods
 
-	void					ProcessAndAddNewBeacon(std::optional<cv::Point2d> center_point, int connectivity_radius);
-	void					Reset();
-	bool					IsEmpty();
-	unsigned int	GetLastBeaconId() const { return m_last_beacon_id; }
-	const std::map<unsigned int, Beacon*>&	GetBeacons() const { return m_beaconsMap; }
+	void											ProcessAndAddNewBeacon(std::optional<cv::Point2d> center_point, int connectivity_radius);
+	void											Reset();
+	bool											IsEmpty();
+	unsigned int							GetLastBeaconId() const { return m_last_beacon_id; }
+	std::vector<unsigned int> GetTransmissionPath() const { return m_path_ids; }
 
 	// Beacons iterations
 	Beacon*	GetFirstBeacon();
