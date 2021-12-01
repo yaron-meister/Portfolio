@@ -18,6 +18,7 @@ namespace BreakingNewsApp
         List<Panel> panels = new List<Panel>();
         private int currentIdx = 0;
         private NewsServer newsServer = new NewsServer();
+        private NewsServer.News updatedNews = new NewsServer.News();
         string appMembersFile = @"app_members.txt";
 
         public MainForm()
@@ -28,6 +29,8 @@ namespace BreakingNewsApp
             {
                 File.Create(appMembersFile);
             }
+
+            updatedNews.status = "Fail";
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -182,12 +185,19 @@ namespace BreakingNewsApp
                     signInPanel.Hide();
                     signUpPanel.Hide();
                     newsPanel.Show();
+
+                    RefreshMainForm();
                 }
                 else
                 {
                     inErrorLabel.Text = "Username or Password not valid";
                 }
             }
+        }
+
+        private void Disconnect_Click(object sender, EventArgs e)
+        {
+            signInPanel.Show();
         }
     }
 }

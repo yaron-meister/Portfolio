@@ -32,9 +32,9 @@ namespace BreakingNewsApp
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.panelLeft = new System.Windows.Forms.Panel();
-            this.refresh = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.signInPanel = new System.Windows.Forms.Panel();
+            this.signInButton = new System.Windows.Forms.Button();
             this.inErrorLabel = new System.Windows.Forms.Label();
             this.signInLabel = new System.Windows.Forms.Label();
             this.signMeUpButton = new System.Windows.Forms.Button();
@@ -55,13 +55,13 @@ namespace BreakingNewsApp
             this.upPasswordText = new System.Windows.Forms.TextBox();
             this.newsPanel = new System.Windows.Forms.Panel();
             this.Index = new System.Windows.Forms.Label();
+            this.Refresh = new System.Windows.Forms.Button();
             this.ToggleEnd = new System.Windows.Forms.Button();
             this.ToggleNext = new System.Windows.Forms.Button();
             this.TogglePrev = new System.Windows.Forms.Button();
             this.ToggleStart = new System.Windows.Forms.Button();
             this.Content = new System.Windows.Forms.Label();
             this.Headline = new System.Windows.Forms.Label();
-            this.signInButton = new System.Windows.Forms.Button();
             this.panelLeft.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.signInPanel.SuspendLayout();
@@ -71,24 +71,12 @@ namespace BreakingNewsApp
             // 
             // panelLeft
             // 
-            this.panelLeft.Controls.Add(this.refresh);
             this.panelLeft.Controls.Add(this.pictureBox1);
             this.panelLeft.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelLeft.Location = new System.Drawing.Point(0, 0);
             this.panelLeft.Name = "panelLeft";
             this.panelLeft.Size = new System.Drawing.Size(400, 760);
             this.panelLeft.TabIndex = 0;
-            // 
-            // refresh
-            // 
-            this.refresh.Image = ((System.Drawing.Image)(resources.GetObject("refresh.Image")));
-            this.refresh.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.refresh.Location = new System.Drawing.Point(299, 520);
-            this.refresh.Name = "refresh";
-            this.refresh.Size = new System.Drawing.Size(65, 48);
-            this.refresh.TabIndex = 5;
-            this.refresh.UseVisualStyleBackColor = true;
-            this.refresh.Click += new System.EventHandler(this.Refresh_Click);
             // 
             // pictureBox1
             // 
@@ -115,6 +103,18 @@ namespace BreakingNewsApp
             this.signInPanel.Name = "signInPanel";
             this.signInPanel.Size = new System.Drawing.Size(747, 760);
             this.signInPanel.TabIndex = 1;
+            // 
+            // signInButton
+            // 
+            this.signInButton.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.signInButton.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.signInButton.Location = new System.Drawing.Point(158, 384);
+            this.signInButton.Name = "signInButton";
+            this.signInButton.Size = new System.Drawing.Size(112, 34);
+            this.signInButton.TabIndex = 6;
+            this.signInButton.Text = "Sign In";
+            this.signInButton.UseVisualStyleBackColor = false;
+            this.signInButton.Click += new System.EventHandler(this.signInButton_Click);
             // 
             // inErrorLabel
             // 
@@ -303,6 +303,7 @@ namespace BreakingNewsApp
             // 
             this.newsPanel.Controls.Add(this.Index);
             this.newsPanel.Controls.Add(this.signUpPanel);
+            this.newsPanel.Controls.Add(this.Refresh);
             this.newsPanel.Controls.Add(this.ToggleEnd);
             this.newsPanel.Controls.Add(this.ToggleNext);
             this.newsPanel.Controls.Add(this.TogglePrev);
@@ -325,6 +326,17 @@ namespace BreakingNewsApp
             this.Index.Size = new System.Drawing.Size(179, 51);
             this.Index.TabIndex = 3;
             this.Index.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Refresh
+            // 
+            this.Refresh.Image = ((System.Drawing.Image)(resources.GetObject("Refresh.Image")));
+            this.Refresh.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.Refresh.Location = new System.Drawing.Point(0, 0);
+            this.Refresh.Name = "Refresh";
+            this.Refresh.Size = new System.Drawing.Size(43, 34);
+            this.Refresh.TabIndex = 4;
+            this.Refresh.UseVisualStyleBackColor = true;
+            this.Refresh.Click += new System.EventHandler(this.Refresh_Click);
             // 
             // ToggleEnd
             // 
@@ -388,18 +400,6 @@ namespace BreakingNewsApp
             this.Headline.TabIndex = 0;
             this.Headline.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // signInButton
-            // 
-            this.signInButton.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.signInButton.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.signInButton.Location = new System.Drawing.Point(158, 384);
-            this.signInButton.Name = "signInButton";
-            this.signInButton.Size = new System.Drawing.Size(112, 34);
-            this.signInButton.TabIndex = 6;
-            this.signInButton.Text = "Sign In";
-            this.signInButton.UseVisualStyleBackColor = false;
-            this.signInButton.Click += new System.EventHandler(this.signInButton_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
@@ -440,9 +440,7 @@ namespace BreakingNewsApp
         private System.Windows.Forms.Button TogglePrev;
         private System.Windows.Forms.Button ToggleStart;
         private System.Windows.Forms.Label Index;
-        private System.Windows.Forms.Button refresh;
 
-        private NewsServer.News updatedNews;
         private System.Windows.Forms.Panel signInPanel;
         private System.Windows.Forms.Label signInLabel;
         private System.Windows.Forms.Label inUsernameLabel;
@@ -463,6 +461,7 @@ namespace BreakingNewsApp
         private System.Windows.Forms.Label reenterPasswordLabel;
         private System.Windows.Forms.TextBox reenterPasswordText;
         private System.Windows.Forms.Button signInButton;
+        private System.Windows.Forms.Button Refresh;
     }
 }
 
