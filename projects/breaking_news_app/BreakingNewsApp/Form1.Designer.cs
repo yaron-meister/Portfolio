@@ -54,6 +54,7 @@ namespace BreakingNewsApp
             this.reenterPasswordText = new System.Windows.Forms.TextBox();
             this.upPasswordText = new System.Windows.Forms.TextBox();
             this.newsPanel = new System.Windows.Forms.Panel();
+            this.Disconnect = new System.Windows.Forms.Button();
             this.Index = new System.Windows.Forms.Label();
             this.Refresh = new System.Windows.Forms.Button();
             this.ToggleEnd = new System.Windows.Forms.Button();
@@ -62,7 +63,7 @@ namespace BreakingNewsApp
             this.ToggleStart = new System.Windows.Forms.Button();
             this.Content = new System.Windows.Forms.Label();
             this.Headline = new System.Windows.Forms.Label();
-            this.Disconnect = new System.Windows.Forms.Button();
+            this.alreadySigned = new System.Windows.Forms.Label();
             this.panelLeft.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.signInPanel.SuspendLayout();
@@ -196,6 +197,7 @@ namespace BreakingNewsApp
             // 
             // signUpPanel
             // 
+            this.signUpPanel.Controls.Add(this.alreadySigned);
             this.signUpPanel.Controls.Add(this.upErrorLabel);
             this.signUpPanel.Controls.Add(this.signUpLabel);
             this.signUpPanel.Controls.Add(this.upUsernameLabel);
@@ -318,6 +320,16 @@ namespace BreakingNewsApp
             this.newsPanel.Size = new System.Drawing.Size(747, 760);
             this.newsPanel.TabIndex = 1;
             // 
+            // Disconnect
+            // 
+            this.Disconnect.Location = new System.Drawing.Point(625, 0);
+            this.Disconnect.Name = "Disconnect";
+            this.Disconnect.Size = new System.Drawing.Size(122, 34);
+            this.Disconnect.TabIndex = 5;
+            this.Disconnect.Text = "Disconnect";
+            this.Disconnect.UseVisualStyleBackColor = true;
+            this.Disconnect.Click += new System.EventHandler(this.Disconnect_Click);
+            // 
             // Index
             // 
             this.Index.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -402,16 +414,15 @@ namespace BreakingNewsApp
             this.Headline.TabIndex = 0;
             this.Headline.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // Disconnect
+            // alreadySigned
             // 
-            this.Disconnect.Location = new System.Drawing.Point(625, 0);
-            this.Disconnect.Name = "Disconnect";
-            this.Disconnect.Size = new System.Drawing.Size(122, 34);
-            this.Disconnect.TabIndex = 5;
-            this.Disconnect.Text = "Disconnect";
-            this.Disconnect.UseVisualStyleBackColor = true;
-            this.Disconnect.Click += new System.EventHandler(this.Disconnect_Click);
-
+            this.alreadySigned.AutoSize = true;
+            this.alreadySigned.Location = new System.Drawing.Point(155, 515);
+            this.alreadySigned.Name = "alreadySigned";
+            this.alreadySigned.Size = new System.Drawing.Size(189, 25);
+            this.alreadySigned.TabIndex = 6;
+            this.alreadySigned.Text = "I\'m already registered";
+            this.alreadySigned.Click += new System.EventHandler(this.alreadySigned_Click);
             // 
             // MainForm
             // 
@@ -478,6 +489,7 @@ namespace BreakingNewsApp
         private System.Windows.Forms.Button signInButton;
         private System.Windows.Forms.Button Refresh;
         private System.Windows.Forms.Button Disconnect;
+        private System.Windows.Forms.Label alreadySigned;
     }
 }
 

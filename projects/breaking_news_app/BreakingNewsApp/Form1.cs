@@ -201,6 +201,16 @@ namespace BreakingNewsApp
 
         private void Disconnect_Click(object sender, EventArgs e)
         {
+            MoveToSignIn();
+        }
+        
+        private void alreadySigned_Click(object sender, EventArgs e)
+        {
+            MoveToSignIn();
+        }
+
+        private void MoveToSignIn()
+        {
             inUsernameText.Text = "";
             inPasswordText.Text = "";
             newsPanel.Hide();
