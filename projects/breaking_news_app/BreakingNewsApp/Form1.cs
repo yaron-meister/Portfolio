@@ -40,6 +40,11 @@ namespace BreakingNewsApp
 
         private async void Refresh_Click(object sender, EventArgs e)
         {
+            await RefreshNews();
+        }
+
+        private async Task RefreshNews()
+        {
             updatedNews = await newsServer.GetNews();
             currentIdx = 0;
             RefreshMainForm();
@@ -165,7 +170,7 @@ namespace BreakingNewsApp
             }
         }
 
-        private void signInButton_Click(object sender, EventArgs e)
+        private async void signInButton_Click(object sender, EventArgs e)
         {
             using (StreamReader streamReader = File.OpenText(appMembersFile))
             {
@@ -186,8 +191,7 @@ namespace BreakingNewsApp
                     signUpPanel.Hide();
                     newsPanel.Show();
 
-                    RefreshMainForm();
-                }
+                    await RefreshNews();                 }
                 else
                 {
                     inErrorLabel.Text = "Username or Password not valid";
@@ -197,6 +201,10 @@ namespace BreakingNewsApp
 
         private void Disconnect_Click(object sender, EventArgs e)
         {
+            inUsernameText.Text = "";
+            inPasswordText.Text = "";
+            newsPanel.Hide();
+            signUpPanel.Hide();
             signInPanel.Show();
         }
     }

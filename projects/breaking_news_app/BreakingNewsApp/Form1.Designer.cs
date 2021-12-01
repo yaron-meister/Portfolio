@@ -62,6 +62,7 @@ namespace BreakingNewsApp
             this.ToggleStart = new System.Windows.Forms.Button();
             this.Content = new System.Windows.Forms.Label();
             this.Headline = new System.Windows.Forms.Label();
+            this.Disconnect = new System.Windows.Forms.Button();
             this.panelLeft.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.signInPanel.SuspendLayout();
@@ -98,8 +99,9 @@ namespace BreakingNewsApp
             this.signInPanel.Controls.Add(this.inPasswordLabel);
             this.signInPanel.Controls.Add(this.inPasswordText);
             this.signInPanel.Controls.Add(this.notRegisteredLabel);
+            this.signInPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.signInPanel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.signInPanel.Location = new System.Drawing.Point(0, 0);
+            this.signInPanel.Location = new System.Drawing.Point(400, 0);
             this.signInPanel.Name = "signInPanel";
             this.signInPanel.Size = new System.Drawing.Size(747, 760);
             this.signInPanel.TabIndex = 1;
@@ -194,7 +196,6 @@ namespace BreakingNewsApp
             // 
             // signUpPanel
             // 
-            this.signUpPanel.Controls.Add(this.signInPanel);
             this.signUpPanel.Controls.Add(this.upErrorLabel);
             this.signUpPanel.Controls.Add(this.signUpLabel);
             this.signUpPanel.Controls.Add(this.upUsernameLabel);
@@ -204,8 +205,9 @@ namespace BreakingNewsApp
             this.signUpPanel.Controls.Add(this.signUpButton);
             this.signUpPanel.Controls.Add(this.reenterPasswordText);
             this.signUpPanel.Controls.Add(this.upPasswordText);
+            this.signUpPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.signUpPanel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.signUpPanel.Location = new System.Drawing.Point(0, 0);
+            this.signUpPanel.Location = new System.Drawing.Point(400, 0);
             this.signUpPanel.Name = "signUpPanel";
             this.signUpPanel.Size = new System.Drawing.Size(747, 760);
             this.signUpPanel.TabIndex = 1;
@@ -301,8 +303,8 @@ namespace BreakingNewsApp
             // 
             // newsPanel
             // 
+            this.newsPanel.Controls.Add(this.Disconnect);
             this.newsPanel.Controls.Add(this.Index);
-            this.newsPanel.Controls.Add(this.signUpPanel);
             this.newsPanel.Controls.Add(this.Refresh);
             this.newsPanel.Controls.Add(this.ToggleEnd);
             this.newsPanel.Controls.Add(this.ToggleNext);
@@ -400,11 +402,24 @@ namespace BreakingNewsApp
             this.Headline.TabIndex = 0;
             this.Headline.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // Disconnect
+            // 
+            this.Disconnect.Location = new System.Drawing.Point(625, 0);
+            this.Disconnect.Name = "Disconnect";
+            this.Disconnect.Size = new System.Drawing.Size(122, 34);
+            this.Disconnect.TabIndex = 5;
+            this.Disconnect.Text = "Disconnect";
+            this.Disconnect.UseVisualStyleBackColor = true;
+            this.Disconnect.Click += new System.EventHandler(this.Disconnect_Click);
+
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1147, 760);
+            this.Controls.Add(this.signInPanel);
+            this.Controls.Add(this.signUpPanel);
             this.Controls.Add(this.newsPanel);
             this.Controls.Add(this.panelLeft);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
@@ -462,6 +477,7 @@ namespace BreakingNewsApp
         private System.Windows.Forms.TextBox reenterPasswordText;
         private System.Windows.Forms.Button signInButton;
         private System.Windows.Forms.Button Refresh;
+        private System.Windows.Forms.Button Disconnect;
     }
 }
 
