@@ -56,8 +56,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ViewModels\ViewModelBase.cs" />
-    <Compile Include="Views\TablesView.xaml.cs">
-      <DependentUpon>TablesView.xaml</DependentUpon>
+    <Compile Include="Views\FloorView.xaml.cs">
+      <DependentUpon>FloorView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -71,7 +71,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\TablesView.xaml">
+    <Page Include="Views\FloorView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Meisters.Views
 {
     /// <summary>
-    /// Interaction logic for TablesView.xaml
+    /// Interaction logic for FloorView.xaml
     /// </summary>
-    public partial class TablesView : Window
+    public partial class FloorView : UserControl
     {
-        public TablesView()
+        public FloorView()
         {
             InitializeComponent();
         }
