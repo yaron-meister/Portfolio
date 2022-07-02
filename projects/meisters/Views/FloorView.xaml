@@ -4,13 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Meisters.Views"
+             xmlns:services="clr-namespace:Meisters.Services"
+             xmlns:models="clr-namespace:Meisters.Models"
              mc:Ignorable="d" 
              d:DesignHeight="1080"
              d:DesignWidth="1920">
     <UserControl.Resources>
         <!--Styles-->
         <Style x:Key="tableCheckBoxStyle"
-               TargetType="{x:Type CheckBox}">
+               TargetType="{x:Type services:TableCheckBox}">
             <Setter Property="Width"
                     Value="100"/>
             <Setter Property="Height"
@@ -25,9 +27,11 @@
                     Value="Stretch"/>
             <Setter Property="VerticalContentAlignment"
                     Value="Stretch"/>
+            <Setter Property="Status"
+                    Value="Clear"/>
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type CheckBox}">
+                    <ControlTemplate TargetType="{x:Type services:TableCheckBox}">
                         <Border x:Name="checkBoxBorder"
                                 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
@@ -36,12 +40,26 @@
                             <ContentPresenter HorizontalAlignment="Center"
                                               VerticalAlignment="Center"/>
                         </Border>
-                        <!--<ControlTemplate.Triggers>
-                            <Trigger Property="HasContent" Value="true">
-                                <Setter Property="FocusVisualStyle" Value="{StaticResource OptionMarkFocusVisual1}"/>
-                                <Setter Property="Padding" Value="4,-1,0,0"/>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Status"
+                                     Value="NoOrder">
+                                <Setter TargetName="checkBoxBorder"
+                                        Property="Background"
+                                        Value="#FF5353"/>
                             </Trigger>
-                        </ControlTemplate.Triggers>-->
+                            <Trigger Property="Status"
+                                     Value="Order">
+                                <Setter TargetName="checkBoxBorder"
+                                        Property="Background"
+                                        Value="#FFDB45"/>
+                            </Trigger>
+                            <Trigger Property="Status"
+                                     Value="Check">
+                                <Setter TargetName="checkBoxBorder"
+                                        Property="Background"
+                                        Value="#30E584"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -49,7 +67,7 @@
         
         <Style x:Key="bigTableCheckBoxStyle"
                BasedOn="{StaticResource tableCheckBoxStyle}"
-               TargetType="{x:Type CheckBox}">
+               TargetType="{x:Type services:TableCheckBox}">
             <Setter Property="Height"
                     Value="150"/>
         </Style>
@@ -95,19 +113,19 @@
 
         <StackPanel Grid.Row="1"
                     Grid.Column="0">
-            <CheckBox Style="{StaticResource bigTableCheckBoxStyle}"
-                      Margin="25,50,25,25"
-                      Tag="4"
-                      Content="{Binding Tag, RelativeSource={RelativeSource self}}"/>
-            <CheckBox Style="{StaticResource tableCheckBoxStyle}"
-                      Tag="3"
-                      Content="{Binding Tag, RelativeSource={RelativeSource self}}"/>
-            <CheckBox Style="{StaticResource tableCheckBoxStyle}"
-                      Tag="2"
-                      Content="{Binding Tag, RelativeSource={RelativeSource self}}"/>
-            <CheckBox Style="{StaticResource bigTableCheckBoxStyle}"
-                      Tag="1"
-                      Content="{Binding Tag, RelativeSource={RelativeSource self}}"/>
+            <services:TableCheckBox Style="{StaticResource bigTableCheckBoxStyle}"
+                                    Margin="25,50,25,25"
+                                    Tag="4"
+                                    Content="{Binding Tag, RelativeSource={RelativeSource self}}"/>
+            <services:TableCheckBox Style="{StaticResource tableCheckBoxStyle}"
+                                    Tag="3"
+                                    Content="{Binding Tag, RelativeSource={RelativeSource self}}"/>
+            <services:TableCheckBox Style="{StaticResource tableCheckBoxStyle}"
+                                    Tag="2"
+                                    Content="{Binding Tag, RelativeSource={RelativeSource self}}"/>
+            <services:TableCheckBox Style="{StaticResource bigTableCheckBoxStyle}"
+                                    Tag="1"
+                                    Content="{Binding Tag, RelativeSource={RelativeSource self}}"/>
         </StackPanel>
     </Grid>
 </UserControl>
