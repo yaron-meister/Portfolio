@@ -6,9 +6,11 @@
              xmlns:local="clr-namespace:Meisters.Views"
              xmlns:services="clr-namespace:Meisters.Services"
              xmlns:models="clr-namespace:Meisters.Models"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              d:DesignHeight="1080"
-             d:DesignWidth="1920">
+             d:DesignWidth="1080"
+             Foreground="White"
+             FontSize="20">
     <UserControl.Resources>
         <!--Styles-->
         <Style x:Key="tableCheckBoxStyle"
@@ -19,14 +21,14 @@
                     Value="{Binding Width, RelativeSource={RelativeSource self}}"/>
             <Setter Property="Margin"
                     Value="25"/>
-            <Setter Property="Foreground"
-                    Value="White"/>
-            <Setter Property="FontSize"
-                    Value="40"/>
             <Setter Property="HorizontalContentAlignment"
                     Value="Stretch"/>
             <Setter Property="VerticalContentAlignment"
                     Value="Stretch"/>
+            <Setter Property="FontSize"
+                    Value="40"/>
+            <Setter Property="Content"
+                    Value="{Binding Tag, RelativeSource={RelativeSource self}}"/>
             <Setter Property="Status"
                     Value="Clear"/>
             <Setter Property="Template">
@@ -65,13 +67,22 @@
             </Setter>
         </Style>
         
-        <Style x:Key="bigTableCheckBoxStyle"
+        <Style x:Key="verticalTableCheckBoxStyle"
                BasedOn="{StaticResource tableCheckBoxStyle}"
                TargetType="{x:Type services:TableCheckBox}">
             <Setter Property="Height"
                     Value="150"/>
         </Style>
-        
+
+        <Style x:Key="horizontalTableCheckBoxStyle"
+               BasedOn="{StaticResource tableCheckBoxStyle}"
+               TargetType="{x:Type services:TableCheckBox}">
+            <Setter Property="Width"
+                    Value="150"/>
+            <Setter Property="Height"
+                    Value="100"/>
+        </Style>
+
     </UserControl.Resources>
 
     <Grid Background="#222324">
@@ -106,26 +117,116 @@
                    Foreground="#B3B3B3"
                    FontSize="40"/>
 
+        <!--Left Stage-->
+        <TextBlock Grid.Row="1"
+                   Grid.Column="0"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Center"
+                   Margin="30,300,0,0"
+                   Text="Left Stage">
+            <TextBlock.RenderTransform>
+                <RotateTransform CenterX="0"
+                                 CenterY="0"
+                                 Angle="-90"/>
+            </TextBlock.RenderTransform>
+        </TextBlock>
         <StackPanel Grid.Row="0"
-                    Grid.Column="1">
-
+                    Grid.Column="1"
+                    Orientation="Horizontal">
+            <services:TableCheckBox Style="{StaticResource horizontalTableCheckBoxStyle}"
+                                    Margin="50,25,25,25"
+                                    Tag="5"/>
+            <services:TableCheckBox Style="{StaticResource tableCheckBoxStyle}"
+                                    Tag="6"/>
+            <services:TableCheckBox Style="{StaticResource tableCheckBoxStyle}"
+                                    Tag="7"/>
+            <services:TableCheckBox Style="{StaticResource horizontalTableCheckBoxStyle}"
+                                    Tag="8"/>
         </StackPanel>
 
+        <!--Upper Stage-->
+        <TextBlock Grid.Row="0"
+                   Grid.Column="1"
+                   HorizontalAlignment="Left"
+                   Margin="320,10,0,0"
+                   VerticalAlignment="Top"
+                   Text="Upper Stage"/>
         <StackPanel Grid.Row="1"
                     Grid.Column="0">
-            <services:TableCheckBox Style="{StaticResource bigTableCheckBoxStyle}"
+            <services:TableCheckBox Style="{StaticResource verticalTableCheckBoxStyle}"
                                     Margin="25,50,25,25"
-                                    Tag="4"
-                                    Content="{Binding Tag, RelativeSource={RelativeSource self}}"/>
+                                    Tag="4"/>
             <services:TableCheckBox Style="{StaticResource tableCheckBoxStyle}"
-                                    Tag="3"
-                                    Content="{Binding Tag, RelativeSource={RelativeSource self}}"/>
+                                    Tag="3"/>
             <services:TableCheckBox Style="{StaticResource tableCheckBoxStyle}"
-                                    Tag="2"
-                                    Content="{Binding Tag, RelativeSource={RelativeSource self}}"/>
-            <services:TableCheckBox Style="{StaticResource bigTableCheckBoxStyle}"
-                                    Tag="1"
-                                    Content="{Binding Tag, RelativeSource={RelativeSource self}}"/>
+                                    Tag="2"/>
+            <services:TableCheckBox Style="{StaticResource verticalTableCheckBoxStyle}"
+                                    Tag="1"/>
         </StackPanel>
+
+        <!--Floor-->
+        <TextBlock Grid.Row="1"
+                   Grid.Column="1"
+                   Margin="350,30,0,0"
+                   VerticalAlignment="Top"
+                   Text="Floor"/>
+        <Grid Grid.Row="1"
+              Grid.Column="1"
+              HorizontalAlignment="Left"
+              Margin="75,50">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <!--Left Border-->
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <!--Right Border-->
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <!--Floor's upper row-->
+            <services:TableCheckBox Grid.Row="0"
+                                    Grid.Column="1"
+                                    Style="{StaticResource tableCheckBoxStyle}"
+                                    Tag="12"/>
+            <services:TableCheckBox Grid.Row="0"
+                                    Grid.Column="2"
+                                    Style="{StaticResource tableCheckBoxStyle}"
+                                    Tag="11"/>
+            <services:TableCheckBox Grid.Row="0"
+                                    Grid.Column="3"
+                                    Style="{StaticResource tableCheckBoxStyle}"
+                                    Tag="10"/>
+            <services:TableCheckBox Grid.Row="0"
+                                    Grid.Column="4"
+                                    Style="{StaticResource tableCheckBoxStyle}"
+                                    Tag="9"/>
+
+            <!--Floor's lower row-->
+            <services:TableCheckBox Grid.Row="1"
+                                    Grid.Column="1"
+                                    Style="{StaticResource tableCheckBoxStyle}"
+                                    Tag="13"/>
+            <services:TableCheckBox Grid.Row="1"
+                                    Grid.Column="2"
+                                    Style="{StaticResource tableCheckBoxStyle}"
+                                    Tag="14"/>
+            <services:TableCheckBox Grid.Row="1"
+                                    Grid.Column="3"
+                                    Style="{StaticResource tableCheckBoxStyle}"
+                                    Tag="15"/>
+            <services:TableCheckBox Grid.Row="1"
+                                    Grid.Column="4"
+                                    Style="{StaticResource tableCheckBoxStyle}"
+                                    Tag="16"/>
+        </Grid>
     </Grid>
 </UserControl>
