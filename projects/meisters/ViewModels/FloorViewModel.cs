@@ -13,10 +13,11 @@ namespace Meisters.ViewModels
         // TODO::YARON - Get it from the model (it gets it through DB)
         public ObservableCollection<Employee> Employees { get; } = new ObservableCollection<Employee>
         {
-            new Employee ("Yaron", true, 100),
+            new Employee ("General", false, 100),
             new Employee ("May", true, 101),
             new Employee ("Mika", false, 102),
-            new Employee ("Dean", false, 103)
+            new Employee ("Dean", false, 103),
+            new Employee ("Yaron", true, 100),
         };
     }
 }
