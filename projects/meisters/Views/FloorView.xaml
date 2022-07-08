@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Meisters.Views"
              xmlns:services="clr-namespace:Meisters.Services"
-             xmlns:models="clr-namespace:Meisters.Models"
              mc:Ignorable="d"
              d:DesignHeight="1080"
              d:DesignWidth="1080"
@@ -15,9 +14,14 @@
         <!--Brushes-->
         <SolidColorBrush x:Key="DarkGrayBrush"
                          Color="#3C3B3D" />
+        <SolidColorBrush x:Key="LightGrayBrush"
+                         Color="#808080" />
         <SolidColorBrush x:Key="AlmostTransparentBrush"
                          Color="#01000000" />
         
+        <!--Converters-->
+        <services:BoolToVisibilityConverter x:Key="boolToVisConverter"/>
+
         <!--Styles-->
         <Style x:Key="tableCheckBoxStyle"
                TargetType="{x:Type services:TableCheckBox}">
@@ -31,6 +35,8 @@
                     Value="Stretch"/>
             <Setter Property="VerticalContentAlignment"
                     Value="Stretch"/>
+            <Setter Property="Foreground"
+                    Value="White"/>
             <Setter Property="FontSize"
                     Value="40"/>
             <Setter Property="Content"
@@ -43,7 +49,7 @@
                         <Border x:Name="checkBoxBorder"
                                 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                Background="#808080"
+                                Background="{StaticResource LightGrayBrush}"
                                 CornerRadius="2">
                             <ContentPresenter HorizontalAlignment="Center"
                                               VerticalAlignment="Center"/>
@@ -142,7 +148,8 @@
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
-            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
         <Border Grid.Row="0"
@@ -213,7 +220,7 @@
                                     Tag="8"/>
         </StackPanel>
 
-        <!--Floor-->
+        <!--Floor and Bar-->
         <Grid Grid.Row="1"
               Grid.Column="1"
               HorizontalAlignment="Left">
@@ -327,5 +334,63 @@
                            FontSize="60"/>
             </Border>
         </Grid>
+
+        <!--Active Employees-->
+        <Border Grid.Row="0"
+              Grid.Column="2"
+              Grid.RowSpan="2"
+              Padding="0,20"
+              Background="{StaticResource LightGrayBrush}">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ItemsControl ItemsSource="{Binding Employees}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button HorizontalContentAlignment="Stretch"
+                                    VerticalContentAlignment="Stretch"
+                                    Foreground="White"
+                                    Width="270"
+                                    Height="50"
+                                    Margin="10"
+                                    Background="{StaticResource DarkGrayBrush}">
+                                <Grid Margin="10,2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="50"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Grid.Column="0"
+                                               Text="{Binding Name}"
+                                               TextTrimming="CharacterEllipsis"/>
+                                    <Viewbox Grid.Column="1"
+                                             Width="40"
+                                             Height="40"
+                                             Visibility="{Binding IsAdmin,
+                                                                  Converter={StaticResource boolToVisConverter}}">
+                                        <Grid Width="30"
+                                              Height="30"
+                                              Margin="2">
+                                            <Ellipse Fill="Red"
+                                                     Stroke="White"/>
+                                            <TextBlock HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center"
+                                                       Text="A"
+                                                       FontSize="22"
+                                                       TextAlignment="Center"/>
+                                        </Grid>
+                                    </Viewbox>
+                                </Grid>
+                            </Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="1"
+                                         HorizontalAlignment="Center"
+                                         VerticalAlignment="Top"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </ScrollViewer>
+        </Border>
     </Grid>
 </UserControl>

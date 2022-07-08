@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Meisters.Services;
+using Meisters.ViewModels;
 
 namespace Meisters.Views
 {
@@ -24,6 +25,8 @@ namespace Meisters.Views
         public FloorView()
         {
             InitializeComponent();
+
+            DataContext = new FloorViewModel();
         }
     }
 }
