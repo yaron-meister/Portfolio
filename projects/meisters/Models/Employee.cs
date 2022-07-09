@@ -18,5 +18,6 @@ namespace Meisters.Models
         public string Name { get; set; }
         public uint Uid { get; set; }
         public bool IsAdmin { get; set; }
+        public bool IsSelected { get; set; } = false;
     }
 }

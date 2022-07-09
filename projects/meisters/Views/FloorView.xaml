@@ -441,7 +441,11 @@
                         <ItemsControl ItemsSource="{Binding Employees}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <CheckBox Style="{StaticResource employeeCheckBoxStyle}">
+                                    <CheckBox Style="{StaticResource employeeCheckBoxStyle}"
+                                              IsChecked="{Binding IsSelected}"
+                                              Command="{Binding DataContext.SelectActiveEmployee, 
+                                                                RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                              CommandParameter="{Binding}">
                                         <Grid Margin="10,2"
                                               HorizontalAlignment="Stretch">
                                             <Grid.ColumnDefinitions>
@@ -471,14 +475,14 @@
                                                 </Grid>
                                             </Viewbox>
                                         </Grid>
-                                    <CheckBox.IsChecked>
+                                    <!--<CheckBox.IsChecked>
                                         
                                         <MultiBinding Converter="{StaticResource empMatchToBoolMultiConverter}">
                                             <Binding Path="DataContext.SelectedActiveEmployee"
                                                      RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}"/>
                                             <Binding Path="."/>
                                         </MultiBinding>
-                                    </CheckBox.IsChecked>
+                                    </CheckBox.IsChecked>-->
                                     </CheckBox>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
