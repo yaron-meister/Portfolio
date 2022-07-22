@@ -15,8 +15,10 @@ namespace Meisters.ViewModels
         private readonly Employee GENERAL_EMPLOYEE = new Employee("General", false, 100);
 
         private Employee _selectedActiveEmployee;
-        private ObservableCollection<Employee> _employees = new ObservableCollection<Employee>()
+        private ObservableCollection<Employee> _activeEmployees = new ObservableCollection<Employee>();
+        private ObservableCollection<Employee> _inactiveEmployees = new ObservableCollection<Employee>()
         {
+            // TODO::YARON - Get it from the model (it gets it through DB)
             new Employee ("May", true, 101),
             new Employee ("Mika", false, 102),
             new Employee ("Dean", false, 103),
@@ -25,21 +27,29 @@ namespace Meisters.ViewModels
 
         public FloorViewModel()
         {
-            Employees.Add(GENERAL_EMPLOYEE);
+            ActiveEmployees.Add(GENERAL_EMPLOYEE);
             SelectActiveEmployee(GENERAL_EMPLOYEE);
         }
 
-        // TODO::YARON - Get it from the model (it gets it through DB)
-        public ObservableCollection<Employee> Employees 
+        public ObservableCollection<Employee> ActiveEmployees
         {
-            get => _employees;
+            get => _activeEmployees;
             set
             {
-                _employees = value;
+                _activeEmployees = value;
                 OnPropertyChanged();
             }
         }
-        
+
+        public ObservableCollection<Employee> InactiveEmployees 
+        {
+            get => _inactiveEmployees;
+            set
+            {
+                _inactiveEmployees = value;
+                OnPropertyChanged();
+            }
+        }
 
         public Employee SelectedActiveEmployee
         { 
@@ -67,7 +77,8 @@ namespace Meisters.ViewModels
         {
             if (employee != GENERAL_EMPLOYEE)
             {
-                Employees.Remove(employee);
+                InactiveEmployees.Add(employee);
+                ActiveEmployees.Remove(employee);
                 SelectedActiveEmployee = GENERAL_EMPLOYEE;
             }
         });

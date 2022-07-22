@@ -187,6 +187,46 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <Style x:Name="employeeButtonStyle"
+               TargetType="{x:Type services:EmployeeButton}">
+            <Setter Property="Width"
+                    Value="270"/>
+            <Setter Property="Height"
+                    Value="50"/>
+            <Setter Property="Margin"
+                    Value="10"/>
+            <Setter Property="HorizontalContentAlignment"
+                    Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment"
+                    Value="Stretch"/>
+            <Setter Property="Foreground"
+                    Value="White"/>
+            <Setter Property="FontSize"
+                    Value="20"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type services:EmployeeButton}">
+                        <Border x:Name="buttonBorder"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Background="{StaticResource DarkGrayBrush}"
+                                CornerRadius="2">
+                            <ContentPresenter HorizontalAlignment="Stretch"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource self}}"
+                                         Value="True">
+                                <Setter TargetName="buttonBorder"
+                                        Property="Background"
+                                        Value="{StaticResource SkyBrush}"/>
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
 
     <Grid Background="{StaticResource VeryDarkGrayBrush}">
@@ -398,7 +438,7 @@
             <Border Grid.Row="0"
                     Padding="0,20">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <ItemsControl ItemsSource="{Binding Employees}">
+                    <ItemsControl ItemsSource="{Binding ActiveEmployees}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <services:EmployeeButton Command="{Binding DataContext.SelectActiveEmployeeCommand, 
@@ -440,46 +480,6 @@
                                             </Grid>
                                         </Viewbox>
                                     </Grid>
-                                    <Button.Style>
-                                        <Style TargetType="{x:Type Button}">
-                                            <Setter Property="Width"
-                                                    Value="270"/>
-                                            <Setter Property="Height"
-                                                    Value="50"/>
-                                            <Setter Property="Margin"
-                                                    Value="10"/>
-                                            <Setter Property="HorizontalContentAlignment"
-                                                    Value="Stretch"/>
-                                            <Setter Property="VerticalContentAlignment"
-                                                    Value="Stretch"/>
-                                            <Setter Property="Foreground"
-                                                    Value="White"/>
-                                            <Setter Property="FontSize"
-                                                    Value="20"/>
-                                            <Setter Property="Template">
-                                                <Setter.Value>
-                                                    <ControlTemplate TargetType="{x:Type Button}">
-                                                        <Border x:Name="buttonBorder"
-                                                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                                                Background="{StaticResource DarkGrayBrush}"
-                                                                CornerRadius="2">
-                                                            <ContentPresenter HorizontalAlignment="Stretch"
-                                                                              VerticalAlignment="Center"/>
-                                                        </Border>
-                                                        <ControlTemplate.Triggers>
-                                                            <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource self}}"
-                                                                         Value="True">
-                                                                <Setter TargetName="buttonBorder"
-                                                                        Property="Background"
-                                                                        Value="{StaticResource SkyBrush}"/>
-                                                            </DataTrigger>
-                                                        </ControlTemplate.Triggers>
-                                                    </ControlTemplate>
-                                                </Setter.Value>
-                                            </Setter>
-                                        </Style>
-                                    </Button.Style>
                                 </services:EmployeeButton>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
