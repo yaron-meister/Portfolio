@@ -74,6 +74,7 @@
     <Compile Include="Models\Table.cs" />
     <Compile Include="Services\Controls.cs" />
     <Compile Include="Services\Converters.cs" />
+    <Compile Include="Services\Observable.cs" />
     <Compile Include="ViewModels\FloorViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\FloorView.xaml.cs">

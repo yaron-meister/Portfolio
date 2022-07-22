@@ -21,4 +21,16 @@ namespace Meisters.Services
             DependencyProperty.Register(nameof(Status), typeof(ETableStatus),
                                         typeof(TableCheckBox), new PropertyMetadata(ETableStatus.Clear));
     }
+
+    public class EmployeeButton : Button
+    {
+        public bool IsSelected
+        {
+            get => (bool)GetValue(IsSelectedProperty);
+            set => SetValue(IsSelectedProperty, value);
+        }
+        public static readonly DependencyProperty IsSelectedProperty =
+            DependencyProperty.Register(nameof(IsSelected), typeof(bool),
+                                        typeof(EmployeeButton), new PropertyMetadata(false));
+    }
 }

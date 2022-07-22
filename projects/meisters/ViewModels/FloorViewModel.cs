@@ -12,12 +12,14 @@ namespace Meisters.ViewModels
 {
     class FloorViewModel : ViewModelBase
     {
-        readonly Employee GENERAL_EMPLOYEE = new Employee("General", false, 100);
+        private readonly Employee GENERAL_EMPLOYEE = new Employee("General", false, 100);
+
+        private Employee _selectedActiveEmployee;
 
         public FloorViewModel()
         {
             Employees.Add(GENERAL_EMPLOYEE);
-            SelectedActiveEmployee = GENERAL_EMPLOYEE;
+            SelectActiveEmployee(GENERAL_EMPLOYEE);
         }
 
         // TODO::YARON - Get it from the model (it gets it through DB)
@@ -29,21 +31,34 @@ namespace Meisters.ViewModels
             new Employee ("Yaron", true, 104),
         };
 
-        public Employee SelectedActiveEmployee { get; set; }
+        public Employee SelectedActiveEmployee
+        { 
+            get => _selectedActiveEmployee;
+            set
+            { 
+                _selectedActiveEmployee = value;
+                OnPropertyChanged();
+            }
+        }
 
 
         #region Commands
 
-        public ICommand SelectActiveEmployee => new RelayCommand<Employee>((employee) =>
+        public ICommand SelectActiveEmployeeCommand => new RelayCommand<Employee>((employee) =>
         {
             if (employee?.Uid != SelectedActiveEmployee.Uid)
             {
                 SelectedActiveEmployee.IsSelected = false;
-                employee.IsSelected = true;
-                SelectedActiveEmployee = employee;
+                SelectActiveEmployee(employee);
             }
         });
 
         #endregion Commands
+
+        private void SelectActiveEmployee(Employee employee)
+        {
+            SelectedActiveEmployee = employee;
+            SelectedActiveEmployee.IsSelected = true;
+        }
     }
 }
