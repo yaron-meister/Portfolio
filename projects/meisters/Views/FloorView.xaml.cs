@@ -25,8 +25,6 @@ namespace Meisters.Views
         public FloorView()
         {
             InitializeComponent();
-
-            DataContext = new FloorViewModel();
         }
     }
 }
