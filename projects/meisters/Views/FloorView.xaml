@@ -509,7 +509,9 @@
                 <Button Style="{StaticResource buttonStyle}"
                         Content="Activate Emp."/>
                 <Button Style="{StaticResource buttonStyle}"
-                        Content="Discard Emp."/>
+                        Content="Discard Emp."
+                        Command="{Binding DiscardEmployeeCommand}"
+                        CommandParameter="{Binding SelectedActiveEmployee}"/>
             </StackPanel>
         </Grid>
     </Grid>

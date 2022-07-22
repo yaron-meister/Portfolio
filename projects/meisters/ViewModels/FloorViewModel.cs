@@ -15,6 +15,13 @@ namespace Meisters.ViewModels
         private readonly Employee GENERAL_EMPLOYEE = new Employee("General", false, 100);
 
         private Employee _selectedActiveEmployee;
+        private ObservableCollection<Employee> _employees = new ObservableCollection<Employee>()
+        {
+            new Employee ("May", true, 101),
+            new Employee ("Mika", false, 102),
+            new Employee ("Dean", false, 103),
+            new Employee ("Yaron", true, 104),
+        };
 
         public FloorViewModel()
         {
@@ -23,13 +30,16 @@ namespace Meisters.ViewModels
         }
 
         // TODO::YARON - Get it from the model (it gets it through DB)
-        public ObservableCollection<Employee> Employees { get; } = new ObservableCollection<Employee>
+        public ObservableCollection<Employee> Employees 
         {
-            new Employee ("May", true, 101),
-            new Employee ("Mika", false, 102),
-            new Employee ("Dean", false, 103),
-            new Employee ("Yaron", true, 104),
-        };
+            get => _employees;
+            set
+            {
+                _employees = value;
+                OnPropertyChanged();
+            }
+        }
+        
 
         public Employee SelectedActiveEmployee
         { 
@@ -50,6 +60,15 @@ namespace Meisters.ViewModels
             {
                 SelectedActiveEmployee.IsSelected = false;
                 SelectActiveEmployee(employee);
+            }
+        });
+
+        public ICommand DiscardEmployeeCommand => new RelayCommand<Employee>((employee) =>
+        {
+            if (employee != GENERAL_EMPLOYEE)
+            {
+                Employees.Remove(employee);
+                SelectedActiveEmployee = GENERAL_EMPLOYEE;
             }
         });
 
