@@ -354,7 +354,7 @@
             </Border>
 
             <Rectangle Grid.Row="1"
-                       Height="3"
+                       Height="2"
                        HorizontalAlignment="Stretch"
                        VerticalAlignment="Top"
                        Margin="5,0"
@@ -366,12 +366,21 @@
                         VerticalAlignment="Center"
                         Margin="5,30">
                 <Button Style="{StaticResource buttonStyle}"
-                        Content="Activate Emp."/>
+                        Content="Activate Emp."
+                        Command="{Binding ActivateEmployeeCommand}"/>
                 <Button Style="{StaticResource buttonStyle}"
                         Content="Discard Emp."
                         Command="{Binding DiscardEmployeeCommand}"
                         CommandParameter="{Binding SelectedActiveEmployee}"/>
             </StackPanel>
         </Grid>
+        
+        <!--Employee Activision Box-->
+        <local:EmployeeActivisionView Grid.Row="0"
+                                      Grid.RowSpan="2"
+                                      Grid.Column="0"
+                                      Grid.ColumnSpan="3"
+                                      Visibility="{Binding IsActivatingEmp,
+                                                           Converter={StaticResource boolToVisConverter}}"/>
     </Grid>
 </UserControl>
