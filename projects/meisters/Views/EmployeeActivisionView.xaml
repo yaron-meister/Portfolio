@@ -78,7 +78,7 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Margin="5,30">
-                    <Button Style="{StaticResource buttonStyle}"
+                    <Button Style="{StaticResource greenButtonStyle}"
                             Margin="30,0"
                             IsEnabled="{Binding SelectedActiveEmployee,
                                                 Converter={StaticResource employeeToBoolConverter}}"
@@ -86,7 +86,7 @@
                             Command="{Binding ActivateSelectedEmpCommand}"
                             CommandParameter="{Binding SelectedActiveEmployee}"/>
                     
-                    <Button Style="{StaticResource buttonStyle}"
+                    <Button Style="{StaticResource redButtonStyle}"
                             Margin="30,0"
                             Content="Cancel"
                             Command="{Binding CancelEmpActivisionCommand}"/>

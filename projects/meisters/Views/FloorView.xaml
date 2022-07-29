@@ -50,19 +50,19 @@
                                      Value="NoOrder">
                                 <Setter TargetName="checkBoxBorder"
                                         Property="Background"
-                                        Value="#FF5353"/>
+                                        Value="{StaticResource FaidedRed}"/>
                             </Trigger>
                             <Trigger Property="Status"
                                      Value="Order">
                                 <Setter TargetName="checkBoxBorder"
                                         Property="Background"
-                                        Value="#FFDB45"/>
+                                        Value="{StaticResource FaidedYellow}"/>
                             </Trigger>
                             <Trigger Property="Status"
                                      Value="Check">
                                 <Setter TargetName="checkBoxBorder"
                                         Property="Background"
-                                        Value="#30E584"/>
+                                        Value="{StaticResource FaidedGreen}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -365,10 +365,10 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Margin="5,30">
-                <Button Style="{StaticResource buttonStyle}"
+                <Button Style="{StaticResource greenButtonStyle}"
                         Content="Activate Emp."
                         Command="{Binding ActivateEmployeeCommand}"/>
-                <Button Style="{StaticResource buttonStyle}"
+                <Button Style="{StaticResource redButtonStyle}"
                         Content="Discard Emp."
                         Command="{Binding DiscardEmployeeCommand}"
                         CommandParameter="{Binding SelectedActiveEmployee}"/>

@@ -15,6 +15,12 @@
                          Color="#808080" />
     <SolidColorBrush x:Key="SkyBrush"
                          Color="#4694FF" />
+    <SolidColorBrush x:Key="FaidedRedBrush"
+                         Color="#FF5353" />
+    <SolidColorBrush x:Key="FaidedYellowBrush"
+                         Color="#FFDB45" />
+    <SolidColorBrush x:Key="FaidedGreenBrush"
+                         Color="#30E584" />
     <SolidColorBrush x:Key="AlmostTransparentBrush"
                          Color="#01000000" />
 
@@ -29,8 +35,10 @@
                 Value="10"/>
         <Setter Property="FontSize"
                 Value="20"/>
+        <Setter Property="Background"
+                Value="{StaticResource DarkGrayBrush}"/>
         <Setter Property="Foreground"
-                Value="{StaticResource SkyBrush}"/>
+                Value="White"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -39,7 +47,7 @@
                             Height="{TemplateBinding Height}"
                             HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                            Background="{StaticResource DarkGrayBrush}"
+                            Background="{TemplateBinding Background}"
                             Padding="5"
                             CornerRadius="3">
                         <ContentPresenter HorizontalAlignment="Center"
@@ -53,6 +61,8 @@
                         </Trigger>
                         <Trigger Property="IsEnabled"
                                  Value="False">
+                            <Setter Property="Background"
+                                    Value="{StaticResource DarkGrayBrush}"/>
                             <Setter Property="Foreground"
                                     Value="{StaticResource LightGrayBrush}"/>
                             <Setter Property="Cursor"
@@ -62,6 +72,24 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
+
+    <Style x:Key="greenButtonStyle"
+           BasedOn="{StaticResource buttonStyle}"
+           TargetType="{x:Type Button}">
+        <Setter Property="Background"
+                Value="{StaticResource FaidedGreenBrush}"/>
+        <Setter Property="Foreground"
+                Value="{StaticResource DarkGrayBrush}"/>
+    </Style>
+
+    <Style x:Key="redButtonStyle"
+           BasedOn="{StaticResource buttonStyle}"
+           TargetType="{x:Type Button}">
+        <Setter Property="Background"
+                Value="{StaticResource FaidedRedBrush}"/>
+        <Setter Property="Foreground"
+                Value="{StaticResource DarkGrayBrush}"/>
     </Style>
 
     <Style x:Name="employeeButtonStyle"
