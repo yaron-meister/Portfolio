@@ -20,6 +20,15 @@ namespace Meisters.Services
         public static readonly DependencyProperty StatusProperty =
             DependencyProperty.Register(nameof(Status), typeof(ETableStatus),
                                         typeof(TableCheckBox), new PropertyMetadata(ETableStatus.Clear));
+
+        public string TableName
+        {
+            get => (string)GetValue(TableNameProperty);
+            set => SetValue(TableNameProperty, value);
+        }
+        public static readonly DependencyProperty TableNameProperty =
+            DependencyProperty.Register(nameof(TableName), typeof(string),
+                                        typeof(TableCheckBox), new PropertyMetadata(string.Empty));
     }
 
     public class EmployeeButton : Button
