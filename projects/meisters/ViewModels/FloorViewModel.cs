@@ -7,16 +7,59 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace Meisters.ViewModels
 {
     class FloorViewModel : ViewModelBase
     {
+
+
+
+            
+
+        //void dt_Tick(object sender, EventArgs e)
+        //{
+        //    if (stopWatch.IsRunning)
+        //    {
+        //        TimeSpan ts = stopWatch.Elapsed;
+        //        currentTime = String.Format("{0:00}:{1:00}:{2:00}",
+        //        ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
+        //        clocktxt.Text = currentTime;
+        //    }
+        //}
+
+        //private void startbtn_Click(object sender, RoutedEventArgs e)
+        //{
+        //    stopWatch.Start();
+        //    dispatcherTimer.Start();
+        //}
+
+        //private void stopbtn_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (stopWatch.IsRunning)
+        //    {
+        //        stopWatch.Stop();
+        //    }
+        //    elapsedtimeitem.Items.Add(currentTime);
+        //}
+
+        //private void resetbtn_Click(object sender, RoutedEventArgs e)
+        //{
+        //    stopWatch.Reset();
+        //    clocktxt.Text = "00:00:00";
+        //}
+
+
+
+
+        private readonly int ONE_MINUTE = 1;
         private readonly Employee GENERAL_EMPLOYEE = new Employee("General", false, 100);
 
         private Employee _selectedActiveEmployee;
         private string _searchText = string.Empty;
         private bool _isActivatingEmp = false;
+        private DispatcherTimer _dispatcherTimer = new DispatcherTimer();
         private Table[] _tables = new Table[24];
         private ObservableCollection<Employee> _activeEmployees = new ObservableCollection<Employee>();
         private IEnumerable<Employee> _filteredInactiveEmployees = new ObservableCollection<Employee>();
@@ -38,6 +81,14 @@ namespace Meisters.ViewModels
             {
                 Tables[idx] = new Table(idx);
             }
+
+            // This DispatcherTimer is for updating the Tables stopwatches in the UI
+            _dispatcherTimer.Tick += (object sender, EventArgs e) =>
+            {
+                OnPropertyChanged(nameof(Tables));
+            };
+            _dispatcherTimer.Interval = new TimeSpan(0, ONE_MINUTE, 0);
+            _dispatcherTimer.Start();
         }
 
 
@@ -166,6 +217,8 @@ namespace Meisters.ViewModels
                 if (Tables[id].Status == ETableStatus.Clear)
                 {
                     Tables[id].Status = ETableStatus.NoOrder;
+                    Tables[id].TotalStopwatch.Start();
+                    Tables[id].StatusStopwatch.Start();
                     OnPropertyChanged(nameof(Tables));
                 }
             }

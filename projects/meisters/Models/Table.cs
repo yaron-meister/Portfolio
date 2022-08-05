@@ -1,6 +1,7 @@
 ﻿using Meisters.Services;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,8 @@ namespace Meisters.Models
     class Table : Observable
     {
         private ETableStatus _status = ETableStatus.Clear;
+        private Stopwatch _totalStopwatch = new Stopwatch();
+        private Stopwatch _statusStopwatch = new Stopwatch();
 
         public Table(int id)
         {
@@ -32,6 +35,26 @@ namespace Meisters.Models
             set
             {
                 _status = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public Stopwatch TotalStopwatch
+        {
+            get => _totalStopwatch;
+            set
+            {
+                _totalStopwatch = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public Stopwatch StatusStopwatch
+        {
+            get => _statusStopwatch;
+            set
+            {
+                _statusStopwatch = value;
                 OnPropertyChanged();
             }
         }

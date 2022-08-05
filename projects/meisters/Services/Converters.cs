@@ -104,4 +104,35 @@ namespace Meisters.Services
             throw new NotImplementedException();
         }
     }
+
+    public class TablesToTimeMultiConverter : IMultiValueConverter
+    {
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (values?.Length == 2 &&
+                values[0] is Table[] tables &&
+                values[1] != null && int.TryParse(values[1].ToString(), out int id) &&
+                id >= 0 && id < tables.Length)
+            {
+                TimeSpan ts = new TimeSpan(23, 59, 59);
+                if (parameter?.ToString() == "Total" && tables[id].TotalStopwatch.IsRunning)
+                {
+                    ts = tables[id].TotalStopwatch.Elapsed;
+                }
+                else if (parameter?.ToString() == "Status" && tables[id].StatusStopwatch.IsRunning)
+                {
+                    ts = tables[id].StatusStopwatch.Elapsed;
+                }
+
+                return ts.ToString(@"hh\:mm");
+            }
+
+            return "99:99";
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
