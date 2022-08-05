@@ -5,6 +5,7 @@
     <!--Converters-->
     <services:BoolToVisibilityConverter x:Key="boolToVisConverter"/>
     <services:EmpMatchToBoolMultiConverter x:Key="empMatchToBoolMultiConverter"/>
+    <services:InvertEmpMatchToBoolMultiConverter x:Key="invertEmpMatchToBoolMultiConverter"/>
     <services:TablesToStatusMultiConverter x:Key="tablesToStatusMultiConverter"/>
     <services:TablesToTimeMultiConverter x:Key="tablesToTimeMultiConverter"/>
     

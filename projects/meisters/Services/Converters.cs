@@ -105,6 +105,21 @@ namespace Meisters.Services
         }
     }
 
+    public class InvertEmpMatchToBoolMultiConverter : IMultiValueConverter
+    {
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            EmpMatchToBoolMultiConverter empMatchToBoolMultiConverter = new EmpMatchToBoolMultiConverter();
+
+            return !(bool)empMatchToBoolMultiConverter.Convert(values, targetType, parameter, culture);
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
     public class TablesToTimeMultiConverter : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)

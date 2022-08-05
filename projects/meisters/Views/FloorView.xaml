@@ -172,27 +172,84 @@
                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                 Background="#808080"
                                 CornerRadius="25">
-                            <ContentPresenter HorizontalAlignment="Center"
-                                              VerticalAlignment="Center"/>
+                            <Grid HorizontalAlignment="Stretch"
+                                  VerticalAlignment="Stretch">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition />
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock x:Name="barTotalStopwatchText"
+                                           Grid.Row="0"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Top"
+                                           Margin="5,0"
+                                           FontSize="8">
+                                    <TextBlock.Text>
+                                        <MultiBinding Converter="{StaticResource tablesToTimeMultiConverter}"
+                                                      ConverterParameter="Total">
+                                            <Binding Path="DataContext.Tables"
+                                                     RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}"/>
+                                            <Binding Path="Tag"
+                                                     RelativeSource="{RelativeSource FindAncestor,
+                                                                        AncestorType={x:Type services:TableCheckBox}}"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+
+                                <TextBlock Grid.Row="1"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           Text="{Binding TableName, RelativeSource={RelativeSource FindAncestor,
+                                                                        AncestorType={x:Type services:TableCheckBox}}}"/>
+
+                                <TextBlock x:Name="barStatusStopwatchText"
+                                           Grid.Row="2"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Bottom"
+                                           Margin="5,0"
+                                           FontSize="8">
+                                    <TextBlock.Text>
+                                        <MultiBinding Converter="{StaticResource tablesToTimeMultiConverter}"
+                                                      ConverterParameter="Status">
+                                            <Binding Path="DataContext.Tables"
+                                                     RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}"/>
+                                            <Binding Path="Tag"
+                                                     RelativeSource="{RelativeSource FindAncestor,
+                                                                        AncestorType={x:Type services:TableCheckBox}}"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </Grid>
                         </Border>
                         <ControlTemplate.Triggers>
+                            <Trigger Property="Status"
+                                     Value="Clear">
+                                <Setter TargetName="barTotalStopwatchText"
+                                        Property="Foreground"
+                                        Value="{StaticResource AlmostTransparentBrush}"/>
+                                <Setter TargetName="barStatusStopwatchText"
+                                        Property="Foreground"
+                                        Value="{StaticResource AlmostTransparentBrush}"/>
+                            </Trigger>
                             <Trigger Property="Status"
                                      Value="NoOrder">
                                 <Setter TargetName="checkBoxBorder"
                                         Property="Background"
-                                        Value="#FF5353"/>
+                                        Value="{StaticResource FaidedRedBrush}"/>
                             </Trigger>
                             <Trigger Property="Status"
                                      Value="Order">
                                 <Setter TargetName="checkBoxBorder"
                                         Property="Background"
-                                        Value="#FFDB45"/>
+                                        Value="{StaticResource FaidedYellowBrush}"/>
                             </Trigger>
                             <Trigger Property="Status"
                                      Value="Check">
                                 <Setter TargetName="checkBoxBorder"
                                         Property="Background"
-                                        Value="#30E584"/>
+                                        Value="{StaticResource FaidedGreenBrush}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -450,7 +507,16 @@
                 <Button Style="{StaticResource redButtonStyle}"
                         Content="Discard Emp."
                         Command="{Binding DiscardEmployeeCommand}"
-                        CommandParameter="{Binding SelectedActiveEmployee}"/>
+                        CommandParameter="{Binding SelectedActiveEmployee}">
+                    <Button.IsEnabled>
+                        <MultiBinding Converter="{StaticResource invertEmpMatchToBoolMultiConverter}">
+                            <Binding Path="DataContext.SelectedActiveEmployee"
+                                     RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}"/>
+                            <Binding Path="DataContext.GeneralEmployee"
+                                     RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}"/>
+                        </MultiBinding>
+                    </Button.IsEnabled>
+                </Button>
             </StackPanel>
         </Grid>
         

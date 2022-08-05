@@ -13,48 +13,7 @@ namespace Meisters.ViewModels
 {
     class FloorViewModel : ViewModelBase
     {
-
-
-
-            
-
-        //void dt_Tick(object sender, EventArgs e)
-        //{
-        //    if (stopWatch.IsRunning)
-        //    {
-        //        TimeSpan ts = stopWatch.Elapsed;
-        //        currentTime = String.Format("{0:00}:{1:00}:{2:00}",
-        //        ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
-        //        clocktxt.Text = currentTime;
-        //    }
-        //}
-
-        //private void startbtn_Click(object sender, RoutedEventArgs e)
-        //{
-        //    stopWatch.Start();
-        //    dispatcherTimer.Start();
-        //}
-
-        //private void stopbtn_Click(object sender, RoutedEventArgs e)
-        //{
-        //    if (stopWatch.IsRunning)
-        //    {
-        //        stopWatch.Stop();
-        //    }
-        //    elapsedtimeitem.Items.Add(currentTime);
-        //}
-
-        //private void resetbtn_Click(object sender, RoutedEventArgs e)
-        //{
-        //    stopWatch.Reset();
-        //    clocktxt.Text = "00:00:00";
-        //}
-
-
-
-
         private readonly int ONE_MINUTE = 1;
-        private readonly Employee GENERAL_EMPLOYEE = new Employee("General", false, 100);
 
         private Employee _selectedActiveEmployee;
         private string _searchText = string.Empty;
@@ -74,8 +33,8 @@ namespace Meisters.ViewModels
 
         public FloorViewModel()
         {
-            ActiveEmployees.Add(GENERAL_EMPLOYEE);
-            SelectActiveEmployee(GENERAL_EMPLOYEE);
+            ActiveEmployees.Add(GeneralEmployee);
+            SelectActiveEmployee(GeneralEmployee);
 
             for (int idx = 0; idx < Tables.Length; ++idx)
             {
@@ -91,6 +50,8 @@ namespace Meisters.ViewModels
             _dispatcherTimer.Start();
         }
 
+
+        public Employee GeneralEmployee { get; } = new Employee("General", false, 100);
 
         public Employee SelectedActiveEmployee
         {
@@ -187,17 +148,17 @@ namespace Meisters.ViewModels
 
         public ICommand DiscardEmployeeCommand => new RelayCommand<Employee>((employee) =>
         {
-            if (employee != null && employee != GENERAL_EMPLOYEE)
+            if (employee != null && employee != GeneralEmployee)
             {
                 InactiveEmployees.Add(employee);
                 ActiveEmployees.Remove(employee);
-                SelectedActiveEmployee = GENERAL_EMPLOYEE;
+                SelectedActiveEmployee = GeneralEmployee;
             }
         });
 
         public ICommand ActivateSelectedEmpCommand => new RelayCommand<Employee>((employee) =>
         {
-            if (employee != null && employee != GENERAL_EMPLOYEE)
+            if (employee != null && employee != GeneralEmployee)
             {
                 ActiveEmployees.Add(employee);
                 InactiveEmployees.Remove(employee);
@@ -248,7 +209,7 @@ namespace Meisters.ViewModels
         private void CloseEmpActivision()
         {
             IsActivatingEmp = false;
-            SelectedActiveEmployee = GENERAL_EMPLOYEE;
+            SelectedActiveEmployee = GeneralEmployee;
         }
     }
 }
