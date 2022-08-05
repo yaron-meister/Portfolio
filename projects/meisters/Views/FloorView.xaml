@@ -34,8 +34,20 @@
                     Value="{Binding Tag, RelativeSource={RelativeSource self}}"/>
             <Setter Property="Content"
                     Value="{Binding TableName, RelativeSource={RelativeSource self}}"/>
-            <Setter Property="Status"
-                    Value="Clear"/>
+            <Setter Property="Command"
+                    Value="{Binding StepIntoTableCommand}"/>
+            <Setter Property="CommandParameter"
+                    Value="{Binding Tag, RelativeSource={RelativeSource self}}"/>
+            <Setter Property="Status">
+                <Setter.Value>
+                    <MultiBinding Converter="{StaticResource tablesToStatusMultiConverter}">
+                        <Binding Path="DataContext.Tables"
+                                 RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}"/>
+                        <Binding Path="Tag"
+                                 RelativeSource="{RelativeSource self}"/>
+                    </MultiBinding>
+                </Setter.Value> 
+            </Setter>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type services:TableCheckBox}">
@@ -52,19 +64,19 @@
                                      Value="NoOrder">
                                 <Setter TargetName="checkBoxBorder"
                                         Property="Background"
-                                        Value="{StaticResource FaidedRed}"/>
+                                        Value="{StaticResource FaidedRedBrush}"/>
                             </Trigger>
                             <Trigger Property="Status"
                                      Value="Order">
                                 <Setter TargetName="checkBoxBorder"
                                         Property="Background"
-                                        Value="{StaticResource FaidedYellow}"/>
+                                        Value="{StaticResource FaidedYellowBrush}"/>
                             </Trigger>
                             <Trigger Property="Status"
                                      Value="Check">
                                 <Setter TargetName="checkBoxBorder"
                                         Property="Background"
-                                        Value="{StaticResource FaidedGreen}"/>
+                                        Value="{StaticResource FaidedGreenBrush}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -319,7 +331,7 @@
             <services:TableCheckBox Grid.Row="5"
                                     Grid.Column="5"
                                     Style="{StaticResource barTableCheckBoxStyle}"
-                                    Tag="24"
+                                    Tag="0"
                                     TableName="B8"/>
 
             <Border Grid.Row="4"

@@ -5,6 +5,7 @@
     <!--Converters-->
     <services:BoolToVisibilityConverter x:Key="boolToVisConverter"/>
     <services:EmpMatchToBoolMultiConverter x:Key="empMatchToBoolMultiConverter"/>
+    <services:TablesToStatusMultiConverter x:Key="tablesToStatusMultiConverter"/>
     
     <!--Brushes-->
     <SolidColorBrush x:Key="VeryDarkGrayBrush"

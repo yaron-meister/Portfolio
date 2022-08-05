@@ -17,6 +17,7 @@ namespace Meisters.ViewModels
         private Employee _selectedActiveEmployee;
         private string _searchText = string.Empty;
         private bool _isActivatingEmp = false;
+        private Table[] _tables = new Table[24];
         private ObservableCollection<Employee> _activeEmployees = new ObservableCollection<Employee>();
         private IEnumerable<Employee> _filteredInactiveEmployees = new ObservableCollection<Employee>();
         private ObservableCollection<Employee> _inactiveEmployees = new ObservableCollection<Employee>()
@@ -32,6 +33,11 @@ namespace Meisters.ViewModels
         {
             ActiveEmployees.Add(GENERAL_EMPLOYEE);
             SelectActiveEmployee(GENERAL_EMPLOYEE);
+
+            for (int idx = 0; idx < Tables.Length; ++idx)
+            {
+                Tables[idx] = new Table(idx);
+            }
         }
 
 
@@ -96,6 +102,17 @@ namespace Meisters.ViewModels
             }
         }
 
+        public Table[] Tables
+        {
+            get => _tables;
+            set
+            {
+                _tables = value;
+                OnPropertyChanged();
+            }
+        }
+
+
         #region Commands
 
         public ICommand SelectActiveEmployeeCommand => new RelayCommand<Employee>((employee) =>
@@ -140,6 +157,18 @@ namespace Meisters.ViewModels
         public ICommand CancelEmpActivisionCommand => new RelayCommand(() =>
         {
             CloseEmpActivision();
+        });
+
+        public ICommand StepIntoTableCommand => new RelayCommand<string>((idStr) =>
+        {
+            if (int.TryParse(idStr, out int id) && id >= 0 && id < Tables.Length)
+            {
+                if (Tables[id].Status == ETableStatus.Clear)
+                {
+                    Tables[id].Status = ETableStatus.NoOrder;
+                    OnPropertyChanged(nameof(Tables));
+                }
+            }
         });
 
         #endregion Commands

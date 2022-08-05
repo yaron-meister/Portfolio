@@ -1,4 +1,5 @@
 ﻿using Meisters.Models;
+using Meisters.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -61,6 +62,27 @@ namespace Meisters.Services
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return Binding.DoNothing;
+        }
+    }
+
+    public class TablesToStatusMultiConverter : IMultiValueConverter
+    {
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (values != null && values.Length == 2 &&
+                values[0] is Table[] tables &&
+                values[1] != null && int.TryParse(values[1].ToString(), out int id) &&
+                id >= 0 && id < tables.Length)
+            {
+                return tables[id].Status;
+            }
+
+            return ETableStatus.Clear;
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
         }
     }
 
