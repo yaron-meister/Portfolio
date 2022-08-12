@@ -1,0 +1,130 @@
+﻿<UserControl x:Class="Meisters.Views.ReservationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Meisters.Views"
+             mc:Ignorable="d" 
+             d:DesignWidth="1920"
+             d:DesignHeight="1080"
+             DataContext="{StaticResource reservationViewModel}">
+    <UserControl.Resources>
+        <Style x:Key="headerTextStyle"
+               TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment"
+                    Value="Center"/>
+            <Setter Property="VerticalAlignment"
+                    Value="Top"/>
+            <Setter Property="Margin"
+                    Value="10"/>
+            <Setter Property="Foreground"
+                    Value="{StaticResource DarkGrayBrush}"/>
+            <Setter Property="FontSize"
+                    Value="30"/>
+        </Style>
+        
+        <Style x:Key="bindedTextStyle"
+               TargetType="TextBlock">
+            <Setter Property="MaxWidth"
+                    Value="280"/>
+            <Setter Property="HorizontalAlignment"
+                    Value="Center"/>
+            <Setter Property="VerticalAlignment"
+                    Value="Center"/>
+            <Setter Property="Margin"
+                    Value="10"/>
+            <Setter Property="Foreground"
+                    Value="White"/>
+            <Setter Property="FontSize"
+                    Value="40"/>
+            <Setter Property="FontWeight"
+                    Value="Bold"/>
+            <Setter Property="TextTrimming"
+                    Value="CharacterEllipsis"/>
+        </Style>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0"
+              Background="{StaticResource VeryDarkGrayBrush}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition />
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0"
+                  Height="90"
+                  Background="{StaticResource LightGrayBrush}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                
+                <StackPanel Grid.Column="0"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Stretch">
+                    <TextBlock Style="{StaticResource headerTextStyle}"
+                               Text="Table #:"/>
+                    
+                    <TextBlock Style="{StaticResource bindedTextStyle}"
+                               Text="##"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Stretch">
+                    <TextBlock Style="{StaticResource headerTextStyle}"
+                               Text="Diners #:"/>
+
+                    <TextBlock Style="{StaticResource bindedTextStyle}"
+                               Text="##"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Stretch">
+                    <TextBlock Style="{StaticResource headerTextStyle}"
+                               Text="Emp:"/>
+
+                    <TextBlock Style="{StaticResource bindedTextStyle}"
+                               Text="ADD HEREEEEEEEEEEE"/>
+                </StackPanel>
+            </Grid>
+            
+            <Grid Grid.Row="2"
+                  Height="90"
+                  Background="{StaticResource LightGrayBrush}">
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center">
+                    <Button Style="{StaticResource buttonStyle}"
+                            Content="Check"
+                            Command="{Binding PrintCheckCommand}"/>
+                
+                    <Button Style="{StaticResource buttonStyle}"
+                            Content="Payment"
+                            Command="{Binding PayCommand}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center">
+                    <Button Style="{StaticResource redButtonStyle}"
+                            Content="Exit"
+                            Command="{Binding ExitCommand}"/>
+
+                    <Button Style="{StaticResource greenButtonStyle}"
+                            Content="Send"
+                            Command="{Binding SendCommand}"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

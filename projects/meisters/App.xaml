@@ -10,6 +10,7 @@
                 <ResourceDictionary Source="Views/Resources/Resources.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <viewModels:FloorViewModel x:Key="floorViewModel"/>
+            <viewModels:ReservationViewModel x:Key="reservationViewModel"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

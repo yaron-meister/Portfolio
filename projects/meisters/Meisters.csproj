@@ -76,12 +76,16 @@
     <Compile Include="Services\Converters.cs" />
     <Compile Include="Services\Observable.cs" />
     <Compile Include="ViewModels\FloorViewModel.cs" />
+    <Compile Include="ViewModels\ReservationViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\EmployeeActivisionView.xaml.cs">
       <DependentUpon>EmployeeActivisionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\FloorView.xaml.cs">
       <DependentUpon>FloorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ReservationView.xaml.cs">
+      <DependentUpon>ReservationView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -100,6 +104,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\FloorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ReservationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
