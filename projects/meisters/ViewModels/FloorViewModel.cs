@@ -175,6 +175,7 @@ namespace Meisters.ViewModels
         {
             if (int.TryParse(idStr, out int id) && id >= 0 && id < Tables.Length)
             {
+                // TODO::YARON - Update this logic
                 if (Tables[id].Status == ETableStatus.Clear)
                 {
                     Tables[id].Status = ETableStatus.NoOrder;

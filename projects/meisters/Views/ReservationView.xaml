@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignWidth="1920"
              d:DesignHeight="1080"
-             DataContext="{StaticResource reservationViewModel}">
+              DataContext="{StaticResource reservationViewModel}">
     <UserControl.Resources>
         <Style x:Key="headerTextStyle"
                TargetType="TextBlock">
@@ -42,8 +42,57 @@
             <Setter Property="TextTrimming"
                     Value="CharacterEllipsis"/>
         </Style>
+
+        <Style x:Key="datagridButtonStyle"
+               TargetType="Button">
+            <Setter Property="Width"
+                    Value="34"/>
+            <Setter Property="Height"
+                    Value="{Binding ActualWidth, RelativeSource={RelativeSource self}}"/>
+            <Setter Property="Background"
+                    Value="{StaticResource AlmostTransparentBrush}"/>
+            <Setter Property="BorderThickness"
+                    Value="0"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver"
+                         Value="True">
+                    <Setter Property="Cursor"
+                            Value="Hand"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="datagridEllipseStyle"
+               TargetType="Ellipse">
+            <Setter Property="HorizontalAlignment"
+                    Value="Center"/>
+            <Setter Property="VerticalAlignment"
+                    Value="Center"/>
+            <Setter Property="Width"
+                    Value="30"/>
+            <Setter Property="Height"
+                    Value="{Binding ActualWidth, RelativeSource={RelativeSource self}}"/>
+            <Setter Property="Fill"
+                    Value="{StaticResource LightGrayBrush}"/>
+        </Style>
+
+        <Style x:Key="datagridTextBlockStyle"
+               TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment"
+                    Value="Center"/>
+            <Setter Property="VerticalAlignment"
+                    Value="Center"/>
+            <Setter Property="Margin"
+                    Value="0,0,0,4"/>
+            <Setter Property="TextAlignment"
+                    Value="Center"/>
+            <Setter Property="Foreground"
+                    Value="White"/>
+            <Setter Property="FontSize"
+                    Value="22"/>
+        </Style>
     </UserControl.Resources>
-    
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -97,7 +146,113 @@
                                Text="ADD HEREEEEEEEEEEE"/>
                 </StackPanel>
             </Grid>
-            
+
+            <DataGrid Grid.Row="1"
+                      ItemsSource="{Binding Products}"
+                      AutoGenerateColumns="False"
+                      CanUserAddRows="False"
+                      Margin="5"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch"
+                      RowBackground="#fff"
+                      FontWeight="Bold"
+                      Foreground="#525252"
+                      ScrollViewer.CanContentScroll="True"
+                      AlternatingRowBackground="#f2f2f2"
+                      Background="{StaticResource DarkGrayBrush}"
+                      BorderBrush="#000"
+                      BorderThickness="1"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Product"
+                                        Width="3*"
+                                        Binding="{Binding Path='Name'}"
+                                        IsReadOnly="True" />
+                    <DataGridTextColumn Header="Price [NIS]"
+                                        Width="*"
+                                        Binding="{Binding Path='Price'}"
+                                        IsReadOnly="True" />
+                    <DataGridTextColumn Header="Quantity"
+                                        Width="*"
+                                        Binding="{Binding Path='Quantity'}"
+                                        IsReadOnly="True" />
+                    <DataGridTemplateColumn Header="Add"
+                                            Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid Background="{StaticResource AlmostTransparentBrush}">
+                                    <Button Style="{StaticResource datagridButtonStyle}"
+                                            Command="{Binding DataContext.IncrementQuantityCommand,
+                                                              RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                            CommandParameter="{Binding}">
+                                        <Grid>
+                                            <Ellipse Style="{StaticResource datagridEllipseStyle}"
+                                                     Fill="{StaticResource FaidedGreenBrush}"/>
+                                            <TextBlock Style="{StaticResource datagridTextBlockStyle}"
+                                                       Text="+"/>
+                                        </Grid>
+                                    </Button>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Reduce"
+                                            Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid Background="{StaticResource AlmostTransparentBrush}">
+                                    <Button Style="{StaticResource datagridButtonStyle}"
+                                            Command="{Binding DataContext.DecrementQuantityCommand,
+                                                              RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                            CommandParameter="{Binding}">
+                                        <Grid>
+                                            <Ellipse Style="{StaticResource datagridEllipseStyle}"
+                                                     Fill="{StaticResource FaidedRedBrush}"/>
+                                            <TextBlock Style="{StaticResource datagridTextBlockStyle}"
+                                                       Text="-"/>
+                                        </Grid>
+                                    </Button>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Edit"
+                                            Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid Background="{StaticResource AlmostTransparentBrush}">
+                                    <Button Style="{StaticResource datagridButtonStyle}">
+                                        <Grid>
+                                            <Viewbox Width="32"
+                                                     Height="Auto">
+                                                <Canvas x:Name="editCanvas"
+                                                        Width="64"
+                                                        Height="{Binding ActualWidth, RelativeSource={RelativeSource self}}">
+                                                    <Ellipse Width="{Binding ActualWidth, ElementName=editCanvas}"
+                                                             Height="{Binding ActualHeight, ElementName=editCanvas}"
+                                                             Stroke="{StaticResource LightGrayBrush}"
+                                                             StrokeThickness="4.0"/>
+                                                    <Path Fill="{StaticResource LightGrayBrush}"
+                                                          StrokeThickness="2.0"
+                                                          Canvas.Left="33"
+                                                          Canvas.Top="-13"
+                                                          Data="M38 48 L38 12 L26 12 L26 48 L32 56 Z">
+                                                        <Path.RenderTransform>
+                                                            <RotateTransform Angle="45"/>
+                                                        </Path.RenderTransform>
+                                                    </Path>
+                                                </Canvas>
+                                            </Viewbox>
+                                        </Grid>
+                                    </Button>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
             <Grid Grid.Row="2"
                   Height="90"
                   Background="{StaticResource LightGrayBrush}">

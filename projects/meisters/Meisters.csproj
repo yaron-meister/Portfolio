@@ -71,6 +71,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\Employee.cs" />
+    <Compile Include="Models\Product.cs" />
     <Compile Include="Models\Table.cs" />
     <Compile Include="Services\Controls.cs" />
     <Compile Include="Services\Converters.cs" />
