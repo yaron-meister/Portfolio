@@ -95,9 +95,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Data\TablesData.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\Table.cs" />
+    <Compile Include="Models\TablesModel.cs" />
+    <Compile Include="Services\Builder.cs" />
     <Compile Include="Services\Controls.cs" />
     <Compile Include="Services\Converters.cs" />
     <Compile Include="Services\Observable.cs" />

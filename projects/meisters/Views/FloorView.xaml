@@ -10,7 +10,7 @@
              d:DesignWidth="1080"
              Foreground="White"
              FontSize="20"
-             DataContext="{StaticResource floorViewModel}">
+             DataContext="{Binding Floor, Source={StaticResource Builder}}">
     <UserControl.Resources>
         
         <!--Styles-->
@@ -41,7 +41,7 @@
             <Setter Property="Status">
                 <Setter.Value>
                     <MultiBinding Converter="{StaticResource tablesToStatusMultiConverter}">
-                        <Binding Path="DataContext.Tables"
+                        <Binding Path="DataContext.TablesData.Tables"
                                  RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}"/>
                         <Binding Path="Tag"
                                  RelativeSource="{RelativeSource self}"/>
@@ -73,7 +73,7 @@
                                     <TextBlock.Text>
                                         <MultiBinding Converter="{StaticResource tablesToTimeMultiConverter}"
                                                       ConverterParameter="Total">
-                                            <Binding Path="DataContext.Tables"
+                                            <Binding Path="DataContext.TablesData.Tables"
                                                      RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}"/>
                                             <Binding Path="Tag"
                                                      RelativeSource="{RelativeSource FindAncestor,
@@ -97,7 +97,7 @@
                                     <TextBlock.Text>
                                         <MultiBinding Converter="{StaticResource tablesToTimeMultiConverter}"
                                                       ConverterParameter="Status">
-                                            <Binding Path="DataContext.Tables"
+                                            <Binding Path="DataContext.TablesData.Tables"
                                                      RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}"/>
                                             <Binding Path="Tag"
                                                      RelativeSource="{RelativeSource FindAncestor,
@@ -189,7 +189,7 @@
                                     <TextBlock.Text>
                                         <MultiBinding Converter="{StaticResource tablesToTimeMultiConverter}"
                                                       ConverterParameter="Total">
-                                            <Binding Path="DataContext.Tables"
+                                            <Binding Path="DataContext.TablesData.Tables"
                                                      RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}"/>
                                             <Binding Path="Tag"
                                                      RelativeSource="{RelativeSource FindAncestor,
@@ -213,7 +213,7 @@
                                     <TextBlock.Text>
                                         <MultiBinding Converter="{StaticResource tablesToTimeMultiConverter}"
                                                       ConverterParameter="Status">
-                                            <Binding Path="DataContext.Tables"
+                                            <Binding Path="DataContext.TablesData.Tables"
                                                      RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}"/>
                                             <Binding Path="Tag"
                                                      RelativeSource="{RelativeSource FindAncestor,

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Meisters.Services
 {
-    class Observable : INotifyPropertyChanged
+    public class Observable : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

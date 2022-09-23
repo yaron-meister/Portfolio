@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Meisters.ViewModels
 {
-    class ViewModelBase : Observable
+    public class ViewModelBase : Observable
     {
     }
 }

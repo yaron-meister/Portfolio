@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignWidth="1920"
              d:DesignHeight="1080"
-              DataContext="{StaticResource reservationViewModel}">
+             DataContext="{Binding Reservation, Source={StaticResource Builder}}">
     <UserControl.Resources>
         <Style x:Key="headerTextStyle"
                TargetType="TextBlock">

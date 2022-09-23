@@ -9,8 +9,15 @@ using System.Windows.Input;
 
 namespace Meisters.ViewModels
 {
-    class ReservationViewModel : ViewModelBase
+    public class ReservationViewModel : ViewModelBase
     {
+        private readonly TablesModel _tablesModel;
+
+        public ReservationViewModel(TablesModel tablesModel)
+        {
+            _tablesModel = tablesModel;
+        }
+
         // TODO::YARON - Take from DB
         private List<Product> _products = new List<Product>()
         {

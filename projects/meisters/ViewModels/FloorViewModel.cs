@@ -1,5 +1,7 @@
 ﻿using GalaSoft.MvvmLight.Command;
+using Meisters.Data;
 using Meisters.Models;
+using Meisters.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,9 +13,43 @@ using System.Windows.Threading;
 
 namespace Meisters.ViewModels
 {
-    class FloorViewModel : ViewModelBase
+    public class FloorViewModel : ViewModelBase
     {
+        //void dt_Tick(object sender, EventArgs e)
+        //{
+        //    if (stopWatch.IsRunning)
+        //    {
+        //        TimeSpan ts = stopWatch.Elapsed;
+        //        currentTime = String.Format("{0:00}:{1:00}:{2:00}",
+        //        ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
+        //        clocktxt.Text = currentTime;
+        //    }
+        //}
+
+        //private void startbtn_Click(object sender, RoutedEventArgs e)
+        //{
+        //    stopWatch.Start();
+        //    dispatcherTimer.Start();
+        //}
+
+        //private void stopbtn_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (stopWatch.IsRunning)
+        //    {
+        //        stopWatch.Stop();
+        //    }
+        //    elapsedtimeitem.Items.Add(currentTime);
+        //}
+
+        //private void resetbtn_Click(object sender, RoutedEventArgs e)
+        //{
+        //    stopWatch.Reset();
+        //    clocktxt.Text = "00:00:00";
+        //}
+
         private readonly int ONE_MINUTE = 1;
+
+        private readonly TablesModel _tablesModel;
 
         private Employee _selectedActiveEmployee;
         private string _searchText = string.Empty;
@@ -31,20 +67,16 @@ namespace Meisters.ViewModels
             new Employee ("Yaron", true, 104),
         };
 
-        public FloorViewModel()
+        public FloorViewModel(TablesModel tablesModel)
         {
+            _tablesModel = tablesModel;
             ActiveEmployees.Add(GeneralEmployee);
             SelectActiveEmployee(GeneralEmployee);
-
-            for (int idx = 0; idx < Tables.Length; ++idx)
-            {
-                Tables[idx] = new Table(idx);
-            }
 
             // This DispatcherTimer is for updating the Tables stopwatches in the UI
             _dispatcherTimer.Tick += (object sender, EventArgs e) =>
             {
-                OnPropertyChanged(nameof(Tables));
+                OnPropertyChanged(nameof(TablesData));
             };
             _dispatcherTimer.Interval = new TimeSpan(0, ONE_MINUTE, 0);
             _dispatcherTimer.Start();
@@ -52,6 +84,7 @@ namespace Meisters.ViewModels
 
 
         public Employee GeneralEmployee { get; } = new Employee("General", false, 100);
+        public TablesData TablesData => _tablesModel.TablesData;
 
         public Employee SelectedActiveEmployee
         {
@@ -114,16 +147,6 @@ namespace Meisters.ViewModels
             }
         }
 
-        public Table[] Tables
-        {
-            get => _tables;
-            set
-            {
-                _tables = value;
-                OnPropertyChanged();
-            }
-        }
-
 
         #region Commands
 
@@ -173,16 +196,9 @@ namespace Meisters.ViewModels
 
         public ICommand StepIntoTableCommand => new RelayCommand<string>((idStr) =>
         {
-            if (int.TryParse(idStr, out int id) && id >= 0 && id < Tables.Length)
+            if (int.TryParse(idStr, out int id))
             {
-                // TODO::YARON - Update this logic
-                if (Tables[id].Status == ETableStatus.Clear)
-                {
-                    Tables[id].Status = ETableStatus.NoOrder;
-                    Tables[id].TotalStopwatch.Start();
-                    Tables[id].StatusStopwatch.Start();
-                    OnPropertyChanged(nameof(Tables));
-                }
+                _tablesModel.StepIntoTable(id);
             }
         });
 

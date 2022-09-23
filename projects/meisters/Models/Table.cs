@@ -16,7 +16,7 @@ namespace Meisters.Models
         Check
     }
 
-    class Table : Observable
+    public class Table : Observable
     {
         private ETableStatus _status = ETableStatus.Clear;
         private Stopwatch _totalStopwatch = new Stopwatch();

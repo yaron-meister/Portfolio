@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Meisters.Models
 {
-    class Employee : Observable
+    public class Employee : Observable
     {
         private bool _isSelected = false;
 

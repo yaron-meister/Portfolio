@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Meisters.Models
 {
-    class Product : Observable
+    public class Product : Observable
     {
         private int _uid;
         private string _name;
