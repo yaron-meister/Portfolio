@@ -11,6 +11,8 @@ namespace Meisters.Data
     public class TablesData : Observable
     {
         private Table[] _tables = new Table[24];
+        private int _currentTable;
+        private bool _isReservationOpen = false;
 
         public Table[] Tables
         {
@@ -18,7 +20,27 @@ namespace Meisters.Data
             set
             {
                 _tables = value;
-                RaiseTablesPropertyChanged();
+                OnPropertyChanged();
+            }
+        }
+
+        public int CurrentTable
+        {
+            get => _currentTable;
+            set
+            {
+                _currentTable = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool IsReservationOpen
+        {
+            get => _isReservationOpen;
+            set
+            {
+                _isReservationOpen = value;
+                OnPropertyChanged();
             }
         }
 

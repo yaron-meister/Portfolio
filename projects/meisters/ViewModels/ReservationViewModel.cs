@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Command;
+using Meisters.Data;
 using Meisters.Models;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,8 @@ namespace Meisters.ViewModels
             new Product(1001, "Pizza", 30),
             new Product(1002, "Ice Cream", 15)
         };
+
+        public TablesData TablesData => _tablesModel.TablesData;
 
         public List<Product> Products
         {
@@ -56,7 +59,8 @@ namespace Meisters.ViewModels
 
         public ICommand SendCommand => new RelayCommand(() =>
         {
-
+            // TODO::YARON - Update logic
+            TablesData.IsReservationOpen = false;
         });
 
         public ICommand IncrementQuantityCommand => new RelayCommand<Product>((product) =>
