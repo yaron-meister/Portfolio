@@ -445,7 +445,7 @@
             <services:TableCheckBox Grid.Row="5"
                                     Grid.Column="5"
                                     Style="{StaticResource barTableCheckBoxStyle}"
-                                    Tag="0"
+                                    Tag="24"
                                     TableName="B8"/>
 
             <Border Grid.Row="4"

@@ -123,7 +123,7 @@
                                Text="Table #:"/>
                     
                     <TextBlock Style="{StaticResource bindedTextStyle}"
-                               Text="##"/>
+                               Text="{Binding TablesData.CurrentTable}"/>
                 </StackPanel>
 
                 <StackPanel Grid.Column="1"

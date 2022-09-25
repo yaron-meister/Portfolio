@@ -10,7 +10,8 @@ namespace Meisters.Data
 {
     public class TablesData : Observable
     {
-        private Table[] _tables = new Table[24];
+        // 24 tables + 1 general extra for administrations
+        private Table[] _tables = new Table[25];
         private int _currentTable;
         private bool _isReservationOpen = false;
 
