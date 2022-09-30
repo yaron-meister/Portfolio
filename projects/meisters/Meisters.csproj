@@ -109,6 +109,9 @@
     <Compile Include="ViewModels\FloorViewModel.cs" />
     <Compile Include="ViewModels\ReservationViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="Views\DinersNumView.xaml.cs">
+      <DependentUpon>DinersNumView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EmployeeActivisionView.xaml.cs">
       <DependentUpon>EmployeeActivisionView.xaml</DependentUpon>
     </Compile>
@@ -130,6 +133,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\DinersNumView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\EmployeeActivisionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

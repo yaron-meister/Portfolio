@@ -12,7 +12,7 @@ namespace Meisters.Data
     {
         // 24 tables + 1 general extra for administrations
         private Table[] _tables = new Table[25];
-        private int _currentTable;
+        private Table _currentTable;
         private bool _isReservationOpen = false;
 
         public Table[] Tables
@@ -25,7 +25,7 @@ namespace Meisters.Data
             }
         }
 
-        public int CurrentTable
+        public Table CurrentTable
         {
             get => _currentTable;
             set

@@ -14,6 +14,8 @@ namespace Meisters.ViewModels
     {
         private readonly TablesModel _tablesModel;
         private readonly EmployeesModel _employeesModel;
+
+        private bool _shouldUpdateDinersNum = false;
         // TODO::YARON - Take from DB
         private List<Product> _products = new List<Product>()
         {
@@ -26,10 +28,22 @@ namespace Meisters.ViewModels
         {
             _tablesModel = tablesModel;
             _employeesModel = employeesModel;
+
+            _tablesModel.UpdateDinersNum += OnUpdateDinersNum;
         }
 
         public TablesData TablesData => _tablesModel.TablesData;
         public EmployeesData EmployeesData => _employeesModel.EmployeesData;
+
+        public bool ShouldUpdateDinersNum
+        {
+            get => _shouldUpdateDinersNum;
+            set
+            {
+                _shouldUpdateDinersNum = value;
+                OnPropertyChanged();
+            }
+        }
 
         public List<Product> Products
         {
@@ -81,6 +95,27 @@ namespace Meisters.ViewModels
             }
         });
 
+        public ICommand InsertDinersNumCommand => new RelayCommand<string>((dinersNumText) =>
+        {
+            if (uint.TryParse(dinersNumText.Replace(" ", ""), out uint dinersNum))
+            {
+                _tablesModel.UpdateTableDinersNum(TablesData.CurrentTable.ID, dinersNum);
+                ShouldUpdateDinersNum = false;
+            }
+        });
+
+        public ICommand CancelDinersNumCommand => new RelayCommand(() =>
+        {
+            ShouldUpdateDinersNum = false;
+        });
+
         #endregion Commands
+
+
+        private void OnUpdateDinersNum(object sender, EventArgs e)
+        {
+            ShouldUpdateDinersNum = true;
+        }
+
     }
 }

@@ -19,6 +19,7 @@ namespace Meisters.Models
     public class Table : Observable
     {
         private ETableStatus _status = ETableStatus.Clear;
+        private uint _dinersNum;
         private Stopwatch _totalStopwatch = new Stopwatch();
         private Stopwatch _statusStopwatch = new Stopwatch();
 
@@ -35,6 +36,16 @@ namespace Meisters.Models
             set
             {
                 _status = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public uint DinersNum
+        {
+            get => _dinersNum;
+            set
+            {
+                _dinersNum = value;
                 OnPropertyChanged();
             }
         }

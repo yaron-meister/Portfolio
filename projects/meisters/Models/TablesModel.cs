@@ -19,6 +19,7 @@ namespace Meisters.Models
         }
 
         public TablesData TablesData { get; } = new TablesData();
+        public event EventHandler UpdateDinersNum;
 
         public void StepIntoTable(int id)
         {
@@ -26,16 +27,26 @@ namespace Meisters.Models
             {
                 // TODO::YARON - Update this logic
                 TablesData.IsReservationOpen = true;
-                TablesData.CurrentTable = id;
+                TablesData.CurrentTable = TablesData.Tables[id];
 
-                if (TablesData.Tables[id].Status == ETableStatus.Clear)
+                if (TablesData.CurrentTable.Status == ETableStatus.Clear)
                 {
-                    TablesData.Tables[id].Status = ETableStatus.NoOrder;
-                    TablesData.Tables[id].TotalStopwatch.Start();
-                    TablesData.Tables[id].StatusStopwatch.Start();
+                    TablesData.CurrentTable.Status = ETableStatus.NoOrder;
+                    TablesData.CurrentTable.TotalStopwatch.Start();
+                    TablesData.CurrentTable.StatusStopwatch.Start();
+
+                    UpdateDinersNum?.Invoke(this, EventArgs.Empty);
                 }
 
                 TablesData.RaiseTablesPropertyChanged();
+            }
+        }
+
+        public void UpdateTableDinersNum(int id, uint dinersNum)
+        {
+            if (id >= 0 && id < TablesData.Tables.Length)
+            {
+                TablesData.Tables[id].DinersNum = dinersNum;
             }
         }
     }
