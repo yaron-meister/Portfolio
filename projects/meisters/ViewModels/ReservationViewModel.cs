@@ -13,12 +13,7 @@ namespace Meisters.ViewModels
     public class ReservationViewModel : ViewModelBase
     {
         private readonly TablesModel _tablesModel;
-
-        public ReservationViewModel(TablesModel tablesModel)
-        {
-            _tablesModel = tablesModel;
-        }
-
+        private readonly EmployeesModel _employeesModel;
         // TODO::YARON - Take from DB
         private List<Product> _products = new List<Product>()
         {
@@ -27,7 +22,14 @@ namespace Meisters.ViewModels
             new Product(1002, "Ice Cream", 15)
         };
 
+        public ReservationViewModel(TablesModel tablesModel, EmployeesModel employeesModel)
+        {
+            _tablesModel = tablesModel;
+            _employeesModel = employeesModel;
+        }
+
         public TablesData TablesData => _tablesModel.TablesData;
+        public EmployeesData EmployeesData => _employeesModel.EmployeesData;
 
         public List<Product> Products
         {

@@ -50,28 +50,17 @@ namespace Meisters.ViewModels
         private readonly int ONE_MINUTE = 1;
 
         private readonly TablesModel _tablesModel;
+        private readonly EmployeesModel _employeesModel;
 
-        private Employee _selectedActiveEmployee;
         private string _searchText = string.Empty;
         private bool _isActivatingEmp = false;
         private DispatcherTimer _dispatcherTimer = new DispatcherTimer();
-        private Table[] _tables = new Table[24];
-        private ObservableCollection<Employee> _activeEmployees = new ObservableCollection<Employee>();
         private IEnumerable<Employee> _filteredInactiveEmployees = new ObservableCollection<Employee>();
-        private ObservableCollection<Employee> _inactiveEmployees = new ObservableCollection<Employee>()
-        {
-            // TODO::YARON - Get it from the model (it gets it through DB)
-            new Employee ("May", true, 101),
-            new Employee ("Mika", false, 102),
-            new Employee ("Dean", false, 103),
-            new Employee ("Yaron", true, 104),
-        };
 
-        public FloorViewModel(TablesModel tablesModel)
+        public FloorViewModel(TablesModel tablesModel, EmployeesModel employeesModel)
         {
             _tablesModel = tablesModel;
-            ActiveEmployees.Add(GeneralEmployee);
-            SelectActiveEmployee(GeneralEmployee);
+            _employeesModel = employeesModel;
 
             // This DispatcherTimer is for updating the Tables stopwatches in the UI
             _dispatcherTimer.Tick += (object sender, EventArgs e) =>
@@ -83,18 +72,8 @@ namespace Meisters.ViewModels
         }
 
 
-        public Employee GeneralEmployee { get; } = new Employee("General", false, 100);
         public TablesData TablesData => _tablesModel.TablesData;
-
-        public Employee SelectedActiveEmployee
-        {
-            get => _selectedActiveEmployee;
-            set
-            {
-                _selectedActiveEmployee = value;
-                OnPropertyChanged();
-            }
-        }
+        public EmployeesData EmployeesData => _employeesModel.EmployeesData;
 
         public string SearchText
         {
@@ -117,26 +96,6 @@ namespace Meisters.ViewModels
             }
         }
 
-        public ObservableCollection<Employee> ActiveEmployees
-        {
-            get => _activeEmployees;
-            set
-            {
-                _activeEmployees = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public ObservableCollection<Employee> InactiveEmployees
-        {
-            get => _inactiveEmployees;
-            set
-            {
-                _inactiveEmployees = value;
-                OnPropertyChanged();
-            }
-        }
-
         public IEnumerable<Employee> FilteredInactiveEmployees
         {
             get => _filteredInactiveEmployees;
@@ -152,41 +111,29 @@ namespace Meisters.ViewModels
 
         public ICommand SelectActiveEmployeeCommand => new RelayCommand<Employee>((employee) =>
         {
-            if (employee?.Uid != SelectedActiveEmployee?.Uid)
-            {
-                if (SelectedActiveEmployee != null)
-                {
-                    SelectedActiveEmployee.IsSelected = false;
-                }
-                SelectActiveEmployee(employee);
-            }
+            _employeesModel.SelectActiveEmployee(employee);
         });
 
         public ICommand ActivateEmployeeCommand => new RelayCommand(() =>
         {
-            FilteredInactiveEmployees = InactiveEmployees;
-            IsActivatingEmp = true;
-            SelectedActiveEmployee = null;
+            // TODO::YARON - Disable "Activate" button if Inactive  is empty
+            FilteredInactiveEmployees = EmployeesData.InactiveEmployees;
+            if (FilteredInactiveEmployees.Count() != 0)
+            {
+                _employeesModel.SelectActiveEmployee(FilteredInactiveEmployees.First());
+                IsActivatingEmp = true;
+            }
         });
 
         public ICommand DiscardEmployeeCommand => new RelayCommand<Employee>((employee) =>
         {
-            if (employee != null && employee != GeneralEmployee)
-            {
-                InactiveEmployees.Add(employee);
-                ActiveEmployees.Remove(employee);
-                SelectedActiveEmployee = GeneralEmployee;
-            }
+            _employeesModel.DiscardEmployee(employee);
         });
 
         public ICommand ActivateSelectedEmpCommand => new RelayCommand<Employee>((employee) =>
         {
-            if (employee != null && employee != GeneralEmployee)
-            {
-                ActiveEmployees.Add(employee);
-                InactiveEmployees.Remove(employee);
-                CloseEmpActivision();
-            }
+            _employeesModel.ActivateSelectedEmployee(employee);
+            CloseEmpActivision();
         });
 
         public ICommand CancelEmpActivisionCommand => new RelayCommand(() =>
@@ -204,29 +151,24 @@ namespace Meisters.ViewModels
 
         #endregion Commands
 
-        private void SelectActiveEmployee(Employee employee)
-        {
-            SelectedActiveEmployee = employee;
-            SelectedActiveEmployee.IsSelected = true;
-        }
 
         private void FilterInactiveEmployees()
         {
             if (!string.IsNullOrEmpty(SearchText))
             {
-                FilteredInactiveEmployees = InactiveEmployees.Where(employee =>
+                FilteredInactiveEmployees = EmployeesData.InactiveEmployees.Where(employee =>
                                                 employee.Name.ToLower().Contains(SearchText.ToLower()));
             }
             else
             {
-                FilteredInactiveEmployees = InactiveEmployees;
+                FilteredInactiveEmployees = EmployeesData.InactiveEmployees;
             }
         }
 
         private void CloseEmpActivision()
         {
+            _employeesModel.SelectActiveEmployee(EmployeesData.GeneralEmployee);
             IsActivatingEmp = false;
-            SelectedActiveEmployee = GeneralEmployee;
         }
     }
 }

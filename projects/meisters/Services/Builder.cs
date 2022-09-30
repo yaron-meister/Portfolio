@@ -21,6 +21,7 @@ namespace Meisters.Services
 
             // Models
             containerBuilder.RegisterType<TablesModel>().AsSelf().SingleInstance();
+            containerBuilder.RegisterType<EmployeesModel>().AsSelf().SingleInstance();
 
             Container = containerBuilder.Build();
         }
@@ -31,6 +32,7 @@ namespace Meisters.Services
         {
             // Models
             Container.Resolve<TablesModel>();
+            Container.Resolve<EmployeesModel>();
         }
 
         // ViewModels

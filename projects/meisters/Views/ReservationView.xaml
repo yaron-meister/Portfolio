@@ -143,7 +143,7 @@
                                Text="Emp:"/>
 
                     <TextBlock Style="{StaticResource bindedTextStyle}"
-                               Text="ADD HEREEEEEEEEEEE"/>
+                               Text="{Binding EmployeesData.SelectedEmployee.Name}"/>
                 </StackPanel>
             </Grid>
 

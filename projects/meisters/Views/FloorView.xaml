@@ -476,7 +476,7 @@
             <Border Grid.Row="0"
                     Padding="0,20">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <ItemsControl ItemsSource="{Binding ActiveEmployees}"
+                    <ItemsControl ItemsSource="{Binding EmployeesData.ActiveEmployees}"
                                   ItemTemplate="{StaticResource employeeListTemplate}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -507,12 +507,12 @@
                 <Button Style="{StaticResource redButtonStyle}"
                         Content="Discard Emp."
                         Command="{Binding DiscardEmployeeCommand}"
-                        CommandParameter="{Binding SelectedActiveEmployee}">
+                        CommandParameter="{Binding EmployeesData.SelectedEmployee}">
                     <Button.IsEnabled>
                         <MultiBinding Converter="{StaticResource invertEmpMatchToBoolMultiConverter}">
-                            <Binding Path="DataContext.SelectedActiveEmployee"
+                            <Binding Path="DataContext.EmployeesData.SelectedEmployee"
                                      RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}"/>
-                            <Binding Path="DataContext.GeneralEmployee"
+                            <Binding Path="DataContext.EmployeesData.GeneralEmployee"
                                      RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}"/>
                         </MultiBinding>
                     </Button.IsEnabled>

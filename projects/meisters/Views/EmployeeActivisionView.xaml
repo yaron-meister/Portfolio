@@ -80,11 +80,11 @@
                             Margin="5,30">
                     <Button Style="{StaticResource greenButtonStyle}"
                             Margin="30,0"
-                            IsEnabled="{Binding SelectedActiveEmployee,
+                            IsEnabled="{Binding EmployeesData.SelectedEmployee,
                                                 Converter={StaticResource employeeToBoolConverter}}"
                             Content="Activate"
                             Command="{Binding ActivateSelectedEmpCommand}"
-                            CommandParameter="{Binding SelectedActiveEmployee}"/>
+                            CommandParameter="{Binding EmployeesData.SelectedEmployee}"/>
                     
                     <Button Style="{StaticResource redButtonStyle}"
                             Margin="30,0"
