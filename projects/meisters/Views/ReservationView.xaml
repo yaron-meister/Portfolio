@@ -281,5 +281,61 @@
             <views:DinersNumView Grid.Row="0"
                                  Grid.RowSpan="3"/>
         </Grid>
+
+        <Border Grid.Column="1"
+                Background="{StaticResource DarkGrayBrush}">
+            <TabControl Background="{StaticResource LightGrayBrush}"
+                        Padding="0"
+                        Margin="0">
+                <TabItem Padding="0"
+                         Margin="0">
+                    <TabItem.Header>
+                        <Border Width="180"
+                                Height="90"
+                                Background="{StaticResource FaidedGreenBrush}"
+                                BorderThickness="0"
+                                BorderBrush="{StaticResource FaidedGreenBrush}"
+                                Padding="5">
+                            <TextBlock HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       Text="Specific"
+                                       Foreground="{StaticResource DarkGrayBrush}"
+                                       FontSize="35"/>
+                        </Border>
+                    </TabItem.Header>
+
+                    <Border BorderBrush="{StaticResource FaidedGreenBrush}"
+                            BorderThickness="5"
+                            VerticalAlignment="Stretch"
+                            HorizontalAlignment="Stretch"
+                            Margin="0">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <ItemsControl ItemsSource="{Binding Products}"
+                                          Padding="30,50">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Button Width="130"
+                                                Height="{Binding Width, RelativeSource={RelativeSource self}}"
+                                                Margin="20"
+                                                Background="{StaticResource FaidedGreenBrush}"
+                                                Foreground="White"
+                                                Content="{Binding Name}"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <UniformGrid Columns="5"
+                                                     Rows="4"
+                                                     HorizontalAlignment="Center"
+                                                     VerticalAlignment="Top"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </Border>
+                </TabItem>
+            </TabControl>
+        </Border>
     </Grid>
 </UserControl>
