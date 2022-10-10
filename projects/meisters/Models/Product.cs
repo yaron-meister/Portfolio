@@ -7,17 +7,25 @@ using System.Threading.Tasks;
 
 namespace Meisters.Models
 {
+    public enum EProductType
+    {
+        Entree,
+        Main
+    }
+
     public class Product : Observable
     {
         private int _uid;
         private string _name;
         private int _quantity = 1;
+        private EProductType _type;
         private int _price;
 
-        public Product(int uid, string name, int price = 0)
+        public Product(int uid, string name, EProductType type, int price = 0)
         {
             Uid = uid;
             Name = name;
+            Type = type;
             Price = price;
         }
 
@@ -47,6 +55,16 @@ namespace Meisters.Models
             set
             {
                 _quantity = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public EProductType Type
+        {
+            get => _type;
+            set
+            {
+                _type = value;
                 OnPropertyChanged();
             }
         }

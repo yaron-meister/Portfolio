@@ -4,11 +4,37 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:views="clr-namespace:Meisters.Views"
+             xmlns:models="clr-namespace:Meisters.Models"
+             xmlns:services="clr-namespace:Meisters.Services"
              mc:Ignorable="d" 
              d:DesignWidth="1920"
              d:DesignHeight="1080"
              DataContext="{Binding Reservation, Source={StaticResource Builder}}">
     <UserControl.Resources>
+        
+        <!--Converters-->
+        <services:FilterProductsConverter x:Key="filterProductsConverter"/>
+
+        <!--Templates-->
+        <DataTemplate x:Key="productItemTemplate">
+            <Button Width="130"
+                    Height="{Binding Width, RelativeSource={RelativeSource self}}"
+                    Margin="20"
+                    Background="{Binding Theme,
+                                         RelativeSource={RelativeSource FindAncestor,
+                                         AncestorType={x:Type views:ReservationTabControl}}}"
+                    Foreground="White"
+                    Content="{Binding Name}"/>
+        </DataTemplate>
+
+        <ItemsPanelTemplate x:Key="productsPanelTemplate">
+            <UniformGrid Columns="5"
+                         Rows="4"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Top"/>
+        </ItemsPanelTemplate>
+        
+        <!--Styles-->
         <Style x:Key="headerTextStyle"
                TargetType="TextBlock">
             <Setter Property="HorizontalAlignment"
@@ -91,8 +117,85 @@
             <Setter Property="FontSize"
                     Value="22"/>
         </Style>
+
+        <Style TargetType="{x:Type views:ReservationTabControl}">
+            <Setter Property="OverridesDefaultStyle"
+                    Value="True" />
+            <Setter Property="SnapsToDevicePixels"
+                    Value="True" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type views:ReservationTabControl}">
+                        <Grid KeyboardNavigation.TabNavigation="Local">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            
+                            <TabPanel x:Name="HeaderPanel"
+                                      Grid.Row="0"
+                                      Panel.ZIndex="1"
+                                      Margin="0,0,4,-1"
+                                      IsItemsHost="True"
+                                      KeyboardNavigation.TabIndex="1"
+                                      Background="Transparent" />
+                            
+                            <Border x:Name="Border"
+                                    Grid.Row="1"
+                                    BorderThickness="10"
+                                    KeyboardNavigation.TabNavigation="Local"
+                                    KeyboardNavigation.DirectionalNavigation="Contained"
+                                    KeyboardNavigation.TabIndex="2"
+                                    Background="{StaticResource LightGrayBrush}"
+                                    BorderBrush="{TemplateBinding Theme}">
+                                <ContentPresenter x:Name="PART_SelectedContentHost"
+                                                  Margin="4"
+                                                  ContentSource="SelectedContent" />
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="{x:Type views:ReservationTabItem}">
+            <Setter Property="Foreground"
+                    Value="{StaticResource DarkGrayBrush}"/>
+            <Setter Property="FontSize"
+                    Value="25"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type views:ReservationTabItem}">
+                        <Grid x:Name="Root">
+                            <Border x:Name="Border"
+                                    Width="180"
+                                    Height="50"
+                                    Padding="5"
+                                    Background="{TemplateBinding Theme}">
+                                <ContentPresenter x:Name="ContentSite"
+                                                  VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"
+                                                  ContentSource="Header"
+                                                  RecognizesAccessKey="True" />
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="productsControlStyle"
+               TargetType="ItemsControl">
+            <Setter Property="Padding"
+                    Value="30,50"/>
+            <Setter Property="ItemTemplate"
+                    Value="{StaticResource productItemTemplate}"/>
+            <Setter Property="ItemsPanel"
+                    Value="{StaticResource productsPanelTemplate}"/>
+        </Style>
     </UserControl.Resources>
 
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -284,58 +387,30 @@
 
         <Border Grid.Column="1"
                 Background="{StaticResource DarkGrayBrush}">
-            <TabControl Background="{StaticResource LightGrayBrush}"
-                        Padding="0"
-                        Margin="0">
-                <TabItem Padding="0"
-                         Margin="0">
-                    <TabItem.Header>
-                        <Border Width="180"
-                                Height="90"
-                                Background="{StaticResource FaidedGreenBrush}"
-                                BorderThickness="0"
-                                BorderBrush="{StaticResource FaidedGreenBrush}"
-                                Padding="5">
-                            <TextBlock HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       Text="Specific"
-                                       Foreground="{StaticResource DarkGrayBrush}"
-                                       FontSize="35"/>
-                        </Border>
-                    </TabItem.Header>
-
-                    <Border BorderBrush="{StaticResource FaidedGreenBrush}"
-                            BorderThickness="5"
-                            VerticalAlignment="Stretch"
-                            HorizontalAlignment="Stretch"
-                            Margin="0">
-                        <ScrollViewer VerticalScrollBarVisibility="Auto">
-                            <ItemsControl ItemsSource="{Binding Products}"
-                                          Padding="30,50">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <Button Width="130"
-                                                Height="{Binding Width, RelativeSource={RelativeSource self}}"
-                                                Margin="20"
-                                                Background="{StaticResource FaidedGreenBrush}"
-                                                Foreground="White"
-                                                Content="{Binding Name}"/>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <UniformGrid Columns="5"
-                                                     Rows="4"
-                                                     HorizontalAlignment="Center"
-                                                     VerticalAlignment="Top"/>
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                            </ItemsControl>
-                        </ScrollViewer>
-                    </Border>
-                </TabItem>
-            </TabControl>
+            <views:ReservationTabControl SelectionChanged="OnTabSelectionChanged">
+                <views:ReservationTabItem Header="Specific1"
+                                          Theme="{StaticResource FaidedGreenBrush}">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <ItemsControl ItemsSource="{Binding Products,
+                                                            Converter={StaticResource filterProductsConverter},
+                                                            ConverterParameter={x:Static models:EProductType.Entree}}"
+                                      Style="{StaticResource productsControlStyle}"/>
+                    </ScrollViewer>
+                </views:ReservationTabItem>
+                <views:ReservationTabItem Header="Specific2"
+                                          Theme="{StaticResource FaidedRedBrush}">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <ItemsControl ItemsSource="{Binding Products,
+                                                            Converter={StaticResource filterProductsConverter},
+                                                            ConverterParameter={x:Static models:EProductType.Main}}"
+                                      Style="{StaticResource productsControlStyle}"/>
+                    </ScrollViewer>
+                </views:ReservationTabItem>
+                <views:ReservationTabItem Header="Specific3"
+                                          Theme="{StaticResource FaidedYellowBrush}">
+                    <TextBlock Text="Spec3"/>
+                </views:ReservationTabItem>
+            </views:ReservationTabControl>
         </Border>
     </Grid>
 </UserControl>

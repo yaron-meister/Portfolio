@@ -24,5 +24,43 @@ namespace Meisters.Views
         {
             InitializeComponent();
         }
+
+        private void OnTabSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (sender is ReservationTabControl tabControl && tabControl.SelectedItem is ReservationTabItem tabItem)
+            {
+                tabControl.Theme = tabItem.Theme;
+            }
+        }
+    }
+
+    public class ReservationTabControl : TabControl
+    {
+        private static readonly SolidColorBrush WHITE_BRUSH =
+            new SolidColorBrush(Color.FromRgb(255, 255, 255));
+
+        public Brush Theme
+        {
+            get => (Brush)GetValue(ThemeProperty);
+            set => SetValue(ThemeProperty, value);
+        }
+        public static readonly DependencyProperty ThemeProperty =
+            DependencyProperty.Register(nameof(Theme), typeof(Brush),
+                                        typeof(ReservationTabControl), new PropertyMetadata(WHITE_BRUSH));
+    }
+
+    public class ReservationTabItem : TabItem
+    {
+        private static readonly SolidColorBrush WHITE_BRUSH =
+            new SolidColorBrush(Color.FromRgb(255, 255, 255));
+
+        public Brush Theme
+        {
+            get => (Brush)GetValue(ThemeProperty);
+            set => SetValue(ThemeProperty, value);
+        }
+        public static readonly DependencyProperty ThemeProperty =
+            DependencyProperty.Register(nameof(Theme), typeof(Brush),
+                                        typeof(ReservationTabItem), new PropertyMetadata(WHITE_BRUSH));
     }
 }

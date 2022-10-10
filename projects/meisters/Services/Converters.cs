@@ -65,6 +65,24 @@ namespace Meisters.Services
         }
     }
 
+    public class FilterProductsConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is List<Product> products && Enum.TryParse(parameter?.ToString(), out EProductType productType))
+            {
+                return products.Where(product => product.Type == productType);
+            }
+
+            return value;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return Binding.DoNothing;
+        }
+    }
+
     public class TablesToStatusMultiConverter : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
