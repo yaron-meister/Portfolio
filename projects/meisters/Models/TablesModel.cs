@@ -49,5 +49,10 @@ namespace Meisters.Models
                 TablesData.Tables[id].DinersNum = dinersNum;
             }
         }
+
+        public void OrderProduct(Product product)
+        {
+            TablesData.CurrentTable.Order.Add(product);
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Meisters.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,7 @@ namespace Meisters.Models
     {
         private ETableStatus _status = ETableStatus.Clear;
         private uint _dinersNum;
+        private ObservableCollection<Product> _order = new ObservableCollection<Product>();
         private Stopwatch _totalStopwatch = new Stopwatch();
         private Stopwatch _statusStopwatch = new Stopwatch();
 
@@ -46,6 +48,16 @@ namespace Meisters.Models
             set
             {
                 _dinersNum = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<Product> Order
+        {
+            get => _order;
+            set
+            {
+                _order = value;
                 OnPropertyChanged();
             }
         }

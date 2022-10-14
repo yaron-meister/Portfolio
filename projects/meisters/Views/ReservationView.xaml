@@ -23,7 +23,11 @@
                     Background="{Binding Theme,
                                          RelativeSource={RelativeSource FindAncestor,
                                          AncestorType={x:Type views:ReservationTabControl}}}"
-                    Foreground="White">
+                    Foreground="White"
+                    Command="{Binding DataContext.OrderProductCommand,
+                                      RelativeSource={RelativeSource FindAncestor,
+                                      AncestorType={x:Type UserControl}}}"
+                    CommandParameter="{Binding}">
                 <TextBlock Text="{Binding Name}"
                            TextWrapping="Wrap"
                            TextTrimming="WordEllipsis"/>
@@ -254,7 +258,7 @@
             </Grid>
 
             <DataGrid Grid.Row="1"
-                      ItemsSource="{Binding Products}"
+                      ItemsSource="{Binding TablesData.CurrentTable.Order}"
                       AutoGenerateColumns="False"
                       CanUserAddRows="False"
                       HorizontalAlignment="Stretch"

@@ -64,7 +64,7 @@ namespace Meisters.ViewModels
 
         public ICommand PrintCheckCommand => new RelayCommand(() =>
         {
-            
+
         });
 
         public ICommand PayCommand => new RelayCommand(() =>
@@ -111,6 +111,11 @@ namespace Meisters.ViewModels
         public ICommand CancelDinersNumCommand => new RelayCommand(() =>
         {
             ShouldUpdateDinersNum = false;
+        });
+
+        public ICommand OrderProductCommand => new RelayCommand<Product>((product) =>
+        {
+            _tablesModel.OrderProduct(product);
         });
 
         #endregion Commands
