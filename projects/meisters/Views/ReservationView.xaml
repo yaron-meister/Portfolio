@@ -365,7 +365,7 @@
                     <Button Style="{StaticResource buttonStyle}"
                             Content="Check"
                             Command="{Binding PrintCheckCommand}"/>
-                
+
                     <Button Style="{StaticResource buttonStyle}"
                             Content="Payment"
                             Command="{Binding PayCommand}"/>
@@ -383,9 +383,6 @@
                             Command="{Binding SendCommand}"/>
                 </StackPanel>
             </Grid>
-            
-            <views:DinersNumView Grid.Row="0"
-                                 Grid.RowSpan="3"/>
         </Grid>
 
         <Border Grid.Column="1"
@@ -462,5 +459,7 @@
                 </views:ReservationTabItem>
             </views:ReservationTabControl>
         </Border>
+
+        <views:DinersNumView Grid.ColumnSpan="2"/>
     </Grid>
 </UserControl>

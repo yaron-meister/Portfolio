@@ -18,7 +18,7 @@
         <Border HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
                 Background="Black"
-                Opacity="0.8"/>
+                Opacity="0.9"/>
 
         <Border Width="400"
                 Height="200"
