@@ -23,8 +23,11 @@
                     Background="{Binding Theme,
                                          RelativeSource={RelativeSource FindAncestor,
                                          AncestorType={x:Type views:ReservationTabControl}}}"
-                    Foreground="White"
-                    Content="{Binding Name}"/>
+                    Foreground="White">
+                <TextBlock Text="{Binding Name}"
+                           TextWrapping="Wrap"
+                           TextTrimming="WordEllipsis"/>
+            </Button>
         </DataTemplate>
 
         <ItemsPanelTemplate x:Key="productsPanelTemplate">
@@ -168,7 +171,7 @@
                     <ControlTemplate TargetType="{x:Type views:ReservationTabItem}">
                         <Grid x:Name="Root">
                             <Border x:Name="Border"
-                                    Width="180"
+                                    Width="136.5"
                                     Height="50"
                                     Padding="5"
                                     Background="{TemplateBinding Theme}">
@@ -388,8 +391,8 @@
         <Border Grid.Column="1"
                 Background="{StaticResource DarkGrayBrush}">
             <views:ReservationTabControl SelectionChanged="OnTabSelectionChanged">
-                <views:ReservationTabItem Header="Specific1"
-                                          Theme="{StaticResource FaidedGreenBrush}">
+                <views:ReservationTabItem Header="Entrees"
+                                          Theme="{StaticResource FaidedRedBrush}">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                         <ItemsControl ItemsSource="{Binding Products,
                                                             Converter={StaticResource filterProductsConverter},
@@ -397,8 +400,9 @@
                                       Style="{StaticResource productsControlStyle}"/>
                     </ScrollViewer>
                 </views:ReservationTabItem>
-                <views:ReservationTabItem Header="Specific2"
-                                          Theme="{StaticResource FaidedRedBrush}">
+                
+                <views:ReservationTabItem Header="Mains"
+                                          Theme="{StaticResource FaidedOrangeBrush}">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                         <ItemsControl ItemsSource="{Binding Products,
                                                             Converter={StaticResource filterProductsConverter},
@@ -406,9 +410,55 @@
                                       Style="{StaticResource productsControlStyle}"/>
                     </ScrollViewer>
                 </views:ReservationTabItem>
-                <views:ReservationTabItem Header="Specific3"
+                
+                <views:ReservationTabItem Header="Extras"
                                           Theme="{StaticResource FaidedYellowBrush}">
-                    <TextBlock Text="Spec3"/>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <ItemsControl ItemsSource="{Binding Products,
+                                                            Converter={StaticResource filterProductsConverter},
+                                                            ConverterParameter={x:Static models:EProductType.Extra}}"
+                                      Style="{StaticResource productsControlStyle}"/>
+                    </ScrollViewer>
+                </views:ReservationTabItem>
+
+                <views:ReservationTabItem Header="Desserts"
+                                          Theme="{StaticResource FaidedGreenBrush}">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <ItemsControl ItemsSource="{Binding Products,
+                                                            Converter={StaticResource filterProductsConverter},
+                                                            ConverterParameter={x:Static models:EProductType.Dessert}}"
+                                      Style="{StaticResource productsControlStyle}"/>
+                    </ScrollViewer>
+                </views:ReservationTabItem>
+
+                <views:ReservationTabItem Header="Drinks"
+                                          Theme="{StaticResource SkyBrush}">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <ItemsControl ItemsSource="{Binding Products,
+                                                            Converter={StaticResource filterProductsConverter},
+                                                            ConverterParameter={x:Static models:EProductType.Drink}}"
+                                      Style="{StaticResource productsControlStyle}"/>
+                    </ScrollViewer>
+                </views:ReservationTabItem>
+
+                <views:ReservationTabItem Header="Alcohols"
+                                          Theme="{StaticResource FaidedPurpleBrush}">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <ItemsControl ItemsSource="{Binding Products,
+                                                            Converter={StaticResource filterProductsConverter},
+                                                            ConverterParameter={x:Static models:EProductType.Alcohol}}"
+                                      Style="{StaticResource productsControlStyle}"/>
+                    </ScrollViewer>
+                </views:ReservationTabItem>
+
+                <views:ReservationTabItem Header="OTHs"
+                                          Theme="{StaticResource FaidedPinkBrush}">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <ItemsControl ItemsSource="{Binding Products,
+                                                            Converter={StaticResource filterProductsConverter},
+                                                            ConverterParameter={x:Static models:EProductType.OTH}}"
+                                      Style="{StaticResource productsControlStyle}"/>
+                    </ScrollViewer>
                 </views:ReservationTabItem>
             </views:ReservationTabControl>
         </Border>

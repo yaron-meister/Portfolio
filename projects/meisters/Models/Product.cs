@@ -10,7 +10,12 @@ namespace Meisters.Models
     public enum EProductType
     {
         Entree,
-        Main
+        Main,
+        Extra,
+        Dessert,
+        Drink,
+        Alcohol,
+        OTH
     }
 
     public class Product : Observable

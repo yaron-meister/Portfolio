@@ -16,14 +16,20 @@
                          Color="#3C3B3D" />
     <SolidColorBrush x:Key="LightGrayBrush"
                          Color="#808080" />
-    <SolidColorBrush x:Key="SkyBrush"
-                         Color="#4694FF" />
     <SolidColorBrush x:Key="FaidedRedBrush"
                          Color="#FF5353" />
+    <SolidColorBrush x:Key="FaidedOrangeBrush"
+                         Color="#FF8F4A" />
     <SolidColorBrush x:Key="FaidedYellowBrush"
                          Color="#FFDB45" />
     <SolidColorBrush x:Key="FaidedGreenBrush"
                          Color="#30E584" />
+    <SolidColorBrush x:Key="SkyBrush"
+                         Color="#4694FF" />
+    <SolidColorBrush x:Key="FaidedPurpleBrush"
+                         Color="#77457E" />
+    <SolidColorBrush x:Key="FaidedPinkBrush"
+                         Color="#EE457E" />
     <SolidColorBrush x:Key="AlmostTransparentBrush"
                          Color="#01000000" />
 

@@ -19,9 +19,13 @@ namespace Meisters.ViewModels
         // TODO::YARON - Take from DB
         private List<Product> _products = new List<Product>()
         {
-            new Product(1000, "Hamburger", EProductType.Entree, 50),
-            new Product(1001, "Pizza", EProductType.Entree, 30),
-            new Product(1002, "Ice Cream", EProductType.Main, 15)
+            new Product(1000, "Greek Salad", EProductType.Entree, 24),
+            new Product(1001, "Pizza", EProductType.Main, 42),
+            new Product(1002, "French Fries", EProductType.Extra, 14),
+            new Product(1003, "Cheese Cake", EProductType.Dessert, 33),
+            new Product(1004, "Coke Zero", EProductType.Drink, 7),
+            new Product(1005, "Beer", EProductType.Alcohol, 15),
+            new Product(1006, "Ice Cream", EProductType.OTH)
         };
 
         public ReservationViewModel(TablesModel tablesModel, EmployeesModel employeesModel)
