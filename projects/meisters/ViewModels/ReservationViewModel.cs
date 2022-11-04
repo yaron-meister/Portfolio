@@ -74,7 +74,8 @@ namespace Meisters.ViewModels
 
         public ICommand ExitCommand => new RelayCommand(() =>
         {
-
+            // TODO::YARON - Add messages dialog and use here if products not sent
+            TablesData.IsReservationOpen = false;
         });
 
         public ICommand SendCommand => new RelayCommand(() =>
