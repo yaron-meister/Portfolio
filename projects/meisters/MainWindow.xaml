@@ -12,5 +12,7 @@
         WindowState="Maximized">
     <Grid>
         <views:FloorView/>
+        <views:ReservationView Visibility="{Binding TablesData.IsReservationOpen,
+                                                    Converter={StaticResource boolToVisConverter}}"/>
     </Grid>
 </Window>

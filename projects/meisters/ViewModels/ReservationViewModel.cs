@@ -86,7 +86,7 @@ namespace Meisters.ViewModels
 
         public ICommand IncrementQuantityCommand => new RelayCommand<Product>((product) =>
         {
-            if (product != null)
+            if (product != null && !product.SentToKitchen)
             {
                 ++product.Quantity;
             }
@@ -94,7 +94,7 @@ namespace Meisters.ViewModels
 
         public ICommand DecrementQuantityCommand => new RelayCommand<Product>((product) =>
         {
-            if (product?.Quantity > 1)
+            if (product?.Quantity > 1 && !product.SentToKitchen)
             {
                 --product.Quantity;
             }

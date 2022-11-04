@@ -9,6 +9,7 @@
              mc:Ignorable="d" 
              d:DesignWidth="1920"
              d:DesignHeight="1080"
+             FontSize="20"
              DataContext="{Binding Reservation, Source={StaticResource Builder}}">
     <UserControl.Resources>
         
