@@ -37,8 +37,6 @@ namespace Meisters.Models
 
                     UpdateDinersNum?.Invoke(this, EventArgs.Empty);
                 }
-
-                TablesData.RaiseTablesPropertyChanged();
             }
         }
 
@@ -52,7 +50,21 @@ namespace Meisters.Models
 
         public void OrderProduct(Product product)
         {
-            TablesData.CurrentTable.Order.Add(product);
+            TablesData.CurrentTable.Order.Add(new Product(product));
+        }
+
+        public void SendReservation()
+        {
+            var currTable = TablesData.CurrentTable;
+            foreach (var product in currTable.Order)
+            {
+                product.SentToKitchen = true;
+            }
+
+            if (currTable.Status == ETableStatus.NoOrder && currTable.Order.Count != 0)
+            {
+                currTable.Status = ETableStatus.Order;
+            }
         }
     }
 }

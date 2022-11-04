@@ -146,6 +146,7 @@ namespace Meisters.ViewModels
             if (int.TryParse(idStr, out int id))
             {
                 _tablesModel.StepIntoTable(id);
+                TablesData.RaiseTablesPropertyChanged();
             }
         });
 

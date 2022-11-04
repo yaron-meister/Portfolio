@@ -7,7 +7,9 @@
         xmlns:views="clr-namespace:Meisters.Views"
         mc:Ignorable="d"
         Height="1080" 
-        Width="1920">
+        Width="1920"
+        WindowStyle="None"
+        WindowState="Maximized">
     <Grid>
         <views:FloorView/>
     </Grid>

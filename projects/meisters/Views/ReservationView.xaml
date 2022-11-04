@@ -125,6 +125,20 @@
                     Value="22"/>
         </Style>
 
+        <Style TargetType="{x:Type DataGridCell}">
+            <Setter Property="Foreground"
+                    Value="{StaticResource LightGrayBrush}" />
+            <Style.Triggers>
+                <Trigger Property="IsSelected"
+                         Value="True">
+                    <Setter Property="Background"
+                            Value="{x:Null}" />
+                    <Setter Property="BorderBrush"
+                            Value="{x:Null}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
         <Style TargetType="{x:Type views:ReservationTabControl}">
             <Setter Property="OverridesDefaultStyle"
                     Value="True" />
@@ -258,19 +272,31 @@
             </Grid>
 
             <DataGrid Grid.Row="1"
-                      ItemsSource="{Binding TablesData.CurrentTable.Order}"
+                      ItemsSource="{Binding TablesData.CurrentTable.Order, UpdateSourceTrigger=PropertyChanged}"
                       AutoGenerateColumns="False"
                       CanUserAddRows="False"
                       HorizontalAlignment="Stretch"
                       VerticalAlignment="Stretch"
-                      RowBackground="#fff"
                       FontWeight="Bold"
-                      Foreground="#525252"
+                      Foreground="{StaticResource DarkGrayBrush}"
                       ScrollViewer.CanContentScroll="True"
-                      AlternatingRowBackground="#f2f2f2"
                       Background="{StaticResource DarkGrayBrush}"
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                       ScrollViewer.VerticalScrollBarVisibility="Auto">
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <Setter Property="Background"
+                                Value="White"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SentToKitchen}"
+                                         Value="True">
+                                <Setter Property="Background"
+                                        Value="#A0CECB"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.RowStyle>
+                
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Product"
                                         Width="3*"

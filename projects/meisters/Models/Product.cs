@@ -25,6 +25,7 @@ namespace Meisters.Models
         private int _quantity = 1;
         private EProductType _type;
         private int _price;
+        private bool _sentToKitchen = false;
 
         public Product(int uid, string name, EProductType type, int price = 0)
         {
@@ -32,6 +33,14 @@ namespace Meisters.Models
             Name = name;
             Type = type;
             Price = price;
+        }
+
+        public Product(Product other)
+        {
+            Uid = other.Uid;
+            Name = other.Name;
+            Type = other.Type;
+            Price = other.Price;
         }
 
         public int Uid
@@ -80,6 +89,16 @@ namespace Meisters.Models
             set
             {
                 _price = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool SentToKitchen
+        {
+            get => _sentToKitchen;
+            set
+            {
+                _sentToKitchen = value;
                 OnPropertyChanged();
             }
         }

@@ -79,7 +79,8 @@ namespace Meisters.ViewModels
 
         public ICommand SendCommand => new RelayCommand(() =>
         {
-            // TODO::YARON - Update logic
+            _tablesModel.SendReservation();
+            TablesData.RaiseTablesPropertyChanged();
             TablesData.IsReservationOpen = false;
         });
 
