@@ -72,6 +72,11 @@ namespace Meisters.ViewModels
 
         });
 
+        public ICommand ChargeCommand => new RelayCommand(() =>
+        {
+            // TODO::YARON - Update logics of commands
+        });
+
         public ICommand ExitCommand => new RelayCommand(() =>
         {
             // TODO::YARON - Add messages dialog and use here if products not sent

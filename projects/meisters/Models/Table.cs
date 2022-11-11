@@ -21,6 +21,8 @@ namespace Meisters.Models
     {
         private ETableStatus _status = ETableStatus.Clear;
         private uint _dinersNum;
+        private int _totalToPay = 0;
+        private int _paid = 0;
         private ObservableCollection<Product> _order = new ObservableCollection<Product>();
         private Stopwatch _totalStopwatch = new Stopwatch();
         private Stopwatch _statusStopwatch = new Stopwatch();
@@ -51,6 +53,30 @@ namespace Meisters.Models
                 OnPropertyChanged();
             }
         }
+
+        public int TotalToPay
+        {
+            get => _totalToPay;
+            set
+            {
+                _totalToPay = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(RestToPay));
+            }
+        }
+
+        public int Paid
+        {
+            get => _paid;
+            set
+            {
+                _paid = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(RestToPay));
+            }
+        }
+
+        public int RestToPay => TotalToPay - Paid;
 
         public ObservableCollection<Product> Order
         {

@@ -1,0 +1,191 @@
+﻿<UserControl x:Class="Meisters.Views.PaymentView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Meisters.Views"
+             mc:Ignorable="d"
+             FontSize="20"
+             DataContext="{Binding Reservation, Source={StaticResource Builder}}">
+    <UserControl.Resources>
+        
+        <!--Styles-->
+        <Style x:Key="amountStyle"
+               TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment"
+                    Value="Center"/>
+            <Setter Property="VerticalAlignment"
+                    Value="Center"/>
+            <Setter Property="Margin"
+                    Value="10,0"/>
+            <Setter Property="Foreground"
+                    Value="{StaticResource DarkGrayBrush}"/>
+        </Style>
+        
+        <Style x:Key="amountTextStyle"
+               TargetType="TextBlock"
+               BasedOn="{StaticResource amountStyle}">
+            <Setter Property="HorizontalAlignment"
+                    Value="Left"/>
+        </Style>
+
+        <Style x:Key="amountBorderStyle"
+               TargetType="Border">
+            <Setter Property="BorderThickness"
+                    Value="0,0,1,1"/>
+            <Setter Property="BorderBrush"
+                    Value="{StaticResource DarkGrayBrush}"/>
+        </Style>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Border HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Background="Black"
+                Opacity="0.8"/>
+
+        <Border Width="600"
+                Height="800"
+                Background="{StaticResource LightGrayBrush}"
+                CornerRadius="12">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition />
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0"
+                            Orientation="Horizontal"
+                            Margin="5,20,5,2">
+                    <TextBox Foreground="{StaticResource DarkGrayBrush}"
+                             Text="Table"                             
+                             Background="{StaticResource AlmostTransparentBrush}"
+                             BorderThickness="0"/>
+
+                    <TextBox Foreground="{StaticResource DarkGrayBrush}"
+                             Text="{Binding TablesData.CurrentTable.ID, Mode=OneWay}"
+                             Background="{StaticResource AlmostTransparentBrush}"
+                             BorderThickness="0"/>
+                </StackPanel>
+                
+                <Border Grid.Row="1"
+                        Padding="0,20">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <ItemsControl ItemsSource="{Binding FilteredInactiveEmployees}"
+                                      ItemTemplate="{StaticResource employeeListTemplate}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <UniformGrid Columns="1"
+                                                 HorizontalAlignment="Center"
+                                                 VerticalAlignment="Top"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </Border>
+
+                <Rectangle Grid.Row="2"
+                           Height="2"
+                           HorizontalAlignment="Stretch"
+                           VerticalAlignment="Top"
+                           Margin="5,0"
+                           Fill="{StaticResource DarkGrayBrush}"/>
+
+                <Grid Grid.Row="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border Grid.Row="0"
+                                Grid.Column="0"
+                                Style="{StaticResource amountBorderStyle}">
+                            <TextBlock Style="{StaticResource amountTextStyle}"
+                                       Text="Total [NIS]: "/>
+                        </Border>
+                        
+                        <Border Grid.Row="1"
+                                Grid.Column="0"
+                                Style="{StaticResource amountBorderStyle}">
+                            <TextBlock Style="{StaticResource amountTextStyle}"
+                                       Text="Paid [NIS]: "/>
+                        </Border>
+                        
+                        <Border Grid.Row="2"
+                                Grid.Column="0"
+                                Style="{StaticResource amountBorderStyle}"
+                                BorderThickness="0,0,1,0"
+                                CornerRadius="0,0,0,12">
+                            <TextBlock Style="{StaticResource amountTextStyle}"
+                                       Foreground="White"
+                                       FontWeight="Bold"
+                                       Text="Rest [NIS]: "/>
+                        </Border>
+
+                        <Border Grid.Row="0"
+                                Grid.Column="1"
+                                Style="{StaticResource amountBorderStyle}">
+                            <TextBlock Style="{StaticResource amountStyle}"
+                                       Text="{Binding TablesData.CurrentTable.TotalToPay, Mode=OneWay}"/>
+                        </Border>
+
+                        <Border Grid.Row="1"
+                                Grid.Column="1"
+                                Style="{StaticResource amountBorderStyle}">
+                            <TextBlock Style="{StaticResource amountStyle}"
+                                       Text="{Binding TablesData.CurrentTable.Paid, Mode=OneWay}"/>
+                        </Border>
+
+                        <Border Grid.Row="2"
+                                Grid.Column="1"
+                                Style="{StaticResource amountBorderStyle}"
+                                BorderThickness="0,0,1,0"
+                                CornerRadius="0,0,0,12">
+                            <TextBlock Style="{StaticResource amountStyle}"
+                                       Foreground="White"
+                                       FontWeight="Bold"
+                                       Text="{Binding TablesData.CurrentTable.RestToPay, Mode=OneWay}"/>
+                        </Border>
+                    </Grid>
+                    
+                    <Rectangle Grid.Column="1"
+                               Width="2"
+                               VerticalAlignment="Stretch"
+                               Fill="{StaticResource DarkGrayBrush}"/>
+
+                    <StackPanel Grid.Column="2"
+                                Orientation="Vertical"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Margin="5,20">
+                        <Button Style="{StaticResource greenButtonStyle}"
+                                IsEnabled="{Binding EmployeesData.SelectedEmployee,
+                                                    Converter={StaticResource employeeToBoolConverter}}"
+                                Content="Charge"
+                                Command="{Binding ChargeCommand}"
+                                CommandParameter="{Binding EmployeesData.SelectedEmployee}"/>
+
+                        <Button Style="{StaticResource redButtonStyle}"
+                                Content="Exit"
+                                Command="{Binding CancelEmpActivisionCommand}"/>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>
