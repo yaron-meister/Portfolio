@@ -16,6 +16,7 @@ namespace Meisters.ViewModels
         private readonly EmployeesModel _employeesModel;
 
         private bool _shouldUpdateDinersNum = false;
+        private bool _isPaying = false;
         // TODO::YARON - Take from DB
         private List<Product> _products = new List<Product>()
         {
@@ -49,6 +50,16 @@ namespace Meisters.ViewModels
             }
         }
 
+        public bool IsPaying
+        {
+            get => _isPaying;
+            set
+            {
+                _isPaying = value;
+                OnPropertyChanged();
+            }
+        }
+
         public List<Product> Products
         {
             get => _products;
@@ -69,12 +80,7 @@ namespace Meisters.ViewModels
 
         public ICommand PayCommand => new RelayCommand(() =>
         {
-
-        });
-
-        public ICommand ChargeCommand => new RelayCommand(() =>
-        {
-            // TODO::YARON - Update logics of commands
+            IsPaying = true;
         });
 
         public ICommand ExitCommand => new RelayCommand(() =>
@@ -88,6 +94,18 @@ namespace Meisters.ViewModels
             _tablesModel.SendReservation();
             TablesData.RaiseTablesPropertyChanged();
             TablesData.IsReservationOpen = false;
+        });
+
+        public ICommand ChargeCommand => new RelayCommand(() =>
+        {
+            // TODO::YARON - Update logics of commands
+            IsPaying = false;
+        });
+
+        public ICommand ExitPaymentCommand => new RelayCommand(() =>
+        {
+            // TODO::YARON - Update logics of commands
+            IsPaying = false;
         });
 
         public ICommand IncrementQuantityCommand => new RelayCommand<Product>((product) =>

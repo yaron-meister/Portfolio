@@ -491,6 +491,12 @@
             </views:ReservationTabControl>
         </Border>
 
-        <views:DinersNumView Grid.ColumnSpan="2"/>
+        <views:DinersNumView Grid.ColumnSpan="2"
+                             Visibility="{Binding ShouldUpdateDinersNum,
+                                                  Converter={StaticResource boolToVisConverter}}" />
+
+        <views:PaymentView Grid.ColumnSpan="2"
+                           Visibility="{Binding IsPaying,
+                                                Converter={StaticResource boolToVisConverter}}" />
     </Grid>
 </UserControl>
