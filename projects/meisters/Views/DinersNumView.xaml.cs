@@ -35,6 +35,10 @@ namespace Meisters.Views
         private void OnVisibilityChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             dinersNumText.Text = string.Empty;
+            if (dinersNumText.IsVisible)
+            {
+                FocusManager.SetFocusedElement(FocusManager.GetFocusScope(sender as DependencyObject), dinersNumText);
+            }
         }
     }
 }

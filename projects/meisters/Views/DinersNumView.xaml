@@ -12,7 +12,7 @@
         <services:EmptyTextToVisibilityConverter x:Key="emptyTextToVisibilityConverter"/>
     </UserControl.Resources>
 
-    <Grid IsVisibleChanged="OnVisibilityChanged">
+    <Grid>
         <Border HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
                 Background="Black"
@@ -51,7 +51,8 @@
                          Background="White"
                          FontSize="30"
                          PreviewTextInput="OnPreviewTextInput"
-                         MaxLength="2"/>
+                         MaxLength="2"
+                         IsVisibleChanged="OnVisibilityChanged"/>
 
                 <TextBox x:Name="dinersNumTextPlaceHolder"
                          Grid.Row="1"
